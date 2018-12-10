@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace Questionnaire.WEB.Models.Interfaces
 {
-    interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
-        QuestionTypeRepository QuestionTypes { get; set; }
-        QuestionRepository Questions { get; set; }
-        AnswerRepository Answers { get; set; }
-        QuestionAnswerRepository QuestionAnswers { get; set; }
-        SurveyGeographyRepository SurveyGeographies { get; set; }
-        HousingTypeRepository HousingTypes { get; set; }
-        DistrictRepository Districts { get; set; }
-        InterviewerRepository Interviewers { get; set; }
-        FormRepository Forms { get; set; }
-        FamilyRepository Families { get; set; }
-        DataRepository Datas { get; set; }
+        QuestionTypeRepository QuestionTypes { get; }
+        QuestionRepository Questions { get; }
+        AnswerRepository Answers { get; }
+        QuestionAnswerRepository QuestionAnswers { get; }
+        SurveyGeographyRepository SurveyGeographies { get; }
+        HousingTypeRepository HousingTypes { get; }
+        DistrictRepository Districts { get; }
+        InterviewerRepository Interviewers { get; }
+        FormRepository Forms { get; }
+        FamilyRepository Families { get; }
+        DataRepository Datas { get; }
 
         void Save();
     }
