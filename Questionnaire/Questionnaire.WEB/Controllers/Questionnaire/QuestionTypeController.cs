@@ -1,4 +1,5 @@
-﻿using Questionnaire.WEB.Models.Interfaces;
+﻿using Questionnaire.WEB.Models.Entities;
+using Questionnaire.WEB.Models.Interfaces;
 using Questionnaire.WEB.Models.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -11,14 +12,20 @@ namespace Questionnaire.WEB.Controllers.Questionnaire
     public class QuestionTypeController : Controller
     {
         IUnitOfWork unitOfWork;
+
         public QuestionTypeController()
         {
             this.unitOfWork = new UnitOfWork();
         }
+        public QuestionTypeController(IUnitOfWork unitOfWork)
+        {
+            this.unitOfWork = unitOfWork;
+        }
         // GET: QuestionType
         public ActionResult Index()
         {
-            return View();
+            var questionTypes = unitOfWork.QuestionTypes.GetAll();
+            return View(questionTypes);
         }
 
         // GET: QuestionType/Details/5
@@ -35,13 +42,18 @@ namespace Questionnaire.WEB.Controllers.Questionnaire
 
         // POST: QuestionType/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(QuestionType collection)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    unitOfWork.QuestionTypes.Create(collection);
+                    unitOfWork.Save();
+                    return RedirectToAction("Index");
+                }
 
-                return RedirectToAction("Index");
+                return View(collection);
             }
             catch
             {
@@ -52,18 +64,25 @@ namespace Questionnaire.WEB.Controllers.Questionnaire
         // GET: QuestionType/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            QuestionType questionType = unitOfWork.QuestionTypes.Get(id);
+            if (questionType == null)
+                return HttpNotFound();
+            return View(questionType);
         }
 
         // POST: QuestionType/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, QuestionType collection)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    unitOfWork.QuestionTypes.Update(collection);
+                    unitOfWork.Save();
+                    return RedirectToAction("Index");
+                }
+                return View(collection);
             }
             catch
             {
@@ -74,23 +93,15 @@ namespace Questionnaire.WEB.Controllers.Questionnaire
         // GET: QuestionType/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            unitOfWork.QuestionTypes.Delete(id);
+            unitOfWork.Save();
+            return RedirectToAction("Index");
         }
 
-        // POST: QuestionType/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        protected override void Dispose(bool disposing)
         {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            unitOfWork.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
