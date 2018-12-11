@@ -30,8 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,7 +50,69 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\AnswerDTO.cs" />
+    <Compile Include="DTO\DataDTO.cs" />
+    <Compile Include="DTO\DistrictDTO.cs" />
+    <Compile Include="DTO\FamilyDTO.cs" />
+    <Compile Include="DTO\FormDTO.cs" />
+    <Compile Include="DTO\HousingTypeDTO.cs" />
+    <Compile Include="DTO\InterviewerDTO.cs" />
+    <Compile Include="DTO\ModelAndViewDTO.cs" />
+    <Compile Include="DTO\QuestionDTO.cs" />
+    <Compile Include="DTO\QuestionAnswerDTO.cs" />
+    <Compile Include="DTO\QuestionTypeDTO.cs" />
+    <Compile Include="DTO\SurveyGeographyDTO.cs" />
+    <Compile Include="Infrastructure\AccountModule.cs" />
+    <Compile Include="Infrastructure\Exceptions\HasRelationsException.cs" />
+    <Compile Include="Infrastructure\Exceptions\InsecurePasswordException.cs" />
+    <Compile Include="Infrastructure\Exceptions\NotFoundException.cs" />
+    <Compile Include="Infrastructure\Exceptions\OldPasswordIsWrongException.cs" />
+    <Compile Include="Infrastructure\Exceptions\UserAlreadyExistsException.cs" />
+    <Compile Include="Infrastructure\ServiceModule.cs" />
+    <Compile Include="Interfaces\IAccountService.cs" />
+    <Compile Include="Interfaces\IAnswerService.cs" />
+    <Compile Include="Interfaces\IDataService.cs" />
+    <Compile Include="Interfaces\IDistrictService.cs" />
+    <Compile Include="Interfaces\IFamilyService.cs" />
+    <Compile Include="Interfaces\IFormService.cs" />
+    <Compile Include="Interfaces\IHousingTypeService.cs" />
+    <Compile Include="Interfaces\IInterviewerService.cs" />
+    <Compile Include="Interfaces\IQuestionService.cs" />
+    <Compile Include="Interfaces\IQuestionAnswerService.cs" />
+    <Compile Include="Interfaces\IQuestionTypeService.cs" />
+    <Compile Include="Interfaces\ISearchService.cs" />
+    <Compile Include="Interfaces\IService.cs" />
+    <Compile Include="Interfaces\ISurveyGeographyService.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="MappingProfiles\BLLMappingProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Services\AnswerService.cs" />
+    <Compile Include="Services\DataService.cs" />
+    <Compile Include="Services\DistrictService.cs" />
+    <Compile Include="Services\FamilyService.cs" />
+    <Compile Include="Services\FormService.cs" />
+    <Compile Include="Services\HousingTypeService.cs" />
+    <Compile Include="Services\InterviewerService.cs" />
+    <Compile Include="Services\QuestionAnswerService.cs" />
+    <Compile Include="Services\QuestionService.cs" />
+    <Compile Include="Services\QuestionTypeService.cs" />
+    <Compile Include="Services\SearchService.cs" />
+    <Compile Include="Services\SurveyGeographyService.cs" />
+    <Compile Include="Services\UserService.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Questionnaire.DAL\Questionnaire.DAL.csproj">
+      <Project>{b69d585b-398d-43ec-9a7e-4e05319a3780}</Project>
+      <Name>Questionnaire.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

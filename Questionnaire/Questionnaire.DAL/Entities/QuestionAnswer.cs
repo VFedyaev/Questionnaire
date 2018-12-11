@@ -7,7 +7,7 @@ namespace Questionnaire.DAL.Entities
     public class QuestionAnswer
     {
         public int Id { get; set; }
-        public int QuiestionId { get; set; }      
+        public int QuestionId { get; set; }      
         public int AnswerId { get; set; }
 
         public virtual Question Question { get; set; }

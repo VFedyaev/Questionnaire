@@ -9,7 +9,7 @@ namespace Questionnaire.WEB.Models.Entities
     {
         public int Id { get; set; }
 
-        public int QuiestionId { get; set; }
+        public int QuestionId { get; set; }
         public virtual Question Question { get; set; }
 
         public int AnswerId { get; set; }
