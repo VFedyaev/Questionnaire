@@ -1,4 +1,6 @@
 ﻿using Ninject.Modules;
+using Questionnaire.DAL.Interfaces;
+using Questionnaire.DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +20,7 @@ namespace Questionnaire.BLL.Infrastructure
 
         public override void Load()
         {
-            //Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument(connectionString);
+            Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument(connectionString);
         }
     }
 }

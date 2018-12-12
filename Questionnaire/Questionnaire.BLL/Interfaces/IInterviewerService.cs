@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Questionnaire.BLL.Interfaces
 {
-    interface IInterviewerService : IService<InterviewerDTO>
+    public interface IInterviewerService : IService<InterviewerDTO>
     {
         IEnumerable<InterviewerDTO> GetListOrderedByName();
         InterviewerDTO Get(int? id);

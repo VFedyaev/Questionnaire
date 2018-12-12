@@ -1,4 +1,12 @@
-﻿using System;
+﻿using AutoMapper;
+using Ninject;
+using Ninject.Modules;
+using Ninject.Web.Mvc;
+using Questionnaire.BLL.Infrastructure;
+using Questionnaire.BLL.MappingProfiles;
+using Questionnaire.WEB.MappingProfiles;
+using Questionnaire.WEB.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +24,29 @@ namespace Questionnaire.WEB
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            AutoMapperConfiguration.Configure();
+
+            NinjectModule webModule = new WebModule();
+            NinjectModule serviceModule = new ServiceModule("DefaultConnection");
+            NinjectModule accountModule = new AccountModule("AccountConnection");
+            var kernel = new StandardKernel(webModule, serviceModule, accountModule);
+            kernel.Unbind<ModelValidatorProvider>();
+            DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
+        }
+
+        public class AutoMapperConfiguration
+        {
+            public static void Configure()
+            {
+                Mapper.Initialize(x =>
+                {
+                    x.AllowNullCollections = true;
+                    x.AddProfile<BLLMappingProfile>();
+                    x.AddProfile<WebMappingProfile>();
+                });
+
+                Mapper.Configuration.AssertConfigurationIsValid();
+            }
         }
     }
 }
