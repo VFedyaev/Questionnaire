@@ -1,4 +1,5 @@
-﻿using Questionnaire.BLL.DTO;
+﻿using AutoMapper;
+using Questionnaire.BLL.DTO;
 using Questionnaire.BLL.Interfaces;
 using Questionnaire.DAL.Interfaces;
 using System;
@@ -32,9 +33,9 @@ namespace Questionnaire.BLL.Services
 
             switch (type)
             {
-                //case "equipment":
-                //    result = GetEquipmentFilteredListAndView(words);
-                //    break;
+                case "questionType":
+                    result = GetQuestionTypeFilteredListAndView(words);
+                    break;
                 //case "equipmentType":
                 //    result = GetEquipmentTypeFilteredListAndView(words);
                 //    break;
@@ -55,16 +56,16 @@ namespace Questionnaire.BLL.Services
             return result;
         }
 
-        //private ModelAndViewDTO GetEquipmentFilteredListAndView(string[] words)
-        //{
-        //    var equipmentList = _unitOfWork.Equipments.GetAll().Where(e => words.All(e.InventNumber.ToLower().Contains)).ToList();
+        private ModelAndViewDTO GetQuestionTypeFilteredListAndView(string[] words)
+        {
+            var questionTypeList = _unitOfWork.QuestionTypes.GetAll().Where(e => words.All(e.Name.ToLower().Contains)).ToList();
 
-        //    return new ModelAndViewDTO
-        //    {
-        //        Model = Mapper.Map<IEnumerable<EquipmentDTO>>(equipmentList),
-        //        View = "Equipments"
-        //    };
-        //}
+            return new ModelAndViewDTO
+            {
+                Model = Mapper.Map<IEnumerable<QuestionTypeDTO>>(questionTypeList),
+                View = "QuestionTypes"
+            };
+        }
 
         //private ModelAndViewDTO GetEquipmentTypeFilteredListAndView(string[] words)
         //{

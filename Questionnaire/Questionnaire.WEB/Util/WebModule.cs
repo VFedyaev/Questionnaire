@@ -24,6 +24,7 @@ namespace Questionnaire.WEB.Util
             Bind<IFamilyService>().To<FamilyService>();
             Bind<IDataService>().To<DataService>();
 
+            Bind<ISearchService>().To<SearchService>();
             Bind<IAccountService>().To<AccountService>();
             Bind<IUserService>().To<UserService>();
         }

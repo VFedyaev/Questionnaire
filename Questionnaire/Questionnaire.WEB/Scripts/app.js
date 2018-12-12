@@ -311,7 +311,7 @@ function modalRemovalWindow(url) {
     $(document).ready(function () {
         var firstPaginationPage = $('.pagination li:nth-child(2)>a');
         var elementId;
-        $('.delete-prompt').on('click',function () {
+        $('.delete-prompt').on('click', function () {
             elementId = $(this).attr('id');
             $('#myModal').modal('show');
         });
