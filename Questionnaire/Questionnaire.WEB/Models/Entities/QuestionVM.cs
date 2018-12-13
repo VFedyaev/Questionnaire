@@ -10,6 +10,8 @@ namespace Questionnaire.WEB.Models.Entities
     public class QuestionVM
     {
         public int Id { get; set; }
+
+        [Display(Name = "Тип вопроса")]
         public short QuestionTypeId { get; set; }
 
         [Display(Name = "Вопрос")]
