@@ -34,7 +34,7 @@ namespace Questionnaire.WEB.Controllers
 
             return PartialView(questionVMs.ToPagedList(page ?? 1, _itemsPerPage));
         }
-        // GET: QuestionType
+        // GET: Question
         public ActionResult Index(int? page)
         {
             IEnumerable<QuestionDTO> questionDTOs = QuestionService
@@ -45,7 +45,7 @@ namespace Questionnaire.WEB.Controllers
             return View(questionVMs.ToPagedList(page ?? 1, _itemsPerPage));
         }
 
-        // GET: QuestionType/Details/5
+        // GET: Question/Details/5
         public ActionResult Details(int? id)
         {
             try
@@ -89,7 +89,7 @@ namespace Questionnaire.WEB.Controllers
             return View(questionVM);
         }
 
-        // GET: QuestionType/Edit/5
+        // GET: Question/Edit/5
         public ActionResult Edit(int? id)
         {
             try
@@ -134,7 +134,7 @@ namespace Questionnaire.WEB.Controllers
             return new SelectList(QuestionTypeService.GetAll().ToList(), "Id", "Name", selectedValue);
         }
 
-        // GET: QuestionType/Delete/5
+        // GET: Question/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
