@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title – Инвентаризация</title>
+    <title>@ViewBag.Title – Вопросник</title>
     <link href="~/Content/Chosen/chosen.min.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -33,19 +33,19 @@
                 </li>
                 <li id="component-page-menu-item">
                     <!-- class="active" -->
-                    <a href="#componentDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="far fa-question-circle" aria-hidden="true"></i> Вопросы / Ответы</a>
+                    <a href="#componentDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-comment" aria-hidden="true"></i> Вопросы / Ответы</a>
                     <ul class="collapse list-unstyled" id="componentDropdown">
                         <li>
                             <a href="@Url.Action("Index", "QuestionType")">Тип вопроса</a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Index", "Component")">Вопросы</a>
+                            <a href="@Url.Action("Index", "Question")">Вопросы</a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Index", "Component")">Ответы</a>
+                            <a href="@Url.Action("Index", "Answer")">Ответы</a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Index", "Component")">Вопрос Ответ</a>
+                            <a href="@Url.Action("Index", "QuestionAnswer")">Вопрос + Ответ</a>
                         </li>
                     </ul>
                 </li>

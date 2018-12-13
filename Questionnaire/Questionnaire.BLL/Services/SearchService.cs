@@ -36,21 +36,21 @@ namespace Questionnaire.BLL.Services
                 case "questionType":
                     result = GetQuestionTypeFilteredListAndView(words);
                     break;
-                //case "equipmentType":
-                //    result = GetEquipmentTypeFilteredListAndView(words);
-                //    break;
-                //case "component":
-                //    result = GetComponentFilteredListAndView(words);
-                //    break;
-                //case "componentType":
-                //    result = GetComponentTypeFilteredListAndVew(words);
-                //    break;
-                //case "statusType":
-                //    result = GetStatusTypeFilteredListAndView(words);
-                //    break;
-                //case "repairPlace":
-                //    result = GetRepairPlaceFilteredListAndView(words);
-                //    break;
+                case "question":
+                    result = GetQuestionFilteredListAndView(words);
+                    break;
+                    //case "component":
+                    //    result = GetComponentFilteredListAndView(words);
+                    //    break;
+                    //case "componentType":
+                    //    result = GetComponentTypeFilteredListAndVew(words);
+                    //    break;
+                    //case "statusType":
+                    //    result = GetStatusTypeFilteredListAndView(words);
+                    //    break;
+                    //case "repairPlace":
+                    //    result = GetRepairPlaceFilteredListAndView(words);
+                    //    break;
             }
 
             return result;
@@ -67,16 +67,16 @@ namespace Questionnaire.BLL.Services
             };
         }
 
-        //private ModelAndViewDTO GetEquipmentTypeFilteredListAndView(string[] words)
-        //{
-        //    var equipmentTypeList = _unitOfWork.EquipmentTypes.GetAll().Where(t => words.All(t.Name.ToLower().Contains)).ToList();
+        private ModelAndViewDTO GetQuestionFilteredListAndView(string[] words)
+        {
+            var questionList = _unitOfWork.Questions.GetAll().Where(t => words.All(t.Name.ToLower().Contains)).ToList();
 
-        //    return new ModelAndViewDTO
-        //    {
-        //        Model = Mapper.Map<IEnumerable<EquipmentTypeDTO>>(equipmentTypeList),
-        //        View = "EquipmentTypes"
-        //    };
-        //}
+            return new ModelAndViewDTO
+            {
+                Model = Mapper.Map<IEnumerable<QuestionDTO>>(questionList),
+                View = "Questions"
+            };
+        }
 
         //private ModelAndViewDTO GetComponentFilteredListAndView(string[] words)
         //{
