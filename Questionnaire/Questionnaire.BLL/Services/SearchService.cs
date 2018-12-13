@@ -54,6 +54,9 @@ namespace Questionnaire.BLL.Services
                 case "district":
                     result = GetDistrictFilteredListAndView(words);
                     break;
+                case "interviewer":
+                    result = GetInterviewerFilteredListAndView(words);
+                    break;
             }
 
             return result;
@@ -133,6 +136,16 @@ namespace Questionnaire.BLL.Services
             {
                 Model = Mapper.Map<IEnumerable<DistrictDTO>>(districtList),
                 View = "Districs"
+            };
+        }
+        private ModelAndViewDTO GetInterviewerFilteredListAndView(string[] words)
+        {
+            var interviewerList = _unitOfWork.Interviewers.GetAll().Where(rp => words.All(rp.Name.ToLower().Contains)).ToList();
+
+            return new ModelAndViewDTO
+            {
+                Model = Mapper.Map<IEnumerable<InterviewerDTO>>(interviewerList),
+                View = "Interviewers"
             };
         }
     }

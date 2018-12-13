@@ -185,6 +185,7 @@
     <Compile Include="Controllers\DistrictController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HousingTypeController.cs" />
+    <Compile Include="Controllers\InterviewerController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\QuestionTypeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -345,6 +346,12 @@
     <Content Include="Views\District\Details.cshtml" />
     <Content Include="Views\District\Create.cshtml" />
     <Content Include="Views\District\Edit.cshtml" />
+    <Content Include="Views\Search\Interviewers.cshtml" />
+    <Content Include="Views\Interviewer\AjaxInterviewerList.cshtml" />
+    <Content Include="Views\Interviewer\Index.cshtml" />
+    <Content Include="Views\Interviewer\Details.cshtml" />
+    <Content Include="Views\Interviewer\Create.cshtml" />
+    <Content Include="Views\Interviewer\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
