@@ -74,6 +74,10 @@ namespace Questionnaire.BLL.Services
             if (HasRelations(id))
                 throw new HasRelationsException();
 
+            QuestionType questionType = _unitOfWork.QuestionTypes.Get(id);
+            if (questionType == null)
+                throw new NotFoundException();
+
             _unitOfWork.QuestionTypes.Delete(id);
             _unitOfWork.Save();
         }

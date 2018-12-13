@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Questionnaire.DAL.Entities
 {
-    [Table("SurveyGeography")]
+    [Table("SurveyGeographies")]
     public class SurveyGeography
     {
         public short Id { get; set; }

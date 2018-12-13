@@ -12,20 +12,16 @@ namespace Questionnaire.WEB.Models.Entities
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Необходимо выбрать место проведения опроса!")]
-        public int SurveyGeographyId { get; set; }
-        public SurveyGeographyDTO SurveyGeography { get; set; }
+        public short SurveyGeographyId { get; set; }
 
         [Required(ErrorMessage = "Необходимо выбрать тип жилья!")]
-        public int HousingTypeId { get; set; }
-        public HousingTypeDTO HousingType { get; set; }
+        public short HousingTypeId { get; set; }
 
         [Required(ErrorMessage = "Необходимо выбрать район!")]
-        public int DistrictId { get; set; }
-        public DistrictDTO District { get; set; }
+        public short DistrictId { get; set; }
 
         [Required(ErrorMessage = "Необходимо выбрать интерьюера!")]
-        public int InterviewerId { get; set; }
-        public InterviewerDTO Interviewer { get; set; }
+        public short InterviewerId { get; set; }
 
         [Display(Name = "Адрес")]
         [StringLength(300, ErrorMessage = "Длина строки не должна превышать 300 символов")]
@@ -47,6 +43,11 @@ namespace Questionnaire.WEB.Models.Entities
         [Display(Name = "Время конца интервью")]
         [Required(ErrorMessage = "Заполните поле!")]
         public DateTime EndTime { get; set; }
+
+        public SurveyGeographyDTO SurveyGeography { get; set; }
+        public HousingTypeDTO HousingType { get; set; }
+        public DistrictDTO District { get; set; }
+        public InterviewerDTO Interviewer { get; set; }
 
         public ICollection<FamilyDTO> Families { get; set; }
         public ICollection<DataDTO> Datas { get; set; }

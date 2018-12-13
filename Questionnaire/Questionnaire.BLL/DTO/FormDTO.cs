@@ -5,10 +5,10 @@ namespace Questionnaire.BLL.DTO
     public class FormDTO
     {
         public int Id { get; set; }
-        public int SurveyGeographyId { get; set; }
-        public int HousingTypeId { get; set; }
-        public int DistrictId { get; set; }    
-        public int InterviewerId { get; set; }       
+        public short SurveyGeographyId { get; set; }
+        public short HousingTypeId { get; set; }
+        public short DistrictId { get; set; }    
+        public short InterviewerId { get; set; }       
         public string Address { get; set; }
         public string Phone { get; set; }
         public DateTime InterviewDate { get; set; }
