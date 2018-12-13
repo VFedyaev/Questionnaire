@@ -1,0 +1,112 @@
+﻿using AutoMapper;
+using Questionnaire.BLL.DTO;
+using Questionnaire.BLL.Infrastructure.Exceptions;
+using Questionnaire.BLL.Interfaces;
+using Questionnaire.DAL.Entities;
+using Questionnaire.DAL.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Questionnaire.BLL.Services
+{
+    public class FormService : IFormService
+    {
+        private IUnitOfWork _unitOfWork { get; set; }
+        public FormService(IUnitOfWork uow)
+        {
+            _unitOfWork = uow;
+        }
+
+        public FormDTO Get(int id)
+        {
+            Form form = _unitOfWork.Forms.Get(id);
+
+            return Mapper.Map<FormDTO>(form);
+        }
+
+        public FormDTO Get(int? id)
+        {
+            if (id == null)
+                throw new ArgumentNullException();
+
+            Form form = _unitOfWork.Forms.Get(id);
+            if (form == null)
+                throw new NotFoundException();
+
+            return Mapper.Map<FormDTO>(form);
+        }
+
+        public IEnumerable<FormDTO> GetAll()
+        {
+            List<Form> forms = _unitOfWork.Forms.GetAll().ToList();
+
+            return Mapper.Map<IEnumerable<FormDTO>>(forms);
+        }
+
+        public void Add(FormDTO formDTO)
+        {
+            Form form = Mapper.Map<Form>(formDTO);
+
+            _unitOfWork.Forms.Create(form);
+            _unitOfWork.Save();
+        }
+
+        public void Update(FormDTO formDTO)
+        {
+            Form form = Mapper.Map<Form>(formDTO);
+
+            _unitOfWork.Forms.Update(form);
+            _unitOfWork.Save();
+        }
+
+        public void Delete(int id)
+        {
+            Form form = _unitOfWork.Forms.Get(id);
+
+            if (form == null)
+                throw new NotFoundException();
+
+            _unitOfWork.Forms.Delete(id);
+            _unitOfWork.Save();
+        }
+
+        //public IEnumerable<HistoryDTO> GetFilteredList(FilterParamsDTO parameters)
+        //{
+        //    IEnumerable<HistoryDTO> filteredList = GetAll();
+
+        //    if (!string.IsNullOrEmpty(parameters.EquipmentId))
+        //    {
+        //        Guid guidEquipmentId = Guid.Parse(parameters.EquipmentId);
+        //        filteredList = filteredList.Where(h => h.EquipmentId == guidEquipmentId);
+        //    }
+
+        //    if (!string.IsNullOrEmpty(parameters.EmployeeId))
+        //    {
+        //        int intEmployeeId = int.Parse(parameters.EmployeeId);
+        //        filteredList = filteredList.Where(h => h.EmployeeId == intEmployeeId);
+        //    }
+
+        //    if (!string.IsNullOrEmpty(parameters.RepairPlaceId))
+        //    {
+        //        Guid guidRepairPlaceId = Guid.Parse(parameters.RepairPlaceId);
+        //        filteredList = filteredList.Where(h => h.RepairPlaceId == guidRepairPlaceId);
+        //    }
+
+        //    if (!string.IsNullOrEmpty(parameters.StatusTypeId))
+        //    {
+        //        Guid guidStatusTypeId = Guid.Parse(parameters.StatusTypeId);
+        //        filteredList = filteredList.Where(h => h.StatusTypeId == guidStatusTypeId);
+        //    }
+
+        //    return filteredList.OrderBy(h => h.Employee.EmployeeFullName);
+        //}
+
+        public void Dispose()
+        {
+            _unitOfWork.Dispose();
+        }
+    }
+}
