@@ -29,7 +29,7 @@
                 @*@if (User.IsInRole("admin"))
                     {*@
                 <li id="user-page-menu-item">
-                    <a href="@Url.Action("Index", "User")"><i class="fa fa-users icon" aria-hidden="true"></i> Пользователи</a>
+                    <a href="@Url.Action("Index", "User")"><i class="fa fa-users" aria-hidden="true"></i> Пользователи</a>
                 </li>
                 <li id="component-page-menu-item">
                     <!-- class="active" -->
@@ -51,23 +51,22 @@
                 </li>
                 <li id="equipment-page-menu-item">
                     <!-- class="active" -->
-                    <a href="#equipmentDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-laptop icon" aria-hidden="true"></i> Оборудование</a>
+                    <a href="#equipmentDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-globe" aria-hidden="true"></i> География обследования</a>
                     <ul class="collapse list-unstyled" id="equipmentDropdown">
                         <li>
-                            <a href="@Url.Action("Index", "SurveyGeography")">География обследования</a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Index", "District")">Районы</a>
+                            <a href="@Url.Action("Index", "SurveyGeography")">Место обследования</a>
                         </li>
                         <li>
                             <a href="@Url.Action("Index", "HousingType")">Типы жилья</a>
                         </li>
-
+                        <li>
+                            <a href="@Url.Action("Index", "District")">Районы</a>
+                        </li>
                     </ul>
                 </li>
                 <li id="tracking-page-menu-item">
                     <!-- class="active" -->
-                    <a href="#trackingDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-address-card icon" aria-hidden="true"></i> Контакты</a>
+                    <a href="#trackingDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-address-card" aria-hidden="true"></i> Контакты</a>
                     <ul class="collapse list-unstyled" id="trackingDropdown">
                         <li>
                             <a href="@Url.Action("Index", "Family")">Респонденты</a>

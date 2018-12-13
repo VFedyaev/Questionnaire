@@ -48,9 +48,9 @@ namespace Questionnaire.BLL.Services
                 case "surveyGeography":
                     result = GetSurveyGeographyFilteredListAndView(words);
                     break;
-                    //case "repairPlace":
-                    //    result = GetRepairPlaceFilteredListAndView(words);
-                    //    break;
+                case "housingType":
+                    result = GetHousingTypeFilteredListAndView(words);
+                    break;
             }
 
             return result;
@@ -111,15 +111,15 @@ namespace Questionnaire.BLL.Services
             };
         }
 
-        //private ModelAndViewDTO GetRepairPlaceFilteredListAndView(string[] words)
-        //{
-        //    var repairPlaceList = _unitOfWork.RepairPlaces.GetAll().Where(rp => words.All(rp.Name.ToLower().Contains)).ToList();
+        private ModelAndViewDTO GetHousingTypeFilteredListAndView(string[] words)
+        {
+            var housingTypeList = _unitOfWork.HousingTypes.GetAll().Where(rp => words.All(rp.Name.ToLower().Contains)).ToList();
 
-        //    return new ModelAndViewDTO
-        //    {
-        //        Model = Mapper.Map<IEnumerable<RepairPlaceDTO>>(repairPlaceList),
-        //        View = "RepairPlaces"
-        //    };
-        //}
+            return new ModelAndViewDTO
+            {
+                Model = Mapper.Map<IEnumerable<HousingTypeDTO>>(housingTypeList),
+                View = "HousingTypes"
+            };
+        }
     }
 }
