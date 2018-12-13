@@ -74,6 +74,10 @@ namespace Questionnaire.BLL.Services
             if (HasRelations(id))
                 throw new HasRelationsException();
 
+            Interviewer interviewer = _unitOfWork.Interviewers.Get(id);
+            if (interviewer == null)
+                throw new NotFoundException();
+
             _unitOfWork.Interviewers.Delete(id);
             _unitOfWork.Save();
         }

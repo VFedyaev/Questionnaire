@@ -74,6 +74,10 @@ namespace Questionnaire.BLL.Services
             if (HasRelations(id))
                 throw new HasRelationsException();
 
+            SurveyGeography surveyGeography = _unitOfWork.SurveyGeographies.Get(id);
+            if (surveyGeography == null)
+                throw new NotFoundException();
+
             _unitOfWork.SurveyGeographies.Delete(id);
             _unitOfWork.Save();
         }

@@ -42,12 +42,12 @@ namespace Questionnaire.BLL.Services
                 case "answer":
                     result = GetAnswerFilteredListAndView(words);
                     break;
-                    //case "componentType":
-                    //    result = GetComponentTypeFilteredListAndVew(words);
-                    //    break;
-                    //case "statusType":
-                    //    result = GetStatusTypeFilteredListAndView(words);
-                    //    break;
+                //case "componentType":
+                //    result = GetComponentTypeFilteredListAndVew(words);
+                //    break;
+                case "surveyGeography":
+                    result = GetSurveyGeographyFilteredListAndView(words);
+                    break;
                     //case "repairPlace":
                     //    result = GetRepairPlaceFilteredListAndView(words);
                     //    break;
@@ -100,16 +100,16 @@ namespace Questionnaire.BLL.Services
         //    };
         //}
 
-        //private ModelAndViewDTO GetStatusTypeFilteredListAndView(string[] words)
-        //{
-        //    var statusTypeList = _unitOfWork.StatusTypes.GetAll().Where(st => words.All(st.Name.ToLower().Contains)).ToList();
+        private ModelAndViewDTO GetSurveyGeographyFilteredListAndView(string[] words)
+        {
+            var surveyGeographyList = _unitOfWork.SurveyGeographies.GetAll().Where(st => words.All(st.Name.ToLower().Contains)).ToList();
 
-        //    return new ModelAndViewDTO
-        //    {
-        //        Model = Mapper.Map<IEnumerable<StatusTypeDTO>>(statusTypeList),
-        //        View = "StatusTypes"
-        //    };
-        //}
+            return new ModelAndViewDTO
+            {
+                Model = Mapper.Map<IEnumerable<SurveyGeographyDTO>>(surveyGeographyList),
+                View = "SurveyGeographies"
+            };
+        }
 
         //private ModelAndViewDTO GetRepairPlaceFilteredListAndView(string[] words)
         //{
