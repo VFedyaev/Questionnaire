@@ -1,7 +1,7 @@
-﻿@model Questionnaire.WEB.Models.Entities.QuestionTypeVM
+﻿@model Questionnaire.WEB.Models.Entities.AnswerVM
 
 @{
-    ViewBag.Title = "Добавление типов вопроса";
+    ViewBag.Title = "Добавление ответов";
 }
 
 <div class="block">
@@ -23,7 +23,7 @@
             <div class="form-group">
                 <div class="btn-group" role="group">
                     <button type="submit" class="btn btn-success"><i class="fa fa-save" aria-hidden="true" title="Сохранить" data-toggle="tooltip" data-placement="top"></i> Сохранить</button>
-                    <a href="@Url.Action("Index", "QuestionType")" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true" title="Назад" data-toggle="tooltip" data-placement="top"></i> Назад</a>
+                    <a href="@Url.Action("Index", "Answer")" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true" title="Назад" data-toggle="tooltip" data-placement="top"></i> Назад</a>
                 </div>
             </div>
         </div>

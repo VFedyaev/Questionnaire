@@ -39,9 +39,9 @@ namespace Questionnaire.BLL.Services
                 case "question":
                     result = GetQuestionFilteredListAndView(words);
                     break;
-                    //case "component":
-                    //    result = GetComponentFilteredListAndView(words);
-                    //    break;
+                case "answer":
+                    result = GetAnswerFilteredListAndView(words);
+                    break;
                     //case "componentType":
                     //    result = GetComponentTypeFilteredListAndVew(words);
                     //    break;
@@ -78,16 +78,16 @@ namespace Questionnaire.BLL.Services
             };
         }
 
-        //private ModelAndViewDTO GetComponentFilteredListAndView(string[] words)
-        //{
-        //    var componentList = _unitOfWork.Components.GetAll().Where(c => c.InventNumber != null && words.All(c.InventNumber.ToLower().Contains)).ToList();
+        private ModelAndViewDTO GetAnswerFilteredListAndView(string[] words)
+        {
+            var answerList = _unitOfWork.Answers.GetAll().Where(t => words.All(t.Name.ToLower().Contains)).ToList();
 
-        //    return new ModelAndViewDTO
-        //    {
-        //        Model = Mapper.Map<IEnumerable<ComponentDTO>>(componentList),
-        //        View = "Components"
-        //    };
-        //}
+            return new ModelAndViewDTO
+            {
+                Model = Mapper.Map<IEnumerable<AnswerDTO>>(answerList),
+                View = "Answers"
+            };
+        }
 
         //private ModelAndViewDTO GetComponentTypeFilteredListAndVew(string[] words)
         //{

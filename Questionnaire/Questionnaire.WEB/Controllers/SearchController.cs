@@ -34,9 +34,9 @@ namespace Questionnaire.WEB.Controllers
                     case "QuestionDTO":
                         result.Model = Mapper.Map<IEnumerable<QuestionVM>>(result.Model);
                         break;
-                        //case "ComponentDTO":
-                        //    result.Model = Mapper.Map<IEnumerable<ComponentVM>>(result.Model);
-                        //    break;
+                    case "AnswerDTO":
+                        result.Model = Mapper.Map<IEnumerable<AnswerVM>>(result.Model);
+                        break;
                         //case "ComponentTypeDTO":
                         //    result.Model = Mapper.Map<IEnumerable<ComponentTypeVM>>(result.Model);
                         //    break;
