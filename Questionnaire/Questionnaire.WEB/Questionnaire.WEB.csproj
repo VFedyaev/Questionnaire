@@ -182,6 +182,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AnswerController.cs" />
+    <Compile Include="Controllers\DistrictController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HousingTypeController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
@@ -338,6 +339,12 @@
     <Content Include="Views\HousingType\Details.cshtml" />
     <Content Include="Views\HousingType\Create.cshtml" />
     <Content Include="Views\HousingType\Edit.cshtml" />
+    <Content Include="Views\Search\Districs.cshtml" />
+    <Content Include="Views\District\AjaxDistrictList.cshtml" />
+    <Content Include="Views\District\Index.cshtml" />
+    <Content Include="Views\District\Details.cshtml" />
+    <Content Include="Views\District\Create.cshtml" />
+    <Content Include="Views\District\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

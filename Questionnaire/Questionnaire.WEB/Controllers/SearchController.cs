@@ -46,6 +46,9 @@ namespace Questionnaire.WEB.Controllers
                     case "HousingTypeDTO":
                         result.Model = Mapper.Map<IEnumerable<HousingTypeVM>>(result.Model);
                         break;
+                    case "DistrictDTO":
+                        result.Model = Mapper.Map<IEnumerable<DistrictVM>>(result.Model);
+                        break;
                 }
             }
             else

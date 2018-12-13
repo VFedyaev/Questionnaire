@@ -51,6 +51,9 @@ namespace Questionnaire.BLL.Services
                 case "housingType":
                     result = GetHousingTypeFilteredListAndView(words);
                     break;
+                case "district":
+                    result = GetDistrictFilteredListAndView(words);
+                    break;
             }
 
             return result;
@@ -119,6 +122,17 @@ namespace Questionnaire.BLL.Services
             {
                 Model = Mapper.Map<IEnumerable<HousingTypeDTO>>(housingTypeList),
                 View = "HousingTypes"
+            };
+        }
+
+        private ModelAndViewDTO GetDistrictFilteredListAndView(string[] words)
+        {
+            var districtList = _unitOfWork.Districts.GetAll().Where(rp => words.All(rp.Name.ToLower().Contains)).ToList();
+
+            return new ModelAndViewDTO
+            {
+                Model = Mapper.Map<IEnumerable<DistrictDTO>>(districtList),
+                View = "Districs"
             };
         }
     }
