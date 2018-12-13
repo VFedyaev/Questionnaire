@@ -49,6 +49,9 @@ namespace Questionnaire.WEB.Controllers
                     case "DistrictDTO":
                         result.Model = Mapper.Map<IEnumerable<DistrictVM>>(result.Model);
                         break;
+                    case "InterviewerDTO":
+                        result.Model = Mapper.Map<IEnumerable<InterviewerVM>>(result.Model);
+                        break;
                 }
             }
             else
