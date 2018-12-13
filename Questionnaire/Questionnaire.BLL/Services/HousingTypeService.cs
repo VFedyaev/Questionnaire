@@ -74,6 +74,10 @@ namespace Questionnaire.BLL.Services
             if (HasRelations(id))
                 throw new HasRelationsException();
 
+            HousingType housingType = _unitOfWork.HousingTypes.Get(id);
+            if (housingType == null)
+                throw new NotFoundException();
+
             _unitOfWork.HousingTypes.Delete(id);
             _unitOfWork.Save();
         }

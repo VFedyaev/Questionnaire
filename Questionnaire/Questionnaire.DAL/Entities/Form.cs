@@ -15,7 +15,7 @@ namespace Questionnaire.DAL.Entities
         public string Phone { get; set; }
         public DateTime InterviewDate { get; set; }
         public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public Nullable<DateTime> EndTime { get; set; }
 
         public virtual SurveyGeography SurveyGeography { get; set; }
         public virtual HousingType HousingType { get; set; }
