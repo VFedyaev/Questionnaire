@@ -13,7 +13,7 @@ namespace Questionnaire.BLL.DTO
         public string Phone { get; set; }
         public DateTime InterviewDate { get; set; }
         public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public Nullable<DateTime> EndTime { get; set; }
 
         public SurveyGeographyDTO SurveyGeography { get; set; }
         public HousingTypeDTO HousingType { get; set; }

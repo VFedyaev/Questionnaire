@@ -41,8 +41,9 @@ namespace Questionnaire.WEB.Models.Entities
         public DateTime StartTime { get; set; }
 
         [Display(Name = "Время конца интервью")]
-        [Required(ErrorMessage = "Заполните поле!")]
-        public DateTime EndTime { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public Nullable<DateTime> EndTime { get; set; }
 
         public SurveyGeographyDTO SurveyGeography { get; set; }
         public HousingTypeDTO HousingType { get; set; }

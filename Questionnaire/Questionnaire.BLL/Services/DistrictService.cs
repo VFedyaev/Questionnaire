@@ -74,6 +74,10 @@ namespace Questionnaire.BLL.Services
             if (HasRelations(id))
                 throw new HasRelationsException();
 
+            District district = _unitOfWork.Districts.Get(id);
+            if (district == null)
+                throw new NotFoundException();
+
             _unitOfWork.Districts.Delete(id);
             _unitOfWork.Save();
         }

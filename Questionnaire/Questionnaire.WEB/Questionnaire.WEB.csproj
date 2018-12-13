@@ -183,9 +183,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AnswerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HousingTypeController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\QuestionTypeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\SurveyGeographyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -324,6 +326,18 @@
     <Content Include="Views\Answer\Create.cshtml" />
     <Content Include="Views\Answer\Edit.cshtml" />
     <Content Include="Views\Search\Answers.cshtml" />
+    <Content Include="Views\Search\SurveyGeographies.cshtml" />
+    <Content Include="Views\SurveyGeography\AjaxSurveyGeographyList.cshtml" />
+    <Content Include="Views\SurveyGeography\Index.cshtml" />
+    <Content Include="Views\SurveyGeography\Details.cshtml" />
+    <Content Include="Views\SurveyGeography\Create.cshtml" />
+    <Content Include="Views\SurveyGeography\Edit.cshtml" />
+    <Content Include="Views\Search\HousingTypes.cshtml" />
+    <Content Include="Views\HousingType\AjaxHousingTypeList.cshtml" />
+    <Content Include="Views\HousingType\Index.cshtml" />
+    <Content Include="Views\HousingType\Details.cshtml" />
+    <Content Include="Views\HousingType\Create.cshtml" />
+    <Content Include="Views\HousingType\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
