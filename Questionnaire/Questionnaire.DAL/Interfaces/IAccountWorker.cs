@@ -6,8 +6,8 @@ namespace Questionnaire.DAL.Interfaces
 {
     public interface IAccountWorker : IDisposable
     {
-        //ApplicationUserManager UserManager { get; }
-        //ApplicationRoleManager RoleManager { get; }
+        ApplicationUserManager UserManager { get; }
+        ApplicationRoleManager RoleManager { get; }
         Task SaveAsync();
         void Save();
     }

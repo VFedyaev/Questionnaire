@@ -23,8 +23,8 @@ namespace Questionnaire.DAL.Repositories
 
         public PartialRepository(IdentityContext context)
         {
-            //AccountContext = context;
-            //DbSet = context.Set<T>();
+            AccountContext = context;
+            DbSet = context.Set<T>();
         }
 
         public IEnumerable<T> Find(Func<T, bool> predicate)

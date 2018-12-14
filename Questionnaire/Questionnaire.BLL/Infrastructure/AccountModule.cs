@@ -1,9 +1,6 @@
 ﻿using Ninject.Modules;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Questionnaire.DAL.Interfaces;
+using Questionnaire.DAL.Repositories;
 
 namespace Questionnaire.BLL.Infrastructure
 {
@@ -18,7 +15,7 @@ namespace Questionnaire.BLL.Infrastructure
 
         public override void Load()
         {
-            //Bind<IAccountWorker>().To<AccountWorker>().WithConstructorArgument(connectionString);
+            Bind<IAccountWorker>().To<AccountWorker>().WithConstructorArgument(connectionString);
         }
     }
 }

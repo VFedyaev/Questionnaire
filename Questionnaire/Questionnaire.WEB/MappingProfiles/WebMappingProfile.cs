@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Questionnaire.BLL.DTO;
+using Questionnaire.WEB.Models.Account;
 using Questionnaire.WEB.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace Questionnaire.WEB.MappingProfiles
             CreateMap<FamilyDTO, FamilyVM>(MemberList.None).ReverseMap();
             CreateMap<DataDTO, DataVM>(MemberList.None).ReverseMap();
 
-            //CreateMap<UserDTO, UserVM>(MemberList.None).ReverseMap();
+            CreateMap<UserDTO, UserVM>(MemberList.None).ReverseMap();
         }
     }
 }
