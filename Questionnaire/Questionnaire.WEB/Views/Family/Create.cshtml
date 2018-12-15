@@ -1,0 +1,59 @@
+﻿@model Questionnaire.WEB.Models.Entities.FamilyVM
+
+@{
+    ViewBag.Title = "Добаление респондента";
+}
+
+<div class="block">
+    <h2 class="block-title">Добавление</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name)
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>    
+        <div class="form-group">
+            @Html.LabelFor(model => model.Sex)
+            @Html.EditorFor(model => model.Sex, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+            @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+        </div> 
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateBorn)
+            @Html.EditorFor(model => model.DateBorn, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+            @Html.ValidationMessageFor(model => model.DateBorn, "", new { @class = "text-danger" })
+        </div>  
+        <div class="form-group">
+            @Html.LabelFor(model => model.Age)
+            @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+            @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FormId)
+            @Html.DropDownList("FormId", null, "Тип вопроса", htmlAttributes: new { @class = "form-control", @required = "required", @id = "formDropDown" })
+            @Html.ValidationMessageFor(model => model.FormId, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <div class="btn-group" role="group">
+                <button type="submit" class="btn btn-success"><i class="fa fa-save" aria-hidden="true" title="Сохранить" data-toggle="tooltip" data-placement="top"></i> Сохранить</button>
+                <a href="@Url.Action("Index", "Family")" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true" title="Назад" data-toggle="tooltip" data-placement="top"></i> Назад</a>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $("#formDropDown").chosen({ width: "100%" });
+        });
+    </script>
+}
