@@ -58,6 +58,7 @@
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\ApplicationRole.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
+    <Compile Include="Entities\Gender.cs" />
     <Compile Include="Entities\Data.cs" />
     <Compile Include="Entities\District.cs" />
     <Compile Include="Entities\Family.cs" />

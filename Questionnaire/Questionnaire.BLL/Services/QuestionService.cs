@@ -68,6 +68,36 @@ namespace Questionnaire.BLL.Services
             _unitOfWork.Save();
         }
 
+        public IEnumerable<AnswerDTO> GetAnswers(int? id)
+        {
+            if (id == null)
+                throw new ArgumentNullException();
+
+            IEnumerable<int> questionAnswerIds = _unitOfWork
+                .QuestionAnswers
+                .Find(e => e.QuestionId == id)
+                .Select(com => com.AnswerId);
+
+            if (questionAnswerIds.Count() <= 0)
+                return Enumerable.Empty<AnswerDTO>();
+
+            IEnumerable<AnswerDTO> answers = (
+                from
+                    relation in _unitOfWork.QuestionAnswers.GetAll()
+                join
+                    answer in _unitOfWork.Answers.GetAll()
+                on
+                    relation.AnswerId equals answer.Id
+                where
+                    relation.QuestionId == id
+                select new AnswerDTO
+                {
+                    Id = answer.Id,
+                    Name = answer.Name,
+                });
+
+            return answers;
+        }
 
         public void Delete(int id)
         {

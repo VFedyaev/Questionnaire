@@ -1,12 +1,17 @@
-﻿@model IEnumerable<Questionnaire.WEB.Models.Entities.FamilyVM>
+﻿@model IEnumerable<Questionnaire.WEB.Models.Entities.FormVM>
 <table class="table table-responsive-sm table-responsive-md table-responsive-lg table-sm" id="listTable">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Name)</th>
-            <th>@Html.DisplayNameFor(model => model.Sex)</th>
-            <th>@Html.DisplayNameFor(model => model.DateBorn)</th>
-            <th>@Html.DisplayNameFor(model => model.Age)</th>
-            <th>@Html.DisplayNameFor(model => model.FormId)</th>
+            <th>@Html.DisplayNameFor(model => model.NumberForm)</th>
+            <th>@Html.DisplayNameFor(model => model.SurveyGeographyId)</th>
+            <th>@Html.DisplayNameFor(model => model.HousingTypeId)</th>
+            <th>@Html.DisplayNameFor(model => model.DistrictId)</th>
+            <th>@Html.DisplayNameFor(model => model.InterviewerId)</th>
+            <th>@Html.DisplayNameFor(model => model.Address)</th>
+            <th>@Html.DisplayNameFor(model => model.Phone)</th>
+            <th>@Html.DisplayNameFor(model => model.InterviewDate)</th>
+            <th>@Html.DisplayNameFor(model => model.StartTime)</th>
+            <th>@Html.DisplayNameFor(model => model.EndTime)</th>
 
             <th></th>
         </tr>
@@ -16,11 +21,16 @@
         @foreach (var item in Model)
         {
         <tr id="@item.Id">
-            <td>@item.Name</td>
-            <td>@item.Sex</td>
-            <td>@item.DateBorn</td>
-            <td>@item.Age</td>
-            <td>@item.Form.NumberForm</td>
+            <td>@item.NumberForm</td>
+            <td>@item.SurveyGeography.Name</td>
+            <td>@item.HousingType.Name</td>
+            <td>@item.District.Name</td>
+            <td>@item.Interviewer.Name</td>
+            <td>@item.Address</td>
+            <td>@item.Phone</td>
+            <td>@item.InterviewDate</td>
+            <td>@item.StartTime</td>
+            <td>@item.EndTime</td>
 
             <td>
                 @*@if (User.IsInRole("admin"))

@@ -82,6 +82,32 @@ namespace Questionnaire.BLL.Services
             _unitOfWork.Save();
         }
 
+
+        public IEnumerable<AnswerDTO> GetAnswersBy(string type, string value)
+        {
+            IEnumerable<AnswerDTO> answers = Enumerable.Empty<AnswerDTO>();
+            switch (type)
+            {
+                case "model":
+                    answers = GetAnswersByModel(value);
+                    break;
+       
+            }
+
+            return answers;
+        }
+        private IEnumerable<AnswerDTO> GetAnswersByModel(string value)
+        {
+            IEnumerable<Answer> answers = _unitOfWork
+                .Answers
+                .Find(c => c.Name.ToLower().Contains(value));
+
+            if (answers.Count() <= 0)
+                return Enumerable.Empty<AnswerDTO>();
+
+            return Mapper.Map<IEnumerable<AnswerDTO>>(answers);
+        }
+
         public bool HasRelations(int id)
         {
             var relations = _unitOfWork.QuestionAnswers.Find(h => h.AnswerId == id);

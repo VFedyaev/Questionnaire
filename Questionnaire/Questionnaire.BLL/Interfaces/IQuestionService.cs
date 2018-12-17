@@ -8,5 +8,8 @@ namespace Questionnaire.BLL.Interfaces
     {
         IEnumerable<QuestionDTO> GetListOrderedByName();
         QuestionDTO Get(int? id);
+
+        //Guid AddAndGetId(EquipmentDTO equipment);
+        IEnumerable<AnswerDTO> GetAnswers(int? id);
     }
 }

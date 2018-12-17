@@ -213,11 +213,13 @@
     <Compile Include="Controllers\AnswerController.cs" />
     <Compile Include="Controllers\DistrictController.cs" />
     <Compile Include="Controllers\FamilyController.cs" />
+    <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HousingTypeController.cs" />
     <Compile Include="Controllers\InterviewerController.cs" />
     <Compile Include="Controllers\QuestionController.cs" />
     <Compile Include="Controllers\QuestionTypeController.cs" />
+    <Compile Include="Controllers\RelationController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SurveyGeographyController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -241,6 +243,7 @@
     <Compile Include="Models\Entities\QuestionAnswerVM.cs" />
     <Compile Include="Models\Entities\QuestionTypeVM.cs" />
     <Compile Include="Models\Entities\SurveyGeographyVM.cs" />
+    <Compile Include="Models\Enums\Gender.cs" />
     <Compile Include="Models\User\ChangeRoleModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\WebModule.cs" />
@@ -395,9 +398,18 @@
     <Content Include="Views\Family\Create.cshtml" />
     <Content Include="Views\Family\Edit.cshtml" />
     <Content Include="Views\Search\Families.cshtml" />
+    <Content Include="Views\Form\AjaxFormList.cshtml" />
+    <Content Include="Views\Form\Index.cshtml" />
+    <Content Include="Views\Form\Details.cshtml" />
+    <Content Include="Views\Form\Create.cshtml" />
+    <Content Include="Views\Form\Edit.cshtml" />
+    <Content Include="Views\Search\Forms.cshtml" />
+    <Content Include="Views\Question\Answers.cshtml" />
+    <Content Include="Views\Answer\FindAnswers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Relation\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

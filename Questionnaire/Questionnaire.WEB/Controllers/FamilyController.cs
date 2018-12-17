@@ -83,7 +83,6 @@ namespace Questionnaire.WEB.Controllers
                 FamilyService.Add(familyDTO);
                 return RedirectToAction("Index");
             }
-
             ViewBag.FormId = GetFormIdSelectList(familyVM.FormId);
 
             return View(familyVM);
@@ -131,7 +130,7 @@ namespace Questionnaire.WEB.Controllers
 
         public SelectList GetFormIdSelectList(int? selectedValue = null)
         {
-            return new SelectList(FormService.GetAll().ToList(), "Id", "SurveyGeography", selectedValue);
+            return new SelectList(FormService.GetAll().ToList(), "Id", "NumberForm", selectedValue);
         }
 
         // GET: Family/Delete/5

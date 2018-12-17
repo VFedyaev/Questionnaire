@@ -134,6 +134,23 @@ namespace Questionnaire.WEB.Controllers
             return new SelectList(QuestionTypeService.GetAll().ToList(), "Id", "Name", selectedValue);
         }
 
+        public ActionResult Answers(int? questionId)
+        {
+            try
+            {
+                IEnumerable<AnswerDTO> answerDTOs = QuestionService.GetAnswers(questionId).ToList();
+                IEnumerable<AnswerVM> answerVMs = Mapper.Map<IEnumerable<AnswerVM>>(answerDTOs);
+
+                ViewBag.QuestionId = questionId;
+
+                return View(answerVMs);
+            }
+            catch (ArgumentNullException)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+        }
+
         // GET: Question/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]

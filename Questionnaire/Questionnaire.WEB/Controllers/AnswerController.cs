@@ -138,6 +138,21 @@ namespace Questionnaire.WEB.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult FindAnswers(string value, string type)
+        {
+            value = value.Trim().ToLower();
+
+            List<AnswerDTO> answerDTOs = AnswerService
+                .GetAnswersBy(type, value)
+                .ToList();
+
+            List<AnswerVM> answerVMs = Mapper.Map<IEnumerable<AnswerVM>>(answerDTOs).ToList();
+
+            return PartialView(answerVMs);
+        }
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);

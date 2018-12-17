@@ -11,15 +11,23 @@ namespace Questionnaire.WEB.Models.Entities
     {
         public int Id { get; set; }
 
+        [Display(Name = "Номер анкеты")]
+        [Required(ErrorMessage = "Необходимо заполнить поле номер формы!")]
+        public int NumberForm { get; set; }
+
+        [Display(Name = "Место обследования")]
         [Required(ErrorMessage = "Необходимо выбрать место проведения опроса!")]
         public short SurveyGeographyId { get; set; }
 
+        [Display(Name = "Тип жилья")]
         [Required(ErrorMessage = "Необходимо выбрать тип жилья!")]
         public short HousingTypeId { get; set; }
 
+        [Display(Name = "Район")]
         [Required(ErrorMessage = "Необходимо выбрать район!")]
         public short DistrictId { get; set; }
 
+        [Display(Name = "ФИО интервьюера")]
         [Required(ErrorMessage = "Необходимо выбрать интерьюера!")]
         public short InterviewerId { get; set; }
 
@@ -34,10 +42,14 @@ namespace Questionnaire.WEB.Models.Entities
    
         [Display(Name = "Дата проведения интервью")]
         [Required(ErrorMessage = "Заполните поле!")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime InterviewDate { get; set; }
 
         [Display(Name = "Время начала интервью")]
         [Required(ErrorMessage = "Заполните поле!")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime StartTime { get; set; }
 
         [Display(Name = "Время конца интервью")]

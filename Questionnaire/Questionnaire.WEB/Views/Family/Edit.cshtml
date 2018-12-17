@@ -23,23 +23,25 @@
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.Sex)
-                @Html.EditorFor(model => model.Sex, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                @Html.EnumDropDownListFor(model => model.Sex, new { @class = "form-control", @required = "required" })
                 @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
             </div>
+
             <div class="form-group">
                 @Html.LabelFor(model => model.DateBorn)
-                @Html.EditorFor(model => model.DateBorn, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                @Html.EditorFor(model => model.DateBorn, new { htmlAttributes = new { @class = "form-control date-picker", @min = "1930-01-01", @max = "2100-01-01", @id = "dateBorn", @onchange = "getAge()", @required = "required" } })
                 @Html.ValidationMessageFor(model => model.DateBorn, "", new { @class = "text-danger" })
             </div>
+
             <div class="form-group">
                 @Html.LabelFor(model => model.Age)
-                @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @id = "age", @readonly = "true" } })
                 @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.FormId)
-                @Html.DropDownList("FormId", null, "Тип вопроса", htmlAttributes: new { @class = "form-control", @required = "required", @id = "formDropDown" })
+                @Html.DropDownList("FormId", null, "Номер анкеты", htmlAttributes: new { @class = "form-control", @required = "required", @id = "formDropDown" })
                 @Html.ValidationMessageFor(model => model.FormId, "", new { @class = "text-danger" })
             </div>
 

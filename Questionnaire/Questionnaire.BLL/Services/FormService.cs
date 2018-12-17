@@ -46,6 +46,13 @@ namespace Questionnaire.BLL.Services
             return Mapper.Map<IEnumerable<FormDTO>>(forms);
         }
 
+        public IEnumerable<FormDTO> GetListOrderedByName()
+        {
+            List<Form> forms = _unitOfWork.Forms.GetAll().OrderBy(n => n.NumberForm).ToList();
+
+            return Mapper.Map<IEnumerable<FormDTO>>(forms);
+        }
+
         public void Add(FormDTO formDTO)
         {
             Form form = Mapper.Map<Form>(formDTO);
@@ -64,6 +71,9 @@ namespace Questionnaire.BLL.Services
 
         public void Delete(int id)
         {
+            if (HasRelations(id))
+                throw new HasRelationsException();
+
             Form form = _unitOfWork.Forms.Get(id);
 
             if (form == null)
@@ -71,6 +81,14 @@ namespace Questionnaire.BLL.Services
 
             _unitOfWork.Forms.Delete(id);
             _unitOfWork.Save();
+        }
+
+        public bool HasRelations(int id)
+        {
+            var relations = _unitOfWork.Families.Find(h => h.FormId == id).Count();
+            var relations2 = _unitOfWork.Datas.Find(h => h.FormId == id).Count();
+            var relationCount = relations + relations2;
+            return relationCount > 0;
         }
 
         //public IEnumerable<HistoryDTO> GetFilteredList(FilterParamsDTO parameters)

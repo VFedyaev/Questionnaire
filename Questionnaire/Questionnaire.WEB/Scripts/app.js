@@ -17,14 +17,22 @@ function menuInit() {
     });
 }
 
-function searchEmployeesByEnter() {
-    $(document).ready(function () {
-        $("#search-input-value").keyup(function (event) {
-            if (event.keyCode == 13) {
-                searchEmployees();
-            }
-        });
-    });
+//function searchEmployeesByEnter() {
+//    $(document).ready(function () {
+//        $("#search-input-value").keyup(function (event) {
+//            if (event.keyCode == 13) {
+//                searchEmployees();
+//            }
+//        });
+//    });
+//}
+
+
+function getAge() {
+    var today = new Date();
+    var selectDate = new Date(document.getElementById("dateBorn").value);
+    var age = today.getFullYear() - selectDate.getFullYear();
+    document.getElementById("age").value = age;
 }
 
 function activeMenuItem() {
@@ -52,9 +60,13 @@ function activeMenuItem() {
     else if (url.indexOf('changepassword') >= 0) {
         $('#change-password-page-menu-item').addClass('active');
     }
+    else if (url.indexOf('form') >= 0) {
+        $('#form-page-menu-item').addClass('active');
+    }
     else {
         $('#main-page-menu-item').addClass('active');
     }
+   
 }
 
 function turnOffCurrentActiveMenuItem() {
@@ -75,91 +87,91 @@ function turnOffCurrentActiveMenuItem() {
     }
 }
 
-function searchEmployees() {
-    var employeeName = $("#search-input-value").val();
-    var token = $('input[name="__RequestVerificationToken"]').val();
-    var oldSearchingText = document.getElementById('searching').innerText;
+//function searchEmployees() {
+//    var employeeName = $("#search-input-value").val();
+//    var token = $('input[name="__RequestVerificationToken"]').val();
+//    var oldSearchingText = document.getElementById('searching').innerText;
 
-    document.getElementById('searching').innerText = "Идет поиск...";
+//    document.getElementById('searching').innerText = "Идет поиск...";
 
-    $.ajax({
-        url: "/Equipment/FindEmployees",
-        type: "Post",
-        data: {
-            __RequestVerificationToken: token,
-            "name": employeeName
-        },
-        success: function (html) {
-            $("#found-items-area").empty();
-            $("#found-items-area").append(html);
-            document.getElementById('searching').innerText = oldSearchingText;
-        },
-        error: function (XMLHttpRequest) {
-            console.log(XMLHttpRequest);
-            document.getElementById('searching').innerText = oldSearchingText;
-        }
-    });
-    return false;
-}
+//    $.ajax({
+//        url: "/Equipment/FindEmployees",
+//        type: "Post",
+//        data: {
+//            __RequestVerificationToken: token,
+//            "name": employeeName
+//        },
+//        success: function (html) {
+//            $("#found-items-area").empty();
+//            $("#found-items-area").append(html);
+//            document.getElementById('searching').innerText = oldSearchingText;
+//        },
+//        error: function (XMLHttpRequest) {
+//            console.log(XMLHttpRequest);
+//            document.getElementById('searching').innerText = oldSearchingText;
+//        }
+//    });
+//    return false;
+//}
 
 function clearSearch() {
     $("#found-items-area").empty();
     $("#search-input-value").val('');
 }
 
-function attachEmployee(employeeId) {
-    if (document.body.contains(document.getElementById("pinned-" + employeeId))) {
-        alert("Сотрудник уже прикриплен.");
-        return false;
-    }
+//function attachEmployee(employeeId) {
+//    if (document.body.contains(document.getElementById("pinned-" + employeeId))) {
+//        alert("Сотрудник уже прикриплен.");
+//        return false;
+//    }
 
-    var employeeRow = $("#" + employeeId);
-    var name = employeeRow.find("td.name")[0].innerText;
+//    var employeeRow = $("#" + employeeId);
+//    var name = employeeRow.find("td.name")[0].innerText;
 
-    var newTr = document.createElement("tr");
-    newTr.id = "pinned-" + employeeId;
+//    var newTr = document.createElement("tr");
+//    newTr.id = "pinned-" + employeeId;
 
-    var inputId = document.createElement("input");
-    inputId.type = "hidden";
-    inputId.name = "employeeId[]";
-    inputId.value = employeeId;
+//    var inputId = document.createElement("input");
+//    inputId.type = "hidden";
+//    inputId.name = "employeeId[]";
+//    inputId.value = employeeId;
 
-    var button = document.createElement("button");
-    button.classList.add("btn", "btn-danger");
-    button.type = "button";
-    button.innerText = "Убрать";
-    button.setAttribute("onclick", "detachItem('" + employeeId + "')");
+//    var button = document.createElement("button");
+//    button.classList.add("btn", "btn-danger");
+//    button.type = "button";
+//    button.innerText = "Убрать";
+//    button.setAttribute("onclick", "detachItem('" + employeeId + "')");
 
-    var buttonTd = document.createElement("td");
-    buttonTd.className = "input-group-btn";
-    buttonTd.appendChild(inputId);
-    buttonTd.appendChild(button);
+//    var buttonTd = document.createElement("td");
+//    buttonTd.className = "input-group-btn";
+//    buttonTd.appendChild(inputId);
+//    buttonTd.appendChild(button);
 
-    var nameTd = createTd("name", name);
+//    var nameTd = createTd("name", name);
 
-    var label = document.createElement("label");
+//    var label = document.createElement("label");
 
-    var inputOwner = document.createElement("input");
-    inputOwner.type = "radio";
-    inputOwner.name = "ownerId";
-    inputOwner.value = employeeId;
+//    var inputOwner = document.createElement("input");
+//    inputOwner.type = "radio";
+//    inputOwner.name = "ownerId";
+//    inputOwner.value = employeeId;
 
-    label.appendChild(inputOwner);
-    label.appendChild(document.createTextNode("Текущий владелец"));
+//    label.appendChild(inputOwner);
+//    label.appendChild(document.createTextNode("Текущий владелец"));
 
-    var ownerTd = document.createElement("td");
-    ownerTd.appendChild(label);
+//    var ownerTd = document.createElement("td");
+//    ownerTd.appendChild(label);
 
-    var emptyTd = document.createElement("td");
+//    var emptyTd = document.createElement("td");
 
-    newTr.appendChild(buttonTd);
-    newTr.appendChild(nameTd);
-    newTr.appendChild(ownerTd);
-    newTr.appendChild(emptyTd);
+//    newTr.appendChild(buttonTd);
+//    newTr.appendChild(nameTd);
+//    newTr.appendChild(ownerTd);
+//    newTr.appendChild(emptyTd);
 
-    var attachedItems = document.getElementById("attached-items-tbody");
-    attachedItems.appendChild(newTr);
-}
+//    var attachedItems = document.getElementById("attached-items-tbody");
+//    attachedItems.appendChild(newTr);
+//}
 
 function createTd(tdClass, value) {
     var td = document.createElement("td");
@@ -169,7 +181,7 @@ function createTd(tdClass, value) {
     return td;
 }
 
-function searchComponents(type) {
+function searchAnswers(type) {
     var searchValue = $("#search-input-value").val();
     var token = $('input[name="__RequestVerificationToken"]').val();
     var oldSearchingText = document.getElementById('searching').innerText;
@@ -178,7 +190,7 @@ function searchComponents(type) {
 
 
     $.ajax({
-        url: "/Component/FindComponents",
+        url: "/Answer/FindAnswers",
         type: "Post",
         data: {
             __RequestVerificationToken: token,
@@ -198,13 +210,13 @@ function searchComponents(type) {
     return false;
 }
 
-function attachComponent(componentId) {
-    if (document.body.contains(document.getElementById("pinned-" + componentId))) {
-        alert("Комплектующее уже в списке.");
+function attachAnswer(answerId) {
+    if (document.body.contains(document.getElementById("pinned-" + answerId))) {
+        alert("Этот ответ уже в списке.");
         return false;
     }
 
-    var componentInfo = $("#" + componentId);
+    var componentInfo = $("#" + answerId);
     var type = componentInfo.find("td.type")[0].innerText;
     var model = componentInfo.find("td.model")[0].innerText;
     var name = componentInfo.find("td.name")[0].innerText;
@@ -212,22 +224,22 @@ function attachComponent(componentId) {
 
     var inputId = document.createElement("input");
     inputId.type = "hidden";
-    inputId.name = "componentId[]";
-    inputId.value = componentId;
+    inputId.name = "answerId[]";
+    inputId.value = answerId;
 
     var typeDiv = createDiv("type", TYPE, type);
     var modelDiv = createDiv("model", MODEL, model);
     var nameDiv = createDiv("name", NAME, name);
     var numberDiv = createDiv("number", NUMBER, number);
 
-    var buttonDiv = createButtonDiv(componentId);
+    var buttonDiv = createButtonDiv(answerId);
 
     var wrapDiv = document.createElement("div");
     wrapDiv.classList.add("col-md-8", "item");
 
     var newComponent = document.createElement("div");
     newComponent.className = "row";
-    newComponent.id = "pinned-" + componentId;
+    newComponent.id = "pinned-" + answerId;
 
     wrapDiv.appendChild(inputId);
     wrapDiv.appendChild(typeDiv);
@@ -268,9 +280,9 @@ function createDiv(divClass, title, value) {
     return wrapDiv;
 }
 
-function createButtonDiv(componentId) {
-    var removeBtn = createRemoveButton(componentId);
-    var detailsBtn = createDetailsButton(componentId);
+function createButtonDiv(answerId) {
+    var removeBtn = createRemoveButton(answerId);
+    var detailsBtn = createDetailsButton(answerId);
 
     var buttonDiv = document.createElement("div");
     buttonDiv.className = "btn-group";
@@ -282,19 +294,19 @@ function createButtonDiv(componentId) {
     return buttonDiv;
 }
 
-function createRemoveButton(componentId) {
+function createRemoveButton(answerId) {
     var button = document.createElement("button");
     button.classList.add("btn", "btn-danger");
     button.type = "button";
-    button.setAttribute("onclick", "detachItem('" + componentId + "')");
+    button.setAttribute("onclick", "detachItem('" + answerId + "')");
     button.innerText = "Убрать";
 
     return button;
 }
 
-function createDetailsButton(componentId) {
+function createDetailsButton(answerId) {
     var button = document.createElement("a");
-    button.setAttribute("href", "/Component/Details?id=" + componentId);
+    button.setAttribute("href", "/Answer/Details?id=" + answerId);
     button.classList.add("btn", "btn-primary");
     button.setAttribute("target", "_blank");
     button.innerText = "Подробности";
@@ -366,7 +378,6 @@ function removeListAndPagination() {
     $("#paginationToDelete").remove();
 }
 
-
 function toPrevMain(from = "") {
     if (from == "list") {
         $("#employee-list").empty();
@@ -382,22 +393,7 @@ function toPrevMain(from = "") {
     }
     $("#accordion").show();
 }
+
 function closeMessageDiv() {
     $("#message-div").remove();
-}
-
-function QRCodeSourcetoPrint(source) {
-    return "<html><head><script>function step1(){\n" +
-        "setTimeout('step2()', 10);}\n" +
-        "function step2(){window.print();window.close()}\n" +
-        "</scri" + "pt></head><body onload='step1()'>\n" +
-        "<img src='" + source + "' /></body></html>";
-}
-
-function QRCodePrint(source) {
-    Pagelink = "about:blank";
-    var pwa = window.open(Pagelink, "_new");
-    pwa.document.open();
-    pwa.document.write(QRCodeSourcetoPrint(source));
-    pwa.document.close();
 }

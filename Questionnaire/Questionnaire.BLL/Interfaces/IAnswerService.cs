@@ -8,5 +8,7 @@ namespace Questionnaire.BLL.Interfaces
     {
         IEnumerable<AnswerDTO> GetListOrderedByName();
         AnswerDTO Get(int? id);
+        IEnumerable<AnswerDTO> GetAnswersBy(string type, string value);
+
     }
 }
