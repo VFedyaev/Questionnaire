@@ -52,6 +52,9 @@ namespace Questionnaire.WEB.Controllers
                     case "InterviewerDTO":
                         result.Model = Mapper.Map<IEnumerable<InterviewerVM>>(result.Model);
                         break;
+                    case "FamilyDTO":
+                        result.Model = Mapper.Map<IEnumerable<FamilyVM>>(result.Model);
+                        break;
                 }
             }
             else

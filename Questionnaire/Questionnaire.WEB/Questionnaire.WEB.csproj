@@ -212,6 +212,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AnswerController.cs" />
     <Compile Include="Controllers\DistrictController.cs" />
+    <Compile Include="Controllers\FamilyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HousingTypeController.cs" />
     <Compile Include="Controllers\InterviewerController.cs" />
@@ -388,6 +389,12 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\User\ChangeRole.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Family\AjaxFamilyList.cshtml" />
+    <Content Include="Views\Family\Index.cshtml" />
+    <Content Include="Views\Family\Details.cshtml" />
+    <Content Include="Views\Family\Create.cshtml" />
+    <Content Include="Views\Family\Edit.cshtml" />
+    <Content Include="Views\Search\Families.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -428,7 +435,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57715</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

@@ -46,6 +46,13 @@ namespace Questionnaire.BLL.Services
             return Mapper.Map<IEnumerable<FamilyDTO>>(families);
         }
 
+        public IEnumerable<FamilyDTO> GetListOrderedByName()
+        {
+            List<Family> families = _unitOfWork.Families.GetAll().OrderBy(n => n.Name).ToList();
+
+            return Mapper.Map<IEnumerable<FamilyDTO>>(families);
+        }
+
         public void Add(FamilyDTO familyDTO)
         {
             Family family = Mapper.Map<Family>(familyDTO);
