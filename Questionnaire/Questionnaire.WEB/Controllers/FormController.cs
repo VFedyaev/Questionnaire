@@ -22,10 +22,10 @@ namespace Questionnaire.WEB.Controllers
         private IDistrictService DistrictService;
         private IInterviewerService InterviewerService;
 
-        public FormController(IFormService formService, 
-            ISurveyGeographyService surveyGeographyService, 
-            IHousingTypeService housingTypeService, 
-            IDistrictService districtService, 
+        public FormController(IFormService formService,
+            ISurveyGeographyService surveyGeographyService,
+            IHousingTypeService housingTypeService,
+            IDistrictService districtService,
             IInterviewerService interviewerService)
         {
             FormService = formService;
@@ -89,19 +89,26 @@ namespace Questionnaire.WEB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "NumberForm, SurveyGeographyId, HousingTypeId, DistrictId, InterviewerId, Address, Phone,InterviewDate, StartTime, EndTime")] FormVM formVM)
         {
-            if (ModelState.IsValid)
+            try
             {
-                FormDTO formDTO = Mapper.Map<FormDTO>(formVM);
-                //int questionId = QuestionService.AddAndGetId(questionDTO);
-                FormService.Add(formDTO);
-                return RedirectToAction("Index");
-            }
-            ViewBag.SurveyGeographyId = GetSurveyGeographySelectList(formVM.SurveyGeographyId);
-            ViewBag.HousingTypeId = GetHousingTypeSelectList(formVM.HousingTypeId);
-            ViewBag.DistrictId = GetDistrictSelectList(formVM.DistrictId);
-            ViewBag.InterviewerId = GetInterviewerSelectList(formVM.InterviewerId);
+                if (ModelState.IsValid)
+                {
+                    FormDTO formDTO = Mapper.Map<FormDTO>(formVM);
+                    //int questionId = QuestionService.AddAndGetId(questionDTO);
+                    FormService.Add(formDTO);
+                    return RedirectToAction("Index");
+                }
+                ViewBag.SurveyGeographyId = GetSurveyGeographySelectList(formVM.SurveyGeographyId);
+                ViewBag.HousingTypeId = GetHousingTypeSelectList(formVM.HousingTypeId);
+                ViewBag.DistrictId = GetDistrictSelectList(formVM.DistrictId);
+                ViewBag.InterviewerId = GetInterviewerSelectList(formVM.InterviewerId);
 
-            return View(formVM);
+                return View(formVM);
+            }
+            catch (UniqueConstraintException ex)
+            {
+                return Json(new { hasError = true, data = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // GET: Form/Edit/5
@@ -123,6 +130,7 @@ namespace Questionnaire.WEB.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             catch (NotFoundException)
             {
                 return HttpNotFound();
@@ -133,21 +141,29 @@ namespace Questionnaire.WEB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id, NumberForm, SurveyGeographyId, HousingTypeId, DistrictId, InterviewerId, Address, Phone,InterviewDate, StartTime, EndTime")] FormVM formVM)
         {
-            if (ModelState.IsValid)
+            try
             {
-                FormDTO formDTO = Mapper.Map<FormDTO>(formVM);
-                FormService.Update(formDTO);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    FormDTO formDTO = Mapper.Map<FormDTO>(formVM);
+                    FormService.Update(formDTO);
+                    return RedirectToAction("Index");
+                }
+                else
+                    ModelState.AddModelError(null, "Что-то пошло не так. Не удалось сохранить изменения.");
+
+                ViewBag.SurveyGeographyId = GetSurveyGeographySelectList(formVM.SurveyGeographyId);
+                ViewBag.HousingTypeId = GetHousingTypeSelectList(formVM.HousingTypeId);
+                ViewBag.DistrictId = GetDistrictSelectList(formVM.DistrictId);
+                ViewBag.InterviewerId = GetInterviewerSelectList(formVM.InterviewerId);
+
+                return View(formVM);
             }
-            else
-                ModelState.AddModelError(null, "Что-то пошло не так. Не удалось сохранить изменения.");
-
-            ViewBag.SurveyGeographyId = GetSurveyGeographySelectList(formVM.SurveyGeographyId);
-            ViewBag.HousingTypeId = GetHousingTypeSelectList(formVM.HousingTypeId);
-            ViewBag.DistrictId = GetDistrictSelectList(formVM.DistrictId);
-            ViewBag.InterviewerId = GetInterviewerSelectList(formVM.InterviewerId);
-
-            return View(formVM);
+            catch (UniqueConstraintException ex)
+            {
+                return Json(new {hasError = true, data = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+    
         }
 
         public SelectList GetSurveyGeographySelectList(short? selectedValue = null)

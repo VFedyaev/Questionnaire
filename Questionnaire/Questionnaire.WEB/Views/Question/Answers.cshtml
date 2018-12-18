@@ -1,10 +1,13 @@
 ﻿@model IEnumerable<Questionnaire.WEB.Models.Entities.AnswerVM>
+
 @{
 
     ViewBag.Title = "Ответы на вопрос";
 }
+
 <div class="block">
-    <h2 class="block-title">Ответы на вопрос</h2>
+    <h2 class="block-title">Ответы на вопрос </h2>
+
     <div class="form-group" id="answers">
         <div id="search-input" class="col-md-12">
             <div class="input-group">
@@ -13,13 +16,11 @@
                 </div>
                 <input type="text" class="form-control" placeholder="Введите наименование ответа" id="search-input-value" />
                 <div id="search-buttons" class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" onclick="searchAnswers('type')">по типу</button>
-                    <button class="btn btn-outline-secondary" type="button" onclick="searchAnswers('model')">по модели</button>
-                    <button class="btn btn-outline-secondary" type="button" onclick="searchAnswers('number')">по номеру</button>
-                    <button class="btn btn-outline-danger" type="button" onclick="clearSearch()">сбросить</button>
+                    <button class="btn btn-outline-success" type="button" onclick="searchAnswers('model')">Искать</button>
+                    <button class="btn btn-outline-danger" type="button" onclick="clearSearch()">Сбросить</button>
                 </div>
             </div>
-            <small id="information" class="form-text text-muted">Введите наименование ответа.</small>
+            <small id="information" class="form-text text-muted">Поиск вариантов ответа для вопроса.</small>
         </div>
     </div>
     @using (Html.BeginForm("UpdateAnswers", "Relation", FormMethod.Post))
@@ -38,19 +39,23 @@
                     <div class="row" id="pinned-@answer.Id">
                         <div class="col-md-8">
                             <input type="hidden" name="answerId[]" value="@answer.Id" />
-                            <div class="type row item-info-row">
-                                <div class="col-md-6 item-info">
+                            <div class="name row item-info-row">
+                                <div class="col-md-3 item-info">
                                     <b>Вариант ответа</b>
                                 </div>
                                 <div class="col-md-6 item-info">
                                     @answer.Name
                                 </div>
+                                <div class="col-md-3 item-info">
+                                    <div class="btn-group float-right">
+                                        <button class="btn btn-danger btn-sm" type="button" onclick="detachItem('@answer.Id')">Убрать</button>
+                                        <a href="@Url.Action("Details", "Answer", new { id = answer.Id })" target="_blank" class="btn btn-primary btn-sm">Подробности</a>
+                                    </div>
+                                </div>
+                                <br />
+                                <br />
                             </div>
                             <br />
-                            <div class="btn-group float-right">
-                                <button class="btn btn-danger" type="button" onclick="detachItem('@answer.Id')">Убрать</button>
-                                <a href="@Url.Action("Details", "Answer", new { id = answer.Id })" target="_blank" class="btn btn-primary">Подробности</a>
-                            </div>
                         </div>
                     </div>
                 }
@@ -66,4 +71,7 @@
     }
 </div>
 @section scripts {
+    <script>
+        searchAnswersByEnter();
+    </script>
 }

@@ -6,6 +6,7 @@ using Questionnaire.DAL.Entities;
 using Questionnaire.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,17 +56,35 @@ namespace Questionnaire.BLL.Services
 
         public void Add(AnswerDTO answerDTO)
         {
-            Answer answer = Mapper.Map<Answer>(answerDTO);
-            _unitOfWork.Answers.Create(answer);
-            _unitOfWork.Save();
+            try
+            {
+                Answer answer = Mapper.Map<Answer>(answerDTO);
+                _unitOfWork.Answers.Create(answer);
+                _unitOfWork.Save();
+            }
+            catch (DbUpdateException)
+            {
+                if (NotUnique(answerDTO.Name))
+                    throw new UniqueConstraintException();
+            }
+
         }
 
         public void Update(AnswerDTO answerDTO)
         {
-            Answer answer = Mapper.Map<Answer>(answerDTO);
+            try
+            {
+                Answer answer = Mapper.Map<Answer>(answerDTO);
 
-            _unitOfWork.Answers.Update(answer);
-            _unitOfWork.Save();
+                _unitOfWork.Answers.Update(answer);
+                _unitOfWork.Save();
+            }
+            catch (DbUpdateException)
+            {
+                if (NotUnique(answerDTO.Name))
+                    throw new UniqueConstraintException();
+            }
+
         }
 
 
@@ -82,6 +101,11 @@ namespace Questionnaire.BLL.Services
             _unitOfWork.Save();
         }
 
+        public bool NotUnique(string name)
+        {
+            var relationsCount = _unitOfWork.Answers.Find(h => h.Name == name).ToList().Count();
+            return relationsCount > 0;
+        }
 
         public IEnumerable<AnswerDTO> GetAnswersBy(string type, string value)
         {
@@ -91,7 +115,7 @@ namespace Questionnaire.BLL.Services
                 case "model":
                     answers = GetAnswersByModel(value);
                     break;
-       
+
             }
 
             return answers;

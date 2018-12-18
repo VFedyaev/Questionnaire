@@ -76,13 +76,24 @@ namespace Questionnaire.WEB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name")] AnswerVM answerVM)
         {
-            if (ModelState.IsValid)
+            try
             {
-                AnswerDTO answerDTO = Mapper.Map<AnswerDTO>(answerVM);
-                AnswerService.Add(answerDTO);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    AnswerDTO answerDTO = Mapper.Map<AnswerDTO>(answerVM);
+                    AnswerService.Add(answerDTO);
+                    return RedirectToAction("Index");
+                }
+                return View();
             }
-            return View();
+            catch (UniqueConstraintException ex)
+            {
+                return Json(new
+                {
+                    hasError = true,
+                    data = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // GET: Answer/Edit/5
@@ -109,13 +120,24 @@ namespace Questionnaire.WEB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name")] AnswerVM answerVM)
         {
-            if (ModelState.IsValid)
+            try
             {
-                AnswerDTO answerDTO = Mapper.Map<AnswerDTO>(answerVM);
-                AnswerService.Update(answerDTO);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    AnswerDTO answerDTO = Mapper.Map<AnswerDTO>(answerVM);
+                    AnswerService.Update(answerDTO);
+                    return RedirectToAction("Index");
+                }
+                return View(answerVM);
             }
-            return View(answerVM);
+            catch (UniqueConstraintException ex)
+            {
+                return Json(new
+                {
+                    hasError = true,
+                    data = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // GET: Answer/Delete/5

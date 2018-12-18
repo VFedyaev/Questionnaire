@@ -113,6 +113,7 @@
     <Compile Include="Infrastructure\AccountModule.cs" />
     <Compile Include="Infrastructure\Exceptions\HasRelationsException.cs" />
     <Compile Include="Infrastructure\Exceptions\InsecurePasswordException.cs" />
+    <Compile Include="Infrastructure\Exceptions\UniqueConstraintException .cs" />
     <Compile Include="Infrastructure\Exceptions\NotFoundException.cs" />
     <Compile Include="Infrastructure\Exceptions\OldPasswordIsWrongException.cs" />
     <Compile Include="Infrastructure\Exceptions\UserAlreadyExistsException.cs" />

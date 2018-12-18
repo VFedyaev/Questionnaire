@@ -1,7 +1,7 @@
 ﻿const TYPE = "Тип";
 const NUMBER = "Инвентаризационный номер";
 const MODEL = "Модель";
-const NAME = "Название";
+const NAME = "Вариант ответа";
 
 function menuInit() {
     $(document).ready(function () {
@@ -17,15 +17,15 @@ function menuInit() {
     });
 }
 
-//function searchEmployeesByEnter() {
-//    $(document).ready(function () {
-//        $("#search-input-value").keyup(function (event) {
-//            if (event.keyCode == 13) {
-//                searchEmployees();
-//            }
-//        });
-//    });
-//}
+function searchAnswersByEnter() {
+    $(document).ready(function () {
+        $("#search-input-value").keyup(function (event) {
+            if (event.keyCode == 13) {
+                searchAnswers('model');
+            }
+        });
+    });
+}
 
 
 function getAge() {
@@ -66,7 +66,7 @@ function activeMenuItem() {
     else {
         $('#main-page-menu-item').addClass('active');
     }
-   
+
 }
 
 function turnOffCurrentActiveMenuItem() {
@@ -188,7 +188,6 @@ function searchAnswers(type) {
 
     document.getElementById('searching').innerText = "Идет поиск...";
 
-
     $.ajax({
         url: "/Answer/FindAnswers",
         type: "Post",
@@ -216,42 +215,44 @@ function attachAnswer(answerId) {
         return false;
     }
 
-    var componentInfo = $("#" + answerId);
-    var type = componentInfo.find("td.type")[0].innerText;
-    var model = componentInfo.find("td.model")[0].innerText;
-    var name = componentInfo.find("td.name")[0].innerText;
-    var number = componentInfo.find("td.number")[0].innerText;
+    var answerInfo = $("#" + answerId);
+    var name = answerInfo.find("td.name")[0].innerText;
+
+    var newTr = document.createElement("tr");
+    newTr.id = "pinned-" + answerId;
 
     var inputId = document.createElement("input");
-    inputId.type = "hidden";
+    inputId.type = "text";
     inputId.name = "answerId[]";
     inputId.value = answerId;
 
-    var typeDiv = createDiv("type", TYPE, type);
-    var modelDiv = createDiv("model", MODEL, model);
+    //var typeDiv = createDiv("type", TYPE, type);
+    //var modelDiv = createDiv("model", MODEL, model);
     var nameDiv = createDiv("name", NAME, name);
-    var numberDiv = createDiv("number", NUMBER, number);
+    //var numberDiv = createDiv("number", NUMBER, number);
 
     var buttonDiv = createButtonDiv(answerId);
 
     var wrapDiv = document.createElement("div");
     wrapDiv.classList.add("col-md-8", "item");
 
-    var newComponent = document.createElement("div");
-    newComponent.className = "row";
-    newComponent.id = "pinned-" + answerId;
+    var newAnswer = document.createElement("div");
+    newAnswer.className = "row";
+    newAnswer.id = "pinned-" + answerId;
 
-    wrapDiv.appendChild(inputId);
-    wrapDiv.appendChild(typeDiv);
-    wrapDiv.appendChild(modelDiv);
+    //wrapDiv.appendChild(inputId);
+    //wrapDiv.appendChild(typeDiv);
+    //wrapDiv.appendChild(modelDiv);
     wrapDiv.appendChild(nameDiv);
-    wrapDiv.appendChild(numberDiv);
-    wrapDiv.appendChild(createElement("br"));
+    //wrapDiv.appendChild(numberDiv);
     wrapDiv.appendChild(buttonDiv);
-    newComponent.appendChild(wrapDiv);
+
+    wrapDiv.appendChild(createElement("br"));
+    wrapDiv.appendChild(createElement("br"));
+    newAnswer.appendChild(wrapDiv);
 
     var attachedItems = document.getElementById("attached-items");
-    attachedItems.appendChild(newComponent);
+    attachedItems.appendChild(newAnswer);
 }
 
 function createElement(element) {
@@ -263,7 +264,7 @@ function createDiv(divClass, title, value) {
     wrapDiv.classList.add(divClass, "row", "item-info-row");
 
     var firstDiv = document.createElement("div");
-    firstDiv.classList.add("col-md-6", "item-info");
+    firstDiv.classList.add("col-md-3", "item-info");
 
     var bold = document.createElement("b");
     bold.innerText = title;
@@ -274,8 +275,12 @@ function createDiv(divClass, title, value) {
     secondDiv.classList.add("col-md-6", "item-info");
     secondDiv.innerText = value;
 
+    var thirdDiv = document.createElement("div");
+    thirdDiv.classList.add("col-md-3", "item-info");
+
     wrapDiv.appendChild(firstDiv);
     wrapDiv.appendChild(secondDiv);
+    wrapDiv.appendChild(thirdDiv);
 
     return wrapDiv;
 }
@@ -296,7 +301,7 @@ function createButtonDiv(answerId) {
 
 function createRemoveButton(answerId) {
     var button = document.createElement("button");
-    button.classList.add("btn", "btn-danger");
+    button.classList.add("btn", "btn-danger", "btn-sm");
     button.type = "button";
     button.setAttribute("onclick", "detachItem('" + answerId + "')");
     button.innerText = "Убрать";
@@ -307,7 +312,7 @@ function createRemoveButton(answerId) {
 function createDetailsButton(answerId) {
     var button = document.createElement("a");
     button.setAttribute("href", "/Answer/Details?id=" + answerId);
-    button.classList.add("btn", "btn-primary");
+    button.classList.add("btn", "btn-primary", "btn-sm");
     button.setAttribute("target", "_blank");
     button.innerText = "Подробности";
 
@@ -397,3 +402,21 @@ function toPrevMain(from = "") {
 function closeMessageDiv() {
     $("#message-div").remove();
 }
+
+$('.form-submit').on('click', function (e) {
+    e.preventDefault();
+    var form = $('form');
+    var self = $(this);
+        $.post({
+            url: form.attr("action"),
+            data: form.serialize(),
+
+            success: function (response) {
+                if (response.hasError) {
+                    alert("Такая запись уже существует в базе данных!");
+                }
+                else
+                    window.location.href = self.data("redirect-to");
+            }
+        })
+});

@@ -6,6 +6,8 @@ using Questionnaire.DAL.Entities;
 using Questionnaire.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,18 +57,35 @@ namespace Questionnaire.BLL.Services
 
         public void Add(FormDTO formDTO)
         {
-            Form form = Mapper.Map<Form>(formDTO);
+            try
+            {
+                Form form = Mapper.Map<Form>(formDTO);
 
-            _unitOfWork.Forms.Create(form);
-            _unitOfWork.Save();
+                _unitOfWork.Forms.Create(form);
+                _unitOfWork.Save();
+            }
+            catch (DbUpdateException)
+            {
+                if (NotUnique(formDTO.NumberForm))
+                    throw new UniqueConstraintException();
+            }
         }
 
         public void Update(FormDTO formDTO)
         {
-            Form form = Mapper.Map<Form>(formDTO);
+            try
+            {
+                Form form = Mapper.Map<Form>(formDTO);
 
-            _unitOfWork.Forms.Update(form);
-            _unitOfWork.Save();
+                _unitOfWork.Forms.Update(form);
+                _unitOfWork.Save();
+            }
+            catch (DbUpdateException)
+            {
+                if (NotUnique(formDTO.NumberForm))
+                    throw new UniqueConstraintException();
+            }
+
         }
 
         public void Delete(int id)
@@ -81,6 +100,12 @@ namespace Questionnaire.BLL.Services
 
             _unitOfWork.Forms.Delete(id);
             _unitOfWork.Save();
+        }
+
+        public bool NotUnique(int numberForm)
+        {
+            var relationsCount = _unitOfWork.Forms.Find(h => h.NumberForm == numberForm).ToList().Count();
+            return relationsCount > 0;
         }
 
         public bool HasRelations(int id)
