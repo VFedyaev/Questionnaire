@@ -118,6 +118,11 @@ namespace Questionnaire.BLL.Services
                 Delete(relation.Id);
         }
 
+        //private IEnumerable<QuestionAnswerDTO> GetQuestionAnswersByQuestionType()
+        //{
+
+        //}
+
         public void Delete(int id)
         {
             QuestionAnswer relation = _unitOfWork.QuestionAnswers.Get(id);

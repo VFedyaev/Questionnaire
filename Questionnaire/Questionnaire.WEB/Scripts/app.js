@@ -27,7 +27,6 @@ function searchAnswersByEnter() {
     });
 }
 
-
 function getAge() {
     var today = new Date();
     var selectDate = new Date(document.getElementById("dateBorn").value);
@@ -211,27 +210,21 @@ function searchAnswers(type) {
 
 function attachAnswer(answerId) {
     if (document.body.contains(document.getElementById("pinned-" + answerId))) {
-        alert("Этот ответ уже в списке.");
+        alert("Комплектующее уже в списке.");
         return false;
     }
 
     var answerInfo = $("#" + answerId);
     var name = answerInfo.find("td.name")[0].innerText;
 
-    var newTr = document.createElement("tr");
-    newTr.id = "pinned-" + answerId;
-
     var inputId = document.createElement("input");
-    inputId.type = "text";
+    inputId.type = "hidden";
     inputId.name = "answerId[]";
     inputId.value = answerId;
 
-    //var typeDiv = createDiv("type", TYPE, type);
-    //var modelDiv = createDiv("model", MODEL, model);
     var nameDiv = createDiv("name", NAME, name);
-    //var numberDiv = createDiv("number", NUMBER, number);
 
-    var buttonDiv = createButtonDiv(answerId);
+
 
     var wrapDiv = document.createElement("div");
     wrapDiv.classList.add("col-md-8", "item");
@@ -240,15 +233,11 @@ function attachAnswer(answerId) {
     newAnswer.className = "row";
     newAnswer.id = "pinned-" + answerId;
 
-    //wrapDiv.appendChild(inputId);
-    //wrapDiv.appendChild(typeDiv);
-    //wrapDiv.appendChild(modelDiv);
+    wrapDiv.appendChild(inputId);
     wrapDiv.appendChild(nameDiv);
-    //wrapDiv.appendChild(numberDiv);
-    wrapDiv.appendChild(buttonDiv);
 
     wrapDiv.appendChild(createElement("br"));
-    wrapDiv.appendChild(createElement("br"));
+
     newAnswer.appendChild(wrapDiv);
 
     var attachedItems = document.getElementById("attached-items");
@@ -259,7 +248,9 @@ function createElement(element) {
     return document.createElement(element);
 }
 
-function createDiv(divClass, title, value) {
+function createDiv(divClass, title, value, answerId) {
+    var buttonDiv = createButtonDiv(answerId);
+
     var wrapDiv = document.createElement("div");
     wrapDiv.classList.add(divClass, "row", "item-info-row");
 
@@ -277,10 +268,14 @@ function createDiv(divClass, title, value) {
 
     var thirdDiv = document.createElement("div");
     thirdDiv.classList.add("col-md-3", "item-info");
+    thirdDiv.appendChild(buttonDiv);
 
     wrapDiv.appendChild(firstDiv);
     wrapDiv.appendChild(secondDiv);
     wrapDiv.appendChild(thirdDiv);
+
+    wrapDiv.appendChild(createElement("br"));
+    wrapDiv.appendChild(createElement("br"));
 
     return wrapDiv;
 }

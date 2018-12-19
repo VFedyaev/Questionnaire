@@ -78,7 +78,7 @@ namespace Questionnaire.BLL.Services
                 .Find(e => e.QuestionId == id)
                 .Select(com => com.AnswerId);
 
-            if (questionAnswerIds.Count() <= 0)
+            if (questionAnswerIds.Count() < 0)
                 return Enumerable.Empty<AnswerDTO>();
 
             IEnumerable<AnswerDTO> answers = (

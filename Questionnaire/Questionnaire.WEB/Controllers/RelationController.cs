@@ -39,8 +39,7 @@ namespace Questionnaire.WEB.Controllers
             return RedirectToRoute(new
             {
                 controller = "Question",
-                action = "Answers",
-                questionId
+                action = "Index"
             });
         }
     }
