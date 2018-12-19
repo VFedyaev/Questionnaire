@@ -120,7 +120,27 @@ namespace Questionnaire.BLL.Services
 
         //private IEnumerable<QuestionAnswerDTO> GetQuestionAnswersByQuestionType()
         //{
+        //    IEnumerable<QuestionAnswerDTO> questionAnswerDTOs = (
+        //        from
+        //            questionAnswer in _unitOfWork.QuestionAnswers.GetAll()
+        //        join
+        //            question in _unitOfWork.Questions.GetAll()
+        //        on
+        //            questionAnswer.QuestionId equals question.Id
+        //        join
+        //            answer in _unitOfWork.Answers.GetAll()
+        //        on
+        //            questionAnswer.AnswerId equals answer.Id
+        //        join 
+        //            questionType in _unitOfWork.QuestionTypes.GetAll()
+        //        on
+        //            question.QuestionTypeId equals questionType.Id
+        //        select new QuestionAnswerDTO
+        //        {
+        //            QuestionId = question.Name
+        //        }).First();
 
+        //    return questionAnswerDTOs;
         //}
 
         public void Delete(int id)

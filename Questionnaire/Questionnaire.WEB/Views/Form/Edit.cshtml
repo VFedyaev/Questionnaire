@@ -18,7 +18,7 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.NumberForm)
-                @Html.EditorFor(model => model.NumberForm, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                @Html.EditorFor(model => model.NumberForm, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @id = "required" } })
                 @Html.ValidationMessageFor(model => model.NumberForm, "", new { @class = "text-danger" })
             </div>
 

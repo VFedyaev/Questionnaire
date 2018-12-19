@@ -400,6 +400,8 @@ function closeMessageDiv() {
 
 $('.form-submit').on('click', function (e) {
     e.preventDefault();
+    var checkField = $('#required').val();
+    var validationError = $('.text-danger');
     var form = $('form');
     var self = $(this);
         $.post({
@@ -409,6 +411,10 @@ $('.form-submit').on('click', function (e) {
             success: function (response) {
                 if (response.hasError) {
                     alert("Такая запись уже существует в базе данных!");
+                }
+                else if (checkField == "") {
+                    validationError.text("Заполните поле!");
+                    validationError.show();
                 }
                 else
                     window.location.href = self.data("redirect-to");
