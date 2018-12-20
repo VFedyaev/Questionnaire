@@ -11,106 +11,109 @@
     {
         @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <br />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-horizontal">
+            <br />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <table class="table table-sm">
-            <thead>
-                <tr>
-                    <th width="15%">
-                        naim
-                    </th>
-                    <th width="85%">
-                        pole
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>@Html.LabelFor(model => model.NumberForm)</td>
-                    <td>
-                        @Html.EditorFor(model => model.NumberForm, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @id = "required" } })
+            <form>
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.NumberForm)
+                    </div>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NumberForm, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @min="0", @id = "required" } })
                         @Html.ValidationMessageFor(model => model.NumberForm, "", new { @class = "text-danger" })
-                    </td>
-                </tr>
-                <tr>
-                    <td>@Html.LabelFor(model => model.SurveyGeographyId)</td>
-                    <td>
+                    </div>
+                </div>     
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.SurveyGeographyId)
+                    </div>
+                    <div class="col-md-10">
                         @Html.DropDownList("SurveyGeographyId", null, "Место обследования", htmlAttributes: new { @class = "form-control", @id = "surveyGeographyIdDropDown" })
                         @Html.ValidationMessageFor(model => model.SurveyGeographyId, "", new { @class = "text-danger" })
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    </div>
+                </div>     
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.HousingTypeId)
+                    </div>
+                    <div class="col-md-10">
+                        @Html.DropDownList("HousingTypeId", null, "Тип жилья", htmlAttributes: new { @class = "form-control", @required = "required", @id = "housingTypeIdDropDown" })
+                        @Html.ValidationMessageFor(model => model.HousingTypeId, "", new { @class = "text-danger" })
+                    </div>
+                </div>  
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.DistrictId)
+                    </div>
+                    <div class="col-md-10">
+                        @Html.DropDownList("DistrictId", null, "Район", htmlAttributes: new { @class = "form-control", @required = "required", @id = "districtIdDropDown" })
+                        @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                    </div>
+                </div> 
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.InterviewerId)
+                    </div>
+                    <div class="col-md-10">
+                        @Html.DropDownList("InterviewerId", null, "ФИО интервьюера", htmlAttributes: new { @class = "form-control", @required = "required", @id = "interviewerIdDropDown" })
+                        @Html.ValidationMessageFor(model => model.InterviewerId, "", new { @class = "text-danger" })
+                    </div>
+                </div> 
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.Address)
+                    </div>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+                </div>  
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.Phone)
+                    </div>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                    </div>
+                </div> 
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.InterviewDate)
+                    </div>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.InterviewDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @min = "1930-01-01", @max = "2100-01-01", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.InterviewDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>    
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.StartTime)
+                    </div>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "date", @min = "1930-01-01", @max = "2100-01-01", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>  
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        @Html.LabelFor(model => model.EndTime)
+                    </div>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control", @type = "date", @min = "1930-01-01", @max = "2100-01-01" } })
+                    </div>
+                </div>
+            </form>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.NumberForm)
-            @Html.EditorFor(model => model.NumberForm, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @id = "required" } })
-            @Html.ValidationMessageFor(model => model.NumberForm, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SurveyGeographyId)
-            @Html.DropDownList("SurveyGeographyId", null, "Место обследования", htmlAttributes: new { @class = "form-control", @id = "surveyGeographyIdDropDown" })
-            @Html.ValidationMessageFor(model => model.SurveyGeographyId, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.HousingTypeId)
-            @Html.DropDownList("HousingTypeId", null, "Тип жилья", htmlAttributes: new { @class = "form-control", @required = "required", @id = "housingTypeIdDropDown" })
-            @Html.ValidationMessageFor(model => model.HousingTypeId, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DistrictId)
-            @Html.DropDownList("DistrictId", null, "Район", htmlAttributes: new { @class = "form-control", @required = "required", @id = "districtIdDropDown" })
-            @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.InterviewerId)
-            @Html.DropDownList("InterviewerId", null, "ФИО интервьюера", htmlAttributes: new { @class = "form-control", @required = "required", @id = "interviewerIdDropDown" })
-            @Html.ValidationMessageFor(model => model.InterviewerId, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Address)
-            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off"} })
-            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-        </div>
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Phone)
-            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
-            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.InterviewDate)
-            @Html.EditorFor(model => model.InterviewDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @min = "1930-01-01", @max = "2100-01-01", @required = "required" } })
-            @Html.ValidationMessageFor(model => model.InterviewDate, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.StartTime)
-            @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "date", @min = "1930-01-01", @max = "2100-01-01", @required = "required" } })
-            @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EndTime)
-            @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control", @type = "date", @min = "1930-01-01", @max = "2100-01-01" } })
-        </div>
-
-        <div class="form-group">
-            <div class="btn-group" role="group">
-                <button type="submit" class="btn btn-success form-submit" data-redirect-to="/Form/Index"><i class="fa fa-save" aria-hidden="true" title="Сохранить" data-toggle="tooltip" data-placement="top" ></i> Сохранить</button>
-                <a href="@Url.Action("Index", "Form")" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true" title="Назад" data-toggle="tooltip" data-placement="top"></i> Назад</a>
+            <div class="form-group">
+                <div class="btn-group" role="group">
+                    <button type="submit" class="btn btn-success form-submit" data-redirect-to="/Form/Index"><i class="fa fa-save" aria-hidden="true" title="Сохранить" data-toggle="tooltip" data-placement="top"></i> Сохранить</button>
+                    <a href="@Url.Action("Index", "Form")" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true" title="Назад" data-toggle="tooltip" data-placement="top"></i> Назад</a>
+                </div>
             </div>
         </div>
-    </div>
     }
 </div>
 

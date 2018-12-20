@@ -12,18 +12,11 @@ namespace Questionnaire.DAL.Repositories
     class PartialRepository<T> : IPartialRepository<T> where T : class
     {
         private QuestionnaireContext questionnaireContext;
-        private IdentityContext AccountContext;
         private DbSet<T> DbSet;
 
         public PartialRepository(QuestionnaireContext context)
         {
             questionnaireContext = context;
-            DbSet = context.Set<T>();
-        }
-
-        public PartialRepository(IdentityContext context)
-        {
-            AccountContext = context;
             DbSet = context.Set<T>();
         }
 

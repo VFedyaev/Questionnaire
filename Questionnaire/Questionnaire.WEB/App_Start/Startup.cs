@@ -3,6 +3,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 
+[assembly: OwinStartupAttribute(typeof(Questionnaire.WEB.App_Start.Startup))]
 namespace Questionnaire.WEB.App_Start
 {
     public class Startup

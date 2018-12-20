@@ -9,6 +9,6 @@ namespace Questionnaire.BLL.Interfaces
         void UpdateQuestionRelations(int? questionId, string[] answerIds);
         void DeleteRelationsByQuestionId(int id);
 
-        //IEnumerable<QuestionAnswerDTO> GetQuestionAnswersByQuestionType();
+        IEnumerable<FormDataDTO> GetQuestionAnswersByQuestionType();
     }
 }

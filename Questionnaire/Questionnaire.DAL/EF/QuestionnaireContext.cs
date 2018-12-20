@@ -1,9 +1,10 @@
 ﻿using System.Data.Entity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Questionnaire.DAL.Entities;
 
 namespace Questionnaire.DAL.EF
 {
-    public class QuestionnaireContext : DbContext
+    public class QuestionnaireContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<QuestionType> QuestionTypes { get; set; }
         public DbSet<Question> Questions { get; set; }

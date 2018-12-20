@@ -4,11 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Questionnaire.DAL.Entities;
+using Questionnaire.DAL.Identity;
 
 namespace Questionnaire.DAL.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
+        ApplicationUserManager UserManager { get; }
+        ApplicationRoleManager RoleManager { get; }
+
         IRepository<QuestionType> QuestionTypes { get; }
         IRepository<Question> Questions { get; }
         IRepository<Answer> Answers { get; }
@@ -21,6 +25,7 @@ namespace Questionnaire.DAL.Interfaces
         IRepository<Family> Families { get; }
         IRepository<Data> Datas { get; }
 
+        Task SaveAsync();
         void Save();
     }
 }
