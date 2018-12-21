@@ -93,7 +93,7 @@
                         @Html.LabelFor(model => model.StartTime)
                     </div>
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @id = "timeNow", @required = "required" } })
+                        @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "datetime-local", @required = "required" } })
                         @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
                     </div>
                 </div>  

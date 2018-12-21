@@ -36,9 +36,12 @@ function getAge() {
 
 function getTime() {
     var today = new Date();
+    var y = today.getFullYear;
+    var m = today.getMonth;
+    var d = today.getDay;
     var h = today.getHours();
     var m = today.getMinutes();
-    document.getElementById("timeNow").value = h + ":" + m;
+    document.getElementById("timeNow").value = y + "-"+ m + "-"+ d + " " +  h + ":" + m;
 
 }
 
