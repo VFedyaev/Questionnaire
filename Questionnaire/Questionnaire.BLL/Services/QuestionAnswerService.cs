@@ -118,9 +118,9 @@ namespace Questionnaire.BLL.Services
                 Delete(relation.Id);
         }
 
-        public IEnumerable<FormDataDTO> GetQuestionAnswersByQuestionType()
+        public IEnumerable<FormDataDTO> GetQuestionAnswersByQuestionType(int questionTypeId)
         {
-            IEnumerable<FormDataDTO> questionAnswerDTOs = (
+            var formData = (
                 from
                     questionAnswer in _unitOfWork.QuestionAnswers.GetAll()
                 join
@@ -135,68 +135,64 @@ namespace Questionnaire.BLL.Services
                     questionType in _unitOfWork.QuestionTypes.GetAll()
                 on
                     question.QuestionTypeId equals questionType.Id
+                where questionType.Id == questionTypeId
+                select new
+                {
+                    questionAnswerId = questionAnswer.Id,
+                    questionName = question.Name,
+                    answerName = answer.Name
+
+                } into result
+                group result by new { result.questionName } into data
                 select new FormDataDTO
                 {
-                    QuestionAnswerId = questionAnswer.Id,
-                    QuestionTypeName = questionType.Name,
-                    QuestionName = question.Name,
-                    AnswerName = answer.Name
-
+                    QuestionName = data.Key.questionName,
+                    Options = data.Select(o =>
+                    {
+                        return new FormOptionDTO
+                        {
+                            Id = o.questionAnswerId,
+                            Name = o.answerName
+                        };
+                    })
                 }).ToList();
 
-
-
-            //IEnumerable<FormDataDTO> questionAnswerDTOs = (
-            //    from questionType in _unitOfWork.QuestionTypes.GetAll()
-            //    group questionType by questionType.Name into qt
-            //    join question in _unitOfWork.Questions.GetAll() on qt.FirstOrDefault().Id equals question.QuestionTypeId
+            //var sortedData = (
+            //    from data in unsortedData
             //    select new FormDataDTO
             //    {
-            //        QuestionTypeName = qt.FirstOrDefault().Name,
-            //        QuestionName = question.Name
-            //    }).ToList();
-
-            //IEnumerable<FormDataDTO> questionAnswerDTOs = (
-            //    from
-            //        questionType in _unitOfWork.QuestionTypes.GetAll()
-            //    join question in _unitOfWork.Questions.GetAll()
-            //    on questionType.Id equals question.QuestionTypeId
-            //    where questionType.Name == "A. ОБЩИЕ"
-            //    group new { questionType, question } by new { questionType.Name } into q
-            //    select new FormDataDTO
+            //        QuestionName = data.Key.questionName,
+            //        Options = data.Select(o =>
+            //        {
+            //            return new FormOptionDTO
             //            {
-            //                QuestionTypeName = q.Key.Name,
-            //                QuestionName = question.Name
+            //                Id = o.questionAnswerId,
+            //                Name = o.answerName
+            //            };
+            //        })
+            //    });
 
-            //    }).ToList();
-
-            //IEnumerable<FormDataDTO> questionAnswerDTOs = (
-            //    from questionType in _unitOfWork.QuestionTypes.GetAll()
-            //    join question in _unitOfWork.Questions.GetAll() on questionType.Id equals question.QuestionTypeId
-            //    group question by new { questionType.Name} into q
-            //    select new FormDataDTO
+            //select new FormDataDTO
+            //{
+            //    QuestionTypeName = groupedResult.Key.questionTypeName,
+            //    Questions = groupedResult.Select(q =>
             //    {
-            //        QuestionTypeName = q.Key.Name,
-            //        QuestionName = q.Key.Name
-            //    }).ToList();
+            //        return new FormQuestionDTO
+            //        {
+            //            Name = q.questionName,
+            //            Options = groupedResult.Select(o =>
+            //            {
+            //                return new FormOptionDTO
+            //                {
+            //                    Id = o.questionAnswerId,
+            //                    Name = o.answerName
+            //                };
+            //            })
+            //        };
+            //    })
+            //}
 
-
-
-            //IEnumerable<FormDataDTO> questionAnswerDTOs = (
-            //    from
-            //        questionType in _unitOfWork.QuestionTypes.GetAll()
-            //    group questionType by questionType.Name into qt
-            //    //join
-            //    //    question in _unitOfWork.Questions.GetAll() on qt.FirstOrDefault().Id equals question.QuestionTypeId
-            //    select new FormDataDTO
-            //    {
-            //        QuestionTypeName = qt.Key,
-
-
-            //    }).ToList();
-
-
-            return questionAnswerDTOs;
+            return formData;
         }
 
         public void Delete(int id)

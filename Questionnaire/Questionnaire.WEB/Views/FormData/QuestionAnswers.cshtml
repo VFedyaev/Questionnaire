@@ -1,45 +1,65 @@
-﻿@model IEnumerable<Questionnaire.BLL.DTO.FormDataDTO>
-@using PagedList;
-@using PagedList.Mvc;
+﻿@model IEnumerable<Questionnaire.WEB.Models.Entities.FormDataVM>
 
 @{
     ViewBag.Title = "Вопрос ответ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("QuestionAnswers", "FormData", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-
-    <input type="hidden" name="questionId" value="@ViewBag.QuestionId" />
-
-    <div id="found-items-area"></div>
-
-    <div id="attached-items" class="justify-content-center">
-        @if (!(Model.Count() <= 0))
-        {
-            foreach (Questionnaire.BLL.DTO.FormDataDTO answer in Model)
+<div class="block">
+    <div class="row">
+        <div class="col-lg-3 col-md-3">
+            <h4>Разделы</h4>
+            <hr />
+            <ul class="nav flex-column">
+                @foreach (var section in ViewBag.Sections)
+                {
+                    string name = section.Name;
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = section.Id })">@name</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="col-lg-9 col-md-9">
+            @using (Html.BeginForm("QuestionAnswers", "FormData", FormMethod.Post))
             {
-                <form class="was-validated">
-                    <div class="col-md-6 item-info">
-                        @answer.QuestionTypeName
-                    </div>
-                    <div class="col-md-6 item-info">
-                        @answer.QuestionName
-                    </div>
-                    <div class="custom-control custom-radio">
-                        <input type="radio" class="custom-control-input" id="customControlValidation2" name="radio-stacked" required>
-                        <label class="custom-control-label" for="customControlValidation2">@answer.AnswerName</label>
-                    </div>
-                </form>
-            }
-        }
-    </div>
+                @Html.AntiForgeryToken()
+                <h2>@ViewBag.Section</h2>
 
-    <div class="form-group">
-        <div class="btn-group" role="group">
-            <button type="submit" class="btn btn-success"><i class="fa fa-save" aria-hidden="true" title="Сохранить" data-toggle="tooltip" data-placement="top"></i> Сохранить</button>
-            <a href="@Url.Action("Index", "Question")" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true" title="Назад" data-toggle="tooltip" data-placement="top"></i> Назад</a>
+                <div id="found-items-area"></div>
+
+                <div id="attached-items" class="justify-content-center">
+                    @if (!(Model.Count() <= 0))
+                    {
+                        foreach (var question in Model)
+                        {
+                            <form class="was-validated">
+                                <div class="item-info">
+                                    <b>@question.QuestionName</b>
+                                    <hr />
+                                </div>
+                                <div class="row">
+                                    @foreach (var option in question.Options)
+                                    {
+                                        <div class="col-lg-4 col-md-4">
+                                            <input type="radio" name="options[]" value="@option.Id" />
+                                            <label>@option.Name</label>
+                                        </div>
+                                    }
+                                </div>
+                            </form>
+                            <hr />
+                        }
+                    }
+                </div>
+
+                <div class="form-group">
+                    <div class="btn-group" role="group">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-save" aria-hidden="true" title="Сохранить" data-toggle="tooltip" data-placement="top"></i> Сохранить</button>
+                        <a href="@Url.Action("Index", "Question")" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true" title="Назад" data-toggle="tooltip" data-placement="top"></i> Назад</a>
+                    </div>
+                </div>
+            }
         </div>
     </div>
-}
+</div>
