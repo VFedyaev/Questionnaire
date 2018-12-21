@@ -24,6 +24,7 @@ namespace Questionnaire.WEB.Controllers
             SurveyGeographyService = surveyGeographyService;
         }
 
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult AjaxSurveyGeographyList(int? page)
         {
             IEnumerable<SurveyGeographyDTO> surveyGeographyDTOs = SurveyGeographyService
@@ -35,6 +36,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: SurveyGeography
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Index(int? page)
         {
 
@@ -47,6 +49,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: SurveyGeography/Details/5
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Details(int? id)
         {
             try
@@ -67,6 +70,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: SurveyGeography/Create
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Create()
         {
             return View();
@@ -74,6 +78,7 @@ namespace Questionnaire.WEB.Controllers
 
         // POST: SurveyGeography/Create
         [HttpPost]
+        [Authorize(Roles = "admin, manager, user")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name")] SurveyGeographyVM surveyGeographyVM)
         {
@@ -87,6 +92,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: SurveyGeography/Edit/5
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Edit(int? id)
         {
             try
@@ -107,6 +113,7 @@ namespace Questionnaire.WEB.Controllers
 
         // POST: SurveyGeography/Edit/5
         [HttpPost]
+        [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name")] SurveyGeographyVM surveyGeographyVM)
         {
@@ -121,6 +128,7 @@ namespace Questionnaire.WEB.Controllers
 
         // GET: SurveyGeography/Delete/5
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {

@@ -28,7 +28,7 @@ namespace Questionnaire.WEB.Controllers
         {
             try
             {
-                IEnumerable<FormDataDTO> formDataDTOs = QuestionAnswerService.GetQuestionAnswersByQuestionType().ToList();
+                var formDataDTOs = QuestionAnswerService.GetQuestionAnswersByQuestionType().ToList();
                 //IEnumerable<AnswerVM> answerVMs = Mapper.Map<IEnumerable<AnswerVM>>(answerDTOs);
 
 

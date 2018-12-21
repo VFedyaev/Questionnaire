@@ -23,6 +23,7 @@ namespace Questionnaire.WEB.Controllers
             DistrictService = districtService;
         }
 
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult AjaxDistrictList(int? page)
         {
             IEnumerable<DistrictDTO> districtDTOs = DistrictService
@@ -34,6 +35,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: District
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Index(int? page)
         {
 
@@ -46,6 +48,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: District/Details/5
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Details(int? id)
         {
             try
@@ -66,6 +69,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: District/Create
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Create()
         {
             return View();
@@ -73,6 +77,7 @@ namespace Questionnaire.WEB.Controllers
 
         // POST: District/Create
         [HttpPost]
+        [Authorize(Roles = "admin, manager, user")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name")] DistrictVM districtVM)
         {
@@ -86,6 +91,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: District/Edit/5
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Edit(int? id)
         {
             try
@@ -106,6 +112,7 @@ namespace Questionnaire.WEB.Controllers
 
         // POST: District/Edit/5
         [HttpPost]
+        [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name")] DistrictVM districtVM)
         {
@@ -120,6 +127,7 @@ namespace Questionnaire.WEB.Controllers
 
         // GET: District/Delete/5
         [HttpPost]
+        [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {

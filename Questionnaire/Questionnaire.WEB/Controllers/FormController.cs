@@ -35,6 +35,7 @@ namespace Questionnaire.WEB.Controllers
             InterviewerService = interviewerService;
         }
 
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult AjaxFormList(int? page)
         {
             IEnumerable<FormDTO> formDTOs = FormService
@@ -45,6 +46,7 @@ namespace Questionnaire.WEB.Controllers
             return PartialView(formVMs.ToPagedList(page ?? 1, _itemsPerPage));
         }
         // GET: Form
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Index(int? page)
         {
             IEnumerable<FormDTO> formDTOs = FormService
@@ -56,6 +58,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Form/Details/5
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Details(int? id)
         {
             try
@@ -75,6 +78,7 @@ namespace Questionnaire.WEB.Controllers
             }
         }
 
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Create()
         {
             ViewBag.SurveyGeographyId = GetSurveyGeographySelectList();
@@ -82,10 +86,13 @@ namespace Questionnaire.WEB.Controllers
             ViewBag.DistrictId = GetDistrictSelectList();
             ViewBag.InterviewerId = GetInterviewerSelectList();
 
+            ViewBag.Today = DateTime.Now.ToString("yyyy-MM-dd");
+
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin, manager, user")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "NumberForm, SurveyGeographyId, HousingTypeId, DistrictId, InterviewerId, Address, Phone,InterviewDate, StartTime, EndTime")] FormVM formVM)
         {
@@ -102,7 +109,7 @@ namespace Questionnaire.WEB.Controllers
                 ViewBag.HousingTypeId = GetHousingTypeSelectList(formVM.HousingTypeId);
                 ViewBag.DistrictId = GetDistrictSelectList(formVM.DistrictId);
                 ViewBag.InterviewerId = GetInterviewerSelectList(formVM.InterviewerId);
-
+                ViewBag.Today = DateTime.Now.ToString("yyyy-MM-dd");
                 return View(formVM);
             }
             catch (UniqueConstraintException ex)
@@ -112,6 +119,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Form/Edit/5
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Edit(int? id)
         {
             try
@@ -138,6 +146,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id, NumberForm, SurveyGeographyId, HousingTypeId, DistrictId, InterviewerId, Address, Phone,InterviewDate, StartTime, EndTime")] FormVM formVM)
         {
@@ -188,6 +197,7 @@ namespace Questionnaire.WEB.Controllers
 
         // GET: Form/Delete/5
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {

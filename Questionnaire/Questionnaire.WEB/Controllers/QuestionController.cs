@@ -25,6 +25,7 @@ namespace Questionnaire.WEB.Controllers
             QuestionService = questionService;
         }
 
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult AjaxQuestionTypeList(int? page)
         {
             IEnumerable<QuestionDTO> questionDTOs = QuestionService
@@ -35,6 +36,7 @@ namespace Questionnaire.WEB.Controllers
             return PartialView(questionVMs.ToPagedList(page ?? 1, _itemsPerPage));
         }
         // GET: Question
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Index(int? page)
         {
             IEnumerable<QuestionDTO> questionDTOs = QuestionService
@@ -46,6 +48,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Question/Details/5
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Details(int? id)
         {
             try
@@ -65,6 +68,7 @@ namespace Questionnaire.WEB.Controllers
             }
         }
 
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Create()
         {
             ViewBag.QuestionTypeId = GetQuestionTypeIdSelectList();
@@ -73,6 +77,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin, manager, user")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "QuestionTypeId,Name")] QuestionVM questionVM)
         {
@@ -90,6 +95,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Question/Edit/5
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Edit(int? id)
         {
             try
@@ -112,6 +118,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,QuestionTypeId,Name")] QuestionVM questionVM)
         {
@@ -134,6 +141,7 @@ namespace Questionnaire.WEB.Controllers
             return new SelectList(QuestionTypeService.GetAll().ToList(), "Id", "Name", selectedValue);
         }
 
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Answers(int? questionId)
         {
             try
@@ -153,6 +161,7 @@ namespace Questionnaire.WEB.Controllers
 
         // GET: Question/Delete/5
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {

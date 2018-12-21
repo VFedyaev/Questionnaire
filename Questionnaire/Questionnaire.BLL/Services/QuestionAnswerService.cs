@@ -141,61 +141,7 @@ namespace Questionnaire.BLL.Services
                     QuestionTypeName = questionType.Name,
                     QuestionName = question.Name,
                     AnswerName = answer.Name
-
                 }).ToList();
-
-
-
-            //IEnumerable<FormDataDTO> questionAnswerDTOs = (
-            //    from questionType in _unitOfWork.QuestionTypes.GetAll()
-            //    group questionType by questionType.Name into qt
-            //    join question in _unitOfWork.Questions.GetAll() on qt.FirstOrDefault().Id equals question.QuestionTypeId
-            //    select new FormDataDTO
-            //    {
-            //        QuestionTypeName = qt.FirstOrDefault().Name,
-            //        QuestionName = question.Name
-            //    }).ToList();
-
-            //IEnumerable<FormDataDTO> questionAnswerDTOs = (
-            //    from
-            //        questionType in _unitOfWork.QuestionTypes.GetAll()
-            //    join question in _unitOfWork.Questions.GetAll()
-            //    on questionType.Id equals question.QuestionTypeId
-            //    where questionType.Name == "A. ОБЩИЕ"
-            //    group new { questionType, question } by new { questionType.Name } into q
-            //    select new FormDataDTO
-            //            {
-            //                QuestionTypeName = q.Key.Name,
-            //                QuestionName = question.Name
-
-            //    }).ToList();
-
-            //IEnumerable<FormDataDTO> questionAnswerDTOs = (
-            //    from questionType in _unitOfWork.QuestionTypes.GetAll()
-            //    join question in _unitOfWork.Questions.GetAll() on questionType.Id equals question.QuestionTypeId
-            //    group question by new { questionType.Name} into q
-            //    select new FormDataDTO
-            //    {
-            //        QuestionTypeName = q.Key.Name,
-            //        QuestionName = q.Key.Name
-            //    }).ToList();
-
-
-
-            //IEnumerable<FormDataDTO> questionAnswerDTOs = (
-            //    from
-            //        questionType in _unitOfWork.QuestionTypes.GetAll()
-            //    group questionType by questionType.Name into qt
-            //    //join
-            //    //    question in _unitOfWork.Questions.GetAll() on qt.FirstOrDefault().Id equals question.QuestionTypeId
-            //    select new FormDataDTO
-            //    {
-            //        QuestionTypeName = qt.Key,
-
-
-            //    }).ToList();
-
-
             return questionAnswerDTOs;
         }
 

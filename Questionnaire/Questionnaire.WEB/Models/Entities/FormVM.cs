@@ -48,14 +48,14 @@ namespace Questionnaire.WEB.Models.Entities
 
         [Display(Name = "Время начала интервью")]
         [Required(ErrorMessage = "Заполните поле!")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime StartTime { get; set; }
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", HtmlEncode = false, ApplyFormatInEditMode = true)]
+        public TimeSpan StartTime { get; set; }
 
         [Display(Name = "Время конца интервью")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public Nullable<DateTime> EndTime { get; set; }
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", HtmlEncode = false, ApplyFormatInEditMode = true)]
+        public Nullable<TimeSpan> EndTime { get; set; }
 
         public SurveyGeographyDTO SurveyGeography { get; set; }
         public HousingTypeDTO HousingType { get; set; }

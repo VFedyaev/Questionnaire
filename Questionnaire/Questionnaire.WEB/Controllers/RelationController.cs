@@ -18,7 +18,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "admin, manager")]
+        [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
         public ActionResult UpdateAnswers(int? questionId)
         {

@@ -34,6 +34,15 @@ function getAge() {
     document.getElementById("age").value = age;
 }
 
+function getTime() {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    document.getElementById("timeNow").value = h + ":" + m;
+
+}
+
+
 function activeMenuItem() {
     turnOffCurrentActiveMenuItem();
 
