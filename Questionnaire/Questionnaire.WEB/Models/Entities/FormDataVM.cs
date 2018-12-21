@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 
-namespace Questionnaire.BLL.DTO
+namespace Questionnaire.WEB.Models.Entities
 {
-    public class FormDataDTO
+    public class FormDataVM
     {
         public string QuestionName { get; set; }
-        public IEnumerable<FormOptionDTO> Options { get; set; }
+        public IEnumerable<FormOptionVM> Options { get; set; }
     }
 
-    public class FormOptionDTO
+    public class FormOptionVM
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -2,10 +2,6 @@
 using Questionnaire.BLL.DTO;
 using Questionnaire.WEB.Models.Account;
 using Questionnaire.WEB.Models.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Questionnaire.WEB.MappingProfiles
 {
@@ -24,6 +20,8 @@ namespace Questionnaire.WEB.MappingProfiles
             CreateMap<FormDTO, FormVM>(MemberList.None).ReverseMap();
             CreateMap<FamilyDTO, FamilyVM>(MemberList.None).ReverseMap();
             CreateMap<DataDTO, DataVM>(MemberList.None).ReverseMap();
+            CreateMap<FormDataDTO, FormDataVM>(MemberList.None).ReverseMap();
+            CreateMap<FormOptionDTO, FormOptionVM>(MemberList.None).ReverseMap();
 
             CreateMap<UserDTO, UserVM>(MemberList.None).ReverseMap();
         }

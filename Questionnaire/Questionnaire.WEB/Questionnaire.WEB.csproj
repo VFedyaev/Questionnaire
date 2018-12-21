@@ -237,6 +237,7 @@
     <Compile Include="Models\Entities\DataVM.cs" />
     <Compile Include="Models\Entities\DistrictVM.cs" />
     <Compile Include="Models\Entities\FamilyVM.cs" />
+    <Compile Include="Models\Entities\FormDataVM.cs" />
     <Compile Include="Models\Entities\FormVM.cs" />
     <Compile Include="Models\Entities\HousingTypeVM.cs" />
     <Compile Include="Models\Entities\InterviewerVM.cs" />

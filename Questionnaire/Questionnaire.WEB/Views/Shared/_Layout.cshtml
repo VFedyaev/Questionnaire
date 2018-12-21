@@ -77,6 +77,9 @@
                     <li id="form-page-menu-item">
                         <a href="@Url.Action("Index", "Form")"><i class="fa fa-wpforms" aria-hidden="true"></i> Анкеты</a>
                     </li>
+                    <li id="form-page-menu-item">
+                        <a href="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = 1 })"><i class="fa fa-wpforms" aria-hidden="true"></i> Форма</a>
+                    </li>
                 }
                 else if (User.IsInRole("manager"))
                 {

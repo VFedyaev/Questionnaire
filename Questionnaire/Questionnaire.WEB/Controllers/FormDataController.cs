@@ -1,5 +1,7 @@
-﻿using Questionnaire.BLL.DTO;
+﻿using AutoMapper;
+using Questionnaire.BLL.DTO;
 using Questionnaire.BLL.Interfaces;
+using Questionnaire.WEB.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +14,12 @@ namespace Questionnaire.WEB.Controllers
     public class FormDataController : Controller
     {
         private IQuestionAnswerService QuestionAnswerService;
+        private IQuestionTypeService QuestionTypeService;
 
-        public FormDataController(IQuestionAnswerService questionAnswerService)
+        public FormDataController(IQuestionAnswerService questionAnswerService, IQuestionTypeService questionTypeService)
         {
             QuestionAnswerService = questionAnswerService;
+            QuestionTypeService = questionTypeService;
         }
 
         // GET: FormDataControlelr
@@ -24,15 +28,17 @@ namespace Questionnaire.WEB.Controllers
             return View();
         }
 
-        public ActionResult QuestionAnswers()
+        public ActionResult QuestionAnswers(int questionTypeId)
         {
             try
             {
-                var formDataDTOs = QuestionAnswerService.GetQuestionAnswersByQuestionType().ToList();
+                ViewBag.Sections = Mapper.Map<IEnumerable<QuestionTypeVM>>(QuestionTypeService.GetAll().ToList());
+                ViewBag.Section = QuestionTypeService.Get(questionTypeId).Name;
+                var formDataDTOs = QuestionAnswerService.GetQuestionAnswersByQuestionType(questionTypeId).ToList();
+                var formDataVMs = Mapper.Map<IEnumerable<FormDataVM>>(formDataDTOs);
                 //IEnumerable<AnswerVM> answerVMs = Mapper.Map<IEnumerable<AnswerVM>>(answerDTOs);
 
-
-                return View(formDataDTOs);
+                return View(formDataVMs);
             }
             catch (ArgumentNullException)
             {

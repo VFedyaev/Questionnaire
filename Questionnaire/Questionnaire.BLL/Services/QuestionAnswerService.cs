@@ -118,9 +118,9 @@ namespace Questionnaire.BLL.Services
                 Delete(relation.Id);
         }
 
-        public IEnumerable<FormDataDTO> GetQuestionAnswersByQuestionType()
+        public IEnumerable<FormDataDTO> GetQuestionAnswersByQuestionType(int questionTypeId)
         {
-            IEnumerable<FormDataDTO> questionAnswerDTOs = (
+            var formData = (
                 from
                     questionAnswer in _unitOfWork.QuestionAnswers.GetAll()
                 join
@@ -135,14 +135,64 @@ namespace Questionnaire.BLL.Services
                     questionType in _unitOfWork.QuestionTypes.GetAll()
                 on
                     question.QuestionTypeId equals questionType.Id
+                where questionType.Id == questionTypeId
+                select new
+                {
+                    questionAnswerId = questionAnswer.Id,
+                    questionName = question.Name,
+                    answerName = answer.Name
+
+                } into result
+                group result by new { result.questionName } into data
                 select new FormDataDTO
                 {
-                    QuestionAnswerId = questionAnswer.Id,
-                    QuestionTypeName = questionType.Name,
-                    QuestionName = question.Name,
-                    AnswerName = answer.Name
+                    QuestionName = data.Key.questionName,
+                    Options = data.Select(o =>
+                    {
+                        return new FormOptionDTO
+                        {
+                            Id = o.questionAnswerId,
+                            Name = o.answerName
+                        };
+                    })
                 }).ToList();
-            return questionAnswerDTOs;
+
+            //var sortedData = (
+            //    from data in unsortedData
+            //    select new FormDataDTO
+            //    {
+            //        QuestionName = data.Key.questionName,
+            //        Options = data.Select(o =>
+            //        {
+            //            return new FormOptionDTO
+            //            {
+            //                Id = o.questionAnswerId,
+            //                Name = o.answerName
+            //            };
+            //        })
+            //    });
+
+            //select new FormDataDTO
+            //{
+            //    QuestionTypeName = groupedResult.Key.questionTypeName,
+            //    Questions = groupedResult.Select(q =>
+            //    {
+            //        return new FormQuestionDTO
+            //        {
+            //            Name = q.questionName,
+            //            Options = groupedResult.Select(o =>
+            //            {
+            //                return new FormOptionDTO
+            //                {
+            //                    Id = o.questionAnswerId,
+            //                    Name = o.answerName
+            //                };
+            //            })
+            //        };
+            //    })
+            //}
+
+            return formData;
         }
 
         public void Delete(int id)
