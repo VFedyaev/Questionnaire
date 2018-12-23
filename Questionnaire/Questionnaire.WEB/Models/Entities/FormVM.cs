@@ -48,9 +48,9 @@ namespace Questionnaire.WEB.Models.Entities
 
         [Display(Name = "Время начала интервью")]
         [Required(ErrorMessage = "Заполните поле!")]
-        [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", HtmlEncode = false, ApplyFormatInEditMode = true)]
-        public TimeSpan StartTime { get; set; }
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", HtmlEncode = false, ApplyFormatInEditMode = true)]
+        public Nullable<TimeSpan> StartTime { get; set; }
 
         [Display(Name = "Время конца интервью")]
         [DataType(DataType.Time)]

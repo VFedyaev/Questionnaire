@@ -140,7 +140,8 @@ namespace Questionnaire.BLL.Services
                 {
                     questionAnswerId = questionAnswer.Id,
                     questionName = question.Name,
-                    answerName = answer.Name
+                    answerName = answer.Name,
+                    multipleAnswer = question.MultipleAnswer
 
                 } into result
                 group result by new { result.questionName } into data
@@ -152,7 +153,8 @@ namespace Questionnaire.BLL.Services
                         return new FormOptionDTO
                         {
                             Id = o.questionAnswerId,
-                            Name = o.answerName
+                            Name = o.answerName,
+                            MultipleAnswer = o.multipleAnswer
                         };
                     })
                 }).ToList();

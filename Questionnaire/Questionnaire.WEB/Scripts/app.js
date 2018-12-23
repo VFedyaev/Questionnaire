@@ -17,35 +17,6 @@ function menuInit() {
     });
 }
 
-function searchAnswersByEnter() {
-    $(document).ready(function () {
-        $("#search-input-value").keyup(function (event) {
-            if (event.keyCode == 13) {
-                searchAnswers('model');
-            }
-        });
-    });
-}
-
-function getAge() {
-    var today = new Date();
-    var selectDate = new Date(document.getElementById("dateBorn").value);
-    var age = today.getFullYear() - selectDate.getFullYear();
-    document.getElementById("age").value = age;
-}
-
-function getTime() {
-    var today = new Date();
-    var y = today.getFullYear;
-    var m = today.getMonth;
-    var d = today.getDay;
-    var h = today.getHours();
-    var m = today.getMinutes();
-    document.getElementById("timeNow").value = y + "-"+ m + "-"+ d + " " +  h + ":" + m;
-
-}
-
-
 function activeMenuItem() {
     turnOffCurrentActiveMenuItem();
 
@@ -77,7 +48,6 @@ function activeMenuItem() {
     else {
         $('#main-page-menu-item').addClass('active');
     }
-
 }
 
 function turnOffCurrentActiveMenuItem() {
@@ -98,91 +68,27 @@ function turnOffCurrentActiveMenuItem() {
     }
 }
 
-//function searchEmployees() {
-//    var employeeName = $("#search-input-value").val();
-//    var token = $('input[name="__RequestVerificationToken"]').val();
-//    var oldSearchingText = document.getElementById('searching').innerText;
+function getAge() {
+    var today = new Date();
+    var selectDate = new Date(document.getElementById("dateBorn").value);
+    var age = today.getFullYear() - selectDate.getFullYear();
+    document.getElementById("age").value = age;
+}
 
-//    document.getElementById('searching').innerText = "Идет поиск...";
-
-//    $.ajax({
-//        url: "/Equipment/FindEmployees",
-//        type: "Post",
-//        data: {
-//            __RequestVerificationToken: token,
-//            "name": employeeName
-//        },
-//        success: function (html) {
-//            $("#found-items-area").empty();
-//            $("#found-items-area").append(html);
-//            document.getElementById('searching').innerText = oldSearchingText;
-//        },
-//        error: function (XMLHttpRequest) {
-//            console.log(XMLHttpRequest);
-//            document.getElementById('searching').innerText = oldSearchingText;
-//        }
-//    });
-//    return false;
-//}
+function searchAnswersByEnter() {
+    $(document).ready(function () {
+        $("#search-input-value").keyup(function (event) {
+            if (event.keyCode == 13) {
+                searchAnswers('model');
+            }
+        });
+    });
+}
 
 function clearSearch() {
     $("#found-items-area").empty();
     $("#search-input-value").val('');
 }
-
-//function attachEmployee(employeeId) {
-//    if (document.body.contains(document.getElementById("pinned-" + employeeId))) {
-//        alert("Сотрудник уже прикриплен.");
-//        return false;
-//    }
-
-//    var employeeRow = $("#" + employeeId);
-//    var name = employeeRow.find("td.name")[0].innerText;
-
-//    var newTr = document.createElement("tr");
-//    newTr.id = "pinned-" + employeeId;
-
-//    var inputId = document.createElement("input");
-//    inputId.type = "hidden";
-//    inputId.name = "employeeId[]";
-//    inputId.value = employeeId;
-
-//    var button = document.createElement("button");
-//    button.classList.add("btn", "btn-danger");
-//    button.type = "button";
-//    button.innerText = "Убрать";
-//    button.setAttribute("onclick", "detachItem('" + employeeId + "')");
-
-//    var buttonTd = document.createElement("td");
-//    buttonTd.className = "input-group-btn";
-//    buttonTd.appendChild(inputId);
-//    buttonTd.appendChild(button);
-
-//    var nameTd = createTd("name", name);
-
-//    var label = document.createElement("label");
-
-//    var inputOwner = document.createElement("input");
-//    inputOwner.type = "radio";
-//    inputOwner.name = "ownerId";
-//    inputOwner.value = employeeId;
-
-//    label.appendChild(inputOwner);
-//    label.appendChild(document.createTextNode("Текущий владелец"));
-
-//    var ownerTd = document.createElement("td");
-//    ownerTd.appendChild(label);
-
-//    var emptyTd = document.createElement("td");
-
-//    newTr.appendChild(buttonTd);
-//    newTr.appendChild(nameTd);
-//    newTr.appendChild(ownerTd);
-//    newTr.appendChild(emptyTd);
-
-//    var attachedItems = document.getElementById("attached-items-tbody");
-//    attachedItems.appendChild(newTr);
-//}
 
 function createTd(tdClass, value) {
     var td = document.createElement("td");
@@ -412,24 +318,35 @@ function closeMessageDiv() {
 
 $('.form-submit').on('click', function (e) {
     e.preventDefault();
-    var checkField = $('#required').val();
-    var validationError = $('.text-danger');
+    var numberFormReuqired = $('#numberFormRequired').val();
+    var addressReuqired = $('#addressRequired').val();
+    var surveyGeographyReuqired = $('#surveyGeographyIdDropDown').val();
+    var housingTypeRequired = $('#housingTypeIdDropDown').val();
+    var districtRequired = $('#districtIdDropDown').val();
+    var interviewerRequired = $('#interviewerIdDropDown').val();
+
+    var validationError = $('.alert');
     var form = $('form');
     var self = $(this);
-        $.post({
-            url: form.attr("action"),
-            data: form.serialize(),
+    $.post({
+        url: form.attr("action"),
+        data: form.serialize(),
 
-            success: function (response) {
-                if (response.hasError) {
-                    alert("Такая запись уже существует в базе данных!");
-                }
-                else if (checkField == "") {
-                    validationError.text("Заполните поле!");
-                    validationError.show();
-                }
-                else
-                    window.location.href = self.data("redirect-to");
+        success: function (response) {
+            if (response.hasError) {
+                alert("Такая запись уже существует в базе данных!");
             }
-        })
+            else if (numberFormReuqired == "" ||
+                addressReuqired == "" ||
+                surveyGeographyReuqired == "" ||
+                housingTypeRequired == "" ||
+                districtRequired == "" ||
+                interviewerRequired == "") {
+
+                validationError.show();
+            }
+            else
+                window.location.href = self.data("redirect-to");
+        }
+    })
 });

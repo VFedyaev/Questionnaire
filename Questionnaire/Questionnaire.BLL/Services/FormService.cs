@@ -57,18 +57,18 @@ namespace Questionnaire.BLL.Services
 
         public void Add(FormDTO formDTO)
         {
-            //try
-            //{
+            try
+            {
                 Form form = Mapper.Map<Form>(formDTO);
 
                 _unitOfWork.Forms.Create(form);
                 _unitOfWork.Save();
-            //}
-            //catch (DbUpdateException)
-            //{
-            //    if (NotUnique(formDTO.NumberForm))
-            //        throw new UniqueConstraintException();
-            //}
+            }
+            catch (DbUpdateException)
+            {
+                if (NotUnique(formDTO.NumberForm))
+                    throw new UniqueConstraintException();
+            }
         }
 
         public void Update(FormDTO formDTO)

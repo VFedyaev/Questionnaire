@@ -79,7 +79,7 @@ namespace Questionnaire.WEB.Controllers
         [HttpPost]
         [Authorize(Roles = "admin, manager, user")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "QuestionTypeId,Name")] QuestionVM questionVM)
+        public ActionResult Create([Bind(Include = "QuestionTypeId,Name,MultipleAnswer")] QuestionVM questionVM)
         {
             if (ModelState.IsValid)
             {
@@ -120,7 +120,7 @@ namespace Questionnaire.WEB.Controllers
         [HttpPost]
         [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,QuestionTypeId,Name")] QuestionVM questionVM)
+        public ActionResult Edit([Bind(Include = "Id,QuestionTypeId,Name,MultipleAnswer")] QuestionVM questionVM)
         {
             if (ModelState.IsValid)
             {

@@ -87,6 +87,7 @@ namespace Questionnaire.WEB.Controllers
             ViewBag.InterviewerId = GetInterviewerSelectList();
 
             ViewBag.Today = DateTime.Now.ToString("yyyy-MM-dd");
+            ViewBag.Time = DateTime.Now.ToString("HH\\:mm");
 
             return View();
         }
@@ -110,6 +111,8 @@ namespace Questionnaire.WEB.Controllers
                 ViewBag.DistrictId = GetDistrictSelectList(formVM.DistrictId);
                 ViewBag.InterviewerId = GetInterviewerSelectList(formVM.InterviewerId);
                 ViewBag.Today = DateTime.Now.ToString("yyyy-MM-dd");
+                ViewBag.Time = DateTime.Now.ToString("HH\\:mm");
+
                 return View(formVM);
             }
             catch (UniqueConstraintException ex)

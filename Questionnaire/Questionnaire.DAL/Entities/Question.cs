@@ -9,6 +9,7 @@ namespace Questionnaire.DAL.Entities
         public int Id { get; set; }
         public short QuestionTypeId { get; set; }
         public string Name { get; set; }
+        public bool MultipleAnswer { get; set; }
 
         public virtual QuestionType QuestionType { get; set; }
     }
