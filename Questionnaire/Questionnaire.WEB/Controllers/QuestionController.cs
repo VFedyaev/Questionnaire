@@ -25,7 +25,7 @@ namespace Questionnaire.WEB.Controllers
             QuestionService = questionService;
         }
 
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult AjaxQuestionTypeList(int? page)
         {
             IEnumerable<QuestionDTO> questionDTOs = QuestionService
@@ -36,7 +36,7 @@ namespace Questionnaire.WEB.Controllers
             return PartialView(questionVMs.ToPagedList(page ?? 1, _itemsPerPage));
         }
         // GET: Question
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Index(int? page)
         {
             IEnumerable<QuestionDTO> questionDTOs = QuestionService
@@ -48,7 +48,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Question/Details/5
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Details(int? id)
         {
             try
@@ -68,7 +68,7 @@ namespace Questionnaire.WEB.Controllers
             }
         }
 
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Create()
         {
             ViewBag.QuestionTypeId = GetQuestionTypeIdSelectList();
@@ -77,7 +77,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "QuestionTypeId,Name,MultipleAnswer")] QuestionVM questionVM)
         {
@@ -141,7 +141,7 @@ namespace Questionnaire.WEB.Controllers
             return new SelectList(QuestionTypeService.GetAll().ToList(), "Id", "Name", selectedValue);
         }
 
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Answers(int? questionId)
         {
             try

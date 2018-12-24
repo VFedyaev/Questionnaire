@@ -35,7 +35,7 @@ namespace Questionnaire.WEB.Controllers
             InterviewerService = interviewerService;
         }
 
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult AjaxFormList(int? page)
         {
             IEnumerable<FormDTO> formDTOs = FormService
@@ -46,7 +46,7 @@ namespace Questionnaire.WEB.Controllers
             return PartialView(formVMs.ToPagedList(page ?? 1, _itemsPerPage));
         }
         // GET: Form
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Index(int? page)
         {
             IEnumerable<FormDTO> formDTOs = FormService
@@ -58,7 +58,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Form/Details/5
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Details(int? id)
         {
             try
@@ -78,7 +78,7 @@ namespace Questionnaire.WEB.Controllers
             }
         }
 
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Create()
         {
             ViewBag.SurveyGeographyId = GetSurveyGeographySelectList();
@@ -93,7 +93,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "NumberForm, SurveyGeographyId, HousingTypeId, DistrictId, InterviewerId, Address, Phone,InterviewDate, StartTime, EndTime")] FormVM formVM)
         {

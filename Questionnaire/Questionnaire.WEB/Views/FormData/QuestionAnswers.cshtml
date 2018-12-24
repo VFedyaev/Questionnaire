@@ -74,67 +74,111 @@
         <div class="col-lg-3 col-md-3">
             <h4>Разделы</h4>
             <hr />
-            <ul class="nav flex-column">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
+                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+
                 @foreach (var section in ViewBag.Sections)
                 {
                     string name = section.Name;
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = section.Id })">@name</a>
-                    </li>
+                    <a class="nav-link" id="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = section.Id })" data-toggle="pill" href="#@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = section.Id })" role="tab" aria-controls="v-pills-profile" aria-selected="false">@name</a>
                 }
-            </ul>
+            </div>
         </div>
+
         <div class="col-lg-9 col-md-9">
-            @using (Html.BeginForm("QuestionAnswers", "FormData", FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-                <h2>@ViewBag.Section</h2>
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
 
-                <div id="found-items-area"></div>
+                    <h4 style="text-align:center">
+                        АНКЕТА ВИКТИМОЛОГИЧЕСКОГО ИССЛЕДОВАНИЯ В г. БИШКЕК И НОВОСТРОЙКАХ
+                    </h4>
+                    <p>
+                        Здравствуйте! Я работаю в Национальном статистическом комитете Кыргызской Республики. Мы проводим обследование домашних хозяйств, чтобы определить отношение населения к проблемам безопасности
+                        и преступности, а также их влияние на жизнь людей в г.Бишкек и новостройках. Обследование будет способствовать разработке мер по предупреждению преступности и позволит лучше понять значение
+                        вопросов безопасности в жизни общества.
+                        У нас есть письмо Председателя Нацстаткома о проведении этой работы (ПЕРЕДАЙТЕ ПИСЬМО). Длительность интервью составит примерно 15-25 минут. Ваше участие в исследовании добровольное и не
+                        предполагает оплату или подарки, но Ваше мнение является для нас очень важным. Вся информация, которую Вы дадите при ответах на вопросы, строго конфиденциальна (секретная) и будет использоваться
+                        только в обобщенном виде для анализа, без указания Вашего имени. Если у Вас возникнут какие-либо вопросы или замечания, Вы можете сообщить их мне или позвонить по телефону: (0312) 66 40 42.
+                    </p>
+                    <h5 style="font-weight:bold">
+                        A) Проживает ли Ваше домохозяйство в данном населенном пункте в последние 3 года?
+                    </h5>
+                    <h6>
+                        1. Да
+                    </h6>
+                    <h6>
+                        2. Нет (закончить интервью, перейти в домохозяйство из дополнительного списка)
+                    </h6>
+                    <br />
+                    <h4 style="text-align:center">
+                        I. СКРИНИНГ
+                    </h4>
+                    <h5 style="font-weight:bold">
+                        Я хочу спросить Вас обо всех членах домохозяйства в возрасте 18-65 лет, которые обычно проживают в Вашем домохозяйстве.
+                        Пожалуйста, укажите пол, число и месяц рождения, а также возраст (полных лет) всех членов Д/Х, которые присутствуют в Д/Х в период проведения обследования,
+                        начиная от самого старшего к самому младшему. Не перечисляйте других членов Д/Х, возраст которых младше 18 лет и старше 65 лет.
+                    </h5>
+                    <h6>
+                        ИНТЕРВЬЮЕР! ЗАПИШИТЕ ИМЯ, ПОЛ, ДАТУ РОЖДЕНИЯ (ДЕНЬ И МЕСЯЦ) И ВОЗРАСТ ЧЛЕНОВ СЕМЬИ ОТ 18 И ДО 65-ти ЛЕТ.
+                    </h6>
 
-                <div id="attached-items" class="justify-content-center">
-                    @if (!(Model.Count() <= 0))
+                </div>
+                <div class="tab-pane fade" id="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = 1 })" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+
+                    @using (Html.BeginForm("QuestionAnswers", "FormData", FormMethod.Post))
                     {
-                        foreach (var question in Model)
-                        {
-                            <form class="was-validated">
-                                <div class="item-info">
-                                    <b>@question.QuestionName</b>
-                                    <hr />
-                                </div>
-                                <div class="row">
-                                    @foreach (var option in question.Options)
-                                    {
-                                        if (option.MultipleAnswer == true)
-                                        {
-                                            <div class="col-lg-4 col-md-4">
-                                                <input type="checkbox" name="options[]" value="@option.Id" />
-                                                <label>@option.Name</label>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="col-lg-4 col-md-4">
-                                                <input type="radio" name="options[]" value="@option.Id" />
-                                                <label>@option.Name</label>
-                                            </div>
-                                        }
+                        @Html.AntiForgeryToken()
+                        <h2 style="text-align:center">@ViewBag.Section</h2>
 
-                                    }
-                                </div>
-                            </form>
-                            <hr />
-                        }
+                        <div id="found-items-area"></div>
+
+                        <div id="attached-items" class="justify-content-center">
+                            @if (!(Model.Count() <= 0))
+                            {
+                                foreach (var question in Model)
+                                {
+                                    <form class="was-validated">
+                                        <div class="item-info">
+                                            <b>@question.QuestionName</b>
+                                            <hr />
+                                        </div>
+                                        <div class="row">
+                                            @foreach (var option in question.Options)
+                                            {
+                                                if (option.MultipleAnswer == true)
+                                                {
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <input type="checkbox" name="options[]" value="@option.Id" />
+                                                        <label>@option.Name</label>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <input type="radio" name="options[]" value="@option.Id" />
+                                                        <label>@option.Name</label>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </form>
+
+                                    <hr />
+                                }
+
+                            }
+                        </div>
+
+                        <div class="form-group">
+                            <div class="btn-group" role="group">
+                                <button type="submit" class="btn btn-success"><i class="fa fa-save" aria-hidden="true" title="Сохранить" data-toggle="tooltip" data-placement="top"></i> Сохранить</button>
+                                <a href="@Url.Action(" Index", "Question")" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true" title="Назад" data-toggle="tooltip" data-placement="top"></i> Назад</a>
+                            </div>
+                        </div>
                     }
                 </div>
-
-                <div class="form-group">
-                    <div class="btn-group" role="group">
-                        <button type="submit" class="btn btn-success"><i class="fa fa-save" aria-hidden="true" title="Сохранить" data-toggle="tooltip" data-placement="top"></i> Сохранить</button>
-                        <a href="@Url.Action("Index", "Question")" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true" title="Назад" data-toggle="tooltip" data-placement="top"></i> Назад</a>
-                    </div>
-                </div>
-            }
+            </div>
         </div>
     </div>
 </div>

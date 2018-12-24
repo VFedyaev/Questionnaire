@@ -25,7 +25,7 @@ namespace Questionnaire.WEB.Controllers
             FormService = formService;
         }
 
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult AjaxFamilyList(int? page)
         {
             IEnumerable<FamilyDTO> familyDTOs = FamilyService
@@ -36,7 +36,7 @@ namespace Questionnaire.WEB.Controllers
             return PartialView(familyVMs.ToPagedList(page ?? 1, _itemsPerPage));
         }
         // GET: Family
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Index(int? page)
         {
             IEnumerable<FamilyDTO> familyDTOs = FamilyService
@@ -48,7 +48,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Family/Details/5
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Details(int? id)
         {
             try
@@ -68,7 +68,7 @@ namespace Questionnaire.WEB.Controllers
             }
         }
 
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Create()
         {
             ViewBag.FormId = GetFormIdSelectList();
@@ -77,7 +77,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name, Sex, DateBorn, Age, FormId")] FamilyVM familyVM)
         {

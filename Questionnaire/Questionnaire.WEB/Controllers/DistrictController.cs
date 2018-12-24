@@ -23,7 +23,7 @@ namespace Questionnaire.WEB.Controllers
             DistrictService = districtService;
         }
 
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult AjaxDistrictList(int? page)
         {
             IEnumerable<DistrictDTO> districtDTOs = DistrictService
@@ -35,7 +35,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: District
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Index(int? page)
         {
 
@@ -48,7 +48,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: District/Details/5
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Details(int? id)
         {
             try
@@ -69,7 +69,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: District/Create
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Create()
         {
             return View();
@@ -77,7 +77,7 @@ namespace Questionnaire.WEB.Controllers
 
         // POST: District/Create
         [HttpPost]
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name")] DistrictVM districtVM)
         {

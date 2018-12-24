@@ -23,7 +23,7 @@ namespace Questionnaire.WEB.Controllers
             AnswerService = answerService;
         }
 
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult AjaxAnswerList(int? page)
         {
             IEnumerable<AnswerDTO> answerDTOs = AnswerService
@@ -35,7 +35,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Answer
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Index(int? page)
         {
 
@@ -48,7 +48,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Answer/Details/5
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Details(int? id)
         {
             try
@@ -69,7 +69,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Answer/Create
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Create()
         {
             return View();
@@ -78,7 +78,7 @@ namespace Questionnaire.WEB.Controllers
         // POST: Answer/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Create([Bind(Include = "Name")] AnswerVM answerVM)
         {
             try

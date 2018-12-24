@@ -32,7 +32,7 @@
             @Html.LabelFor(model => model.MultipleAnswer)
             <p class="onoff">
                 @*@Html.CheckBoxFor(model => model.MultipleAnswer, new { @id = "checkboxID" })*@
-                <input data-val="true" data-val-required="Требуется поле Вопрос может содержать несколько ответов." id="checkboxID" name="MultipleAnswer" type="checkbox" value="true"   @Html.Raw((Model.MultipleAnswer) ? "checked=\"checked\"" : "")/>
+                <input data-val="true" data-val-required="Требуется поле Вопрос может содержать несколько ответов." id="checkboxID" name="MultipleAnswer" type="checkbox" value="true" @Html.Raw((Model.MultipleAnswer) ? "checked=\"checked\"" : "")/>
                 <label for="checkboxID"></label>
             </p>
         </div>

@@ -23,7 +23,7 @@ namespace Questionnaire.WEB.Controllers
             InterviewerService = interviewerService;
         }
 
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult AjaxInterviewerList(int? page)
         {
             IEnumerable<InterviewerDTO> interviewerDTOs = InterviewerService
@@ -35,7 +35,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Interviewer
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Index(int? page)
         {
 
@@ -48,7 +48,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Interviewer/Details/5
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Details(int? id)
         {
             try
@@ -69,7 +69,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Interviewer/Create
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Create()
         {
             return View();
@@ -77,7 +77,7 @@ namespace Questionnaire.WEB.Controllers
 
         // POST: Interviewer/Create
         [HttpPost]
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name, Phone")] InterviewerVM interviewerVM)
         {
@@ -91,7 +91,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Interviewer/Edit/5
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Edit(int? id)
         {
             try
@@ -112,7 +112,7 @@ namespace Questionnaire.WEB.Controllers
 
         // POST: Interviewer/Edit/5
         [HttpPost]
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Phone")] InterviewerVM interviewerVM)
         {
@@ -127,7 +127,7 @@ namespace Questionnaire.WEB.Controllers
 
         // GET: Interviewer/Delete/5
         [HttpPost]
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
