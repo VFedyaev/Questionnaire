@@ -149,7 +149,7 @@ namespace Questionnaire.WEB.Controllers
 
         // GET: Answer/Delete/5
         [HttpPost]
-        [Authorize(Roles = "admin, manager")]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {

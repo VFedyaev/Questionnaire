@@ -127,7 +127,7 @@ namespace Questionnaire.WEB.Controllers
 
         // GET: District/Delete/5
         [HttpPost]
-        [Authorize(Roles = "admin, manager")]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {

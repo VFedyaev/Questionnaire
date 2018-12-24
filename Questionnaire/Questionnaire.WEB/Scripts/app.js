@@ -24,14 +24,17 @@ function activeMenuItem() {
     if (url.indexOf('user') >= 0) {
         $('#user-page-menu-item').addClass('active');
     }
-    else if (url.indexOf('equipment') >= 0) {
-        $('#equipment-page-menu-item').addClass('active');
+    else if (url.indexOf('question') >= 0 || url.indexOf('questionType') >= 0 || url.indexOf('answer') >= 0) {
+        $('#question-answer-page-menu-item').addClass('active');
+        $('#questionAnswerDropdown').addClass('show');
     }
-    else if (url.indexOf('component') >= 0) {
-        $('#component-page-menu-item').addClass('active');
+    else if (url.indexOf('surveygeography') >= 0 || url.indexOf('housingtype') >= 0 || url.indexOf('district') >= 0) {
+        $('#survey-geography-page-menu-item').addClass('active');
+        $('#surveyGeographyDropdown').addClass('show');
     }
-    else if (url.indexOf('history') >= 0 || url.indexOf('repairplace') >= 0 || url.indexOf('statustype') >= 0) {
-        $('#tracking-page-menu-item').addClass('active');
+    else if (url.indexOf('family') >= 0 || url.indexOf('interviewer') >= 0) {
+        $('#contacts-page-menu-item').addClass('active');
+        $('#contactDropdown').addClass('show');
     }
     else if (url.indexOf('login') >= 0) {
         $('#login-page-menu-item').addClass('active');
@@ -43,7 +46,10 @@ function activeMenuItem() {
         $('#change-password-page-menu-item').addClass('active');
     }
     else if (url.indexOf('form') >= 0) {
-        $('#form-page-menu-item').addClass('active');
+        $('#questionary-page-menu-item').addClass('active');
+    }
+    else if (url.indexOf('formData') >= 0) {
+        $('#formData-page-menu-item').addClass('active');
     }
     else {
         $('#main-page-menu-item').addClass('active');
@@ -52,14 +58,16 @@ function activeMenuItem() {
 
 function turnOffCurrentActiveMenuItem() {
     var menuItems = [];
-    menuItems.push($('#main-page-menu-item'));
     menuItems.push($('#user-page-menu-item'));
-    menuItems.push($('#equipment-page-menu-item'));
-    menuItems.push($('#component-page-menu-item'));
-    menuItems.push($('#tracking-page-menu-item'));
+    menuItems.push($('#question-answer-page-menu-item'));
+    menuItems.push($('#survey-geography-page-menu-item'));
+    menuItems.push($('#contacts-page-menu-item'));
     menuItems.push($('#login-page-menu-items'));
     menuItems.push($('#change-email-page-menu-item'));
     menuItems.push($('#change-password-page-menu-item'));
+    menuItems.push($('#questionary-page-menu-item'));
+    menuItems.push($('#formData-page-menu-item'));
+    menuItems.push($('#main-page-menu-item'));
 
     for (var i = 0; i < menuItems.length; i++) {
         if (menuItems[i].hasClass('active') >= 0) {

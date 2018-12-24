@@ -31,10 +31,10 @@
                     <li id="user-page-menu-item">
                         <a href="@Url.Action("Index", "User")"><i class="fa fa-users" aria-hidden="true"></i> Пользователи</a>
                     </li>
-                    <li id="component-page-menu-item">
+                    <li id="question-answer-page-menu-item">
                         <!-- class="active" -->
-                        <a href="#componentDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-comment" aria-hidden="true"></i> Вопросы / Ответы</a>
-                        <ul class="collapse list-unstyled" id="componentDropdown">
+                        <a href="#questionAnswerDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-comment" aria-hidden="true"></i> Вопросы / Ответы</a>
+                        <ul class="collapse list-unstyled" id="questionAnswerDropdown">
                             <li>
                                 <a href="@Url.Action("Index", "QuestionType")">Типы вопросов</a>
                             </li>
@@ -46,10 +46,10 @@
                             </li>
                         </ul>
                     </li>
-                    <li id="equipment-page-menu-item">
+                    <li id="survey-geography-page-menu-item">
                         <!-- class="active" -->
-                        <a href="#equipmentDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-globe" aria-hidden="true"></i> География обследования</a>
-                        <ul class="collapse list-unstyled" id="equipmentDropdown">
+                        <a href="#surveyGeographyDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-globe" aria-hidden="true"></i> География обследования</a>
+                        <ul class="collapse list-unstyled" id="surveyGeographyDropdown">
                             <li>
                                 <a href="@Url.Action("Index", "SurveyGeography")">Место обследования</a>
                             </li>
@@ -61,10 +61,10 @@
                             </li>
                         </ul>
                     </li>
-                    <li id="tracking-page-menu-item">
+                    <li id="contacts-page-menu-item">
                         <!-- class="active" -->
-                        <a href="#trackingDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-address-card" aria-hidden="true"></i> Контакты</a>
-                        <ul class="collapse list-unstyled" id="trackingDropdown">
+                        <a href="#contactDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-address-card" aria-hidden="true"></i> Контакты</a>
+                        <ul class="collapse list-unstyled" id="contactDropdown">
                             <li>
                                 <a href="@Url.Action("Index", "Family")">Респонденты</a>
                             </li>
@@ -74,19 +74,19 @@
                         </ul>
                     </li>
 
-                    <li id="form-page-menu-item">
+                    <li id="questionary-page-menu-item">
                         <a href="@Url.Action("Index", "Form")"><i class="fa fa-wpforms" aria-hidden="true"></i> Анкеты</a>
                     </li>
-                    <li id="form-page-menu-item">
-                        <a href="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = 1 })"><i class="fa fa-wpforms" aria-hidden="true"></i> Форма</a>
+                    <li id="formData-page-menu-item">
+                        <a href="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = 1 })"><i class="fa fa-check-square-o" aria-hidden="true"></i> Форма</a>
                     </li>
                 }
                 else if (User.IsInRole("manager"))
                 {
-                    <li id="component-page-menu-item">
+                    <li id="question-answer-page-menu-item">
                         <!-- class="active" -->
-                        <a href="#componentDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-comment" aria-hidden="true"></i> Вопросы / Ответы</a>
-                        <ul class="collapse list-unstyled" id="componentDropdown">
+                        <a href="#questionAnswerDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-comment" aria-hidden="true"></i> Вопросы / Ответы</a>
+                        <ul class="collapse list-unstyled" id="questionAnswerDropdown">
                             <li>
                                 <a href="@Url.Action("Index", "QuestionType")">Типы вопросов</a>
                             </li>
@@ -98,10 +98,10 @@
                             </li>
                         </ul>
                     </li>
-                    <li id="equipment-page-menu-item">
+                    <li id="survey-geography-page-menu-item">
                         <!-- class="active" -->
-                        <a href="#equipmentDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-globe" aria-hidden="true"></i> География обследования</a>
-                        <ul class="collapse list-unstyled" id="equipmentDropdown">
+                        <a href="#surveyGeographyDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-globe" aria-hidden="true"></i> География обследования</a>
+                        <ul class="collapse list-unstyled" id="surveyGeographyDropdown">
                             <li>
                                 <a href="@Url.Action("Index", "SurveyGeography")">Место обследования</a>
                             </li>
@@ -113,10 +113,10 @@
                             </li>
                         </ul>
                     </li>
-                    <li id="tracking-page-menu-item">
+                    <li id="contacts-page-menu-item">
                         <!-- class="active" -->
-                        <a href="#trackingDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-address-card" aria-hidden="true"></i> Контакты</a>
-                        <ul class="collapse list-unstyled" id="trackingDropdown">
+                        <a href="#contactDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-address-card" aria-hidden="true"></i> Контакты</a>
+                        <ul class="collapse list-unstyled" id="contactDropdown">
                             <li>
                                 <a href="@Url.Action("Index", "Family")">Респонденты</a>
                             </li>
@@ -126,14 +126,17 @@
                         </ul>
                     </li>
 
-                    <li id="form-page-menu-item">
+                    <li id="questionary-page-menu-item">
                         <a href="@Url.Action("Index", "Form")"><i class="fa fa-wpforms" aria-hidden="true"></i> Анкеты</a>
+                    </li>
+                    <li id="formData-page-menu-item">
+                        <a href="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = 1 })"><i class="fa fa-check-square-o" aria-hidden="true"></i> Форма</a>
                     </li>
                 }
                 else if (User.IsInRole("user"))
                 {
-                    <li id="form-page-menu-item">
-                        <a href="@Url.Action("Index", "Form")"><i class="fa fa-wpforms" aria-hidden="true"></i> Анкеты</a>
+                    <li id="formData-page-menu-item">
+                        <a href="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = 1 })"><i class="fa fa-check-square-o" aria-hidden="true"></i> Форма</a>
                     </li>
                 }
             </ul>

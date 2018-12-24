@@ -18,7 +18,7 @@ namespace Questionnaire.WEB.Controllers
             SearchService = searchService;
         }
 
-        [Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult AdminSearch(string title, string type)
         {
             ModelAndViewDTO result = SearchService.GetFilteredModelAndView(title, type);
