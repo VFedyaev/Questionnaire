@@ -27,18 +27,13 @@
             </div>
 
             <div class="form-group">
-                @*@Html.LabelFor(model => model.MultipleAnswer)*@
+                @Html.LabelFor(model => model.MultipleAnswer)
                 <p class="onoff">
-                    @*@Html.CheckBoxFor(model => model.MultipleAnswer, new { @id = "checkboxID" })*@
-                    <input type="checkbox" name="MultipleAnswer" id="checkboxID" Value="model.MultipleAnswer" />
+                    @*@Html.CheckBoxFor(model => model.MultipleAnswer, new {@id = "checkboxID" })*@
+                    <input type="checkbox" data-val="true" data-val-required="Требуется поле Вопрос может содержать несколько ответов." id="checkboxID" name="MultipleAnswer" value="true">
                     <label for="checkboxID"></label>
                 </p>
             </div>
-
-            @*<p class="onoff">
-                <input type="checkbox"  id="checkboxID" value="model.MultipleAnswer" />
-                <label for="checkboxID"></label>
-            </p>*@
 
             <div class="form-group">
                 <div class="btn-group" role="group">
