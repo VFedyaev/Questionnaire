@@ -24,6 +24,9 @@ function activeMenuItem() {
     if (url.indexOf('user') >= 0) {
         $('#user-page-menu-item').addClass('active');
     }
+    else if (url.indexOf('formdata') >= 0) {
+        $('#formData-page-menu-item').addClass('active');
+    }
     else if (url.indexOf('question') >= 0 || url.indexOf('questionType') >= 0 || url.indexOf('answer') >= 0) {
         $('#question-answer-page-menu-item').addClass('active');
         $('#questionAnswerDropdown').addClass('show');
@@ -47,9 +50,6 @@ function activeMenuItem() {
     }
     else if (url.indexOf('form') >= 0) {
         $('#questionary-page-menu-item').addClass('active');
-    }
-    else if (url.indexOf('formData') >= 0) {
-        $('#formData-page-menu-item').addClass('active');
     }
     else {
         $('#main-page-menu-item').addClass('active');
@@ -333,6 +333,11 @@ $('.form-submit').on('click', function (e) {
     var districtRequired = $('#districtIdDropDown').val();
     var interviewerRequired = $('#interviewerIdDropDown').val();
 
+    var questionTypeRequired = $('#questionTypeDropDown').val();
+    var questionNameReuqired = $('#questionNameRequired').val();
+
+    var answerNameReuqired = $('#answerNameRequired').val();
+
     var validationError = $('.alert');
     var form = $('form');
     var self = $(this);
@@ -349,7 +354,10 @@ $('.form-submit').on('click', function (e) {
                 surveyGeographyReuqired == "" ||
                 housingTypeRequired == "" ||
                 districtRequired == "" ||
-                interviewerRequired == "") {
+                interviewerRequired == "" ||
+                questionTypeRequired == "" ||
+                questionNameReuqired == "" ||
+                answerNameReuqired == "") {
 
                 validationError.show();
             }

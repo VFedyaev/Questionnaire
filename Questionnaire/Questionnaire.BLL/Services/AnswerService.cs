@@ -87,7 +87,6 @@ namespace Questionnaire.BLL.Services
 
         }
 
-
         public void Delete(int id)
         {
             if (HasRelations(id))

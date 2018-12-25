@@ -81,17 +81,28 @@ namespace Questionnaire.WEB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "QuestionTypeId,Name,MultipleAnswer")] QuestionVM questionVM)
         {
-            if (ModelState.IsValid)
+            try
             {
-                QuestionDTO questionDTO = Mapper.Map<QuestionDTO>(questionVM);
-                //int questionId = QuestionService.AddAndGetId(questionDTO);
-                QuestionService.Add(questionDTO);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    QuestionDTO questionDTO = Mapper.Map<QuestionDTO>(questionVM);
+                    //int questionId = QuestionService.AddAndGetId(questionDTO);
+                    QuestionService.Add(questionDTO);
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.QuestionTypeId = GetQuestionTypeIdSelectList(questionVM.QuestionTypeId);
+
+                return View(questionVM);
             }
-
-            ViewBag.QuestionTypeId = GetQuestionTypeIdSelectList(questionVM.QuestionTypeId);
-
-            return View(questionVM);
+            catch (UniqueConstraintException ex)
+            {
+                return Json(new
+                {
+                    hasError = true,
+                    data = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // GET: Question/Edit/5
@@ -122,18 +133,29 @@ namespace Questionnaire.WEB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,QuestionTypeId,Name,MultipleAnswer")] QuestionVM questionVM)
         {
-            if (ModelState.IsValid)
+            try
             {
-                QuestionDTO questionDTO = Mapper.Map<QuestionDTO>(questionVM);
-                QuestionService.Update(questionDTO);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    QuestionDTO questionDTO = Mapper.Map<QuestionDTO>(questionVM);
+                    QuestionService.Update(questionDTO);
+                    return RedirectToAction("Index");
+                }
+                else
+                    ModelState.AddModelError(null, "Что-то пошло не так. Не удалось сохранить изменения.");
+
+                ViewBag.QuestionTypeId = GetQuestionTypeIdSelectList(questionVM.QuestionTypeId);
+
+                return View(questionVM);
             }
-            else
-                ModelState.AddModelError(null, "Что-то пошло не так. Не удалось сохранить изменения.");
-
-            ViewBag.QuestionTypeId = GetQuestionTypeIdSelectList(questionVM.QuestionTypeId);
-
-            return View(questionVM);
+            catch (UniqueConstraintException ex)
+            {
+                return Json(new
+                {
+                    hasError = true,
+                    data = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public SelectList GetQuestionTypeIdSelectList(short? selectedValue = null)

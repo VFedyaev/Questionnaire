@@ -136,6 +136,7 @@ namespace Questionnaire.BLL.Services
                 on
                     question.QuestionTypeId equals questionType.Id
                 where questionType.Id == questionTypeId
+                orderby questionTypeId
                 select new
                 {
                     questionAnswerId = questionAnswer.Id,
@@ -194,7 +195,7 @@ namespace Questionnaire.BLL.Services
             //    })
             //}
 
-            return formData;
+            return formData.OrderBy(x=> x.QuestionName);
         }
 
         public void Delete(int id)

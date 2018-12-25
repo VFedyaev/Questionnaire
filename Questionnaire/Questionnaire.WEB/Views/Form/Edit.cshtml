@@ -17,37 +17,37 @@
             @Html.HiddenFor(model => model.Id)
 
             <div class="form-group">
-                @Html.LabelFor(model => model.NumberForm)
+                @Html.LabelFor(model => model.NumberForm) <span>*</span>
                 @Html.EditorFor(model => model.NumberForm, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @id = "required" } })
                 @Html.ValidationMessageFor(model => model.NumberForm, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.SurveyGeographyId)
+                @Html.LabelFor(model => model.SurveyGeographyId) <span>*</span>
                 @Html.DropDownList("SurveyGeographyId", null, "Место обследования", htmlAttributes: new { @class = "form-control", @required = "required", @id = "surveyGeographyIdDropDown" })
                 @Html.ValidationMessageFor(model => model.SurveyGeographyId, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.HousingTypeId)
+                @Html.LabelFor(model => model.HousingTypeId) <span>*</span>
                 @Html.DropDownList("HousingTypeId", null, "Тип жилья", htmlAttributes: new { @class = "form-control", @required = "required", @id = "housingTypeIdDropDown" })
                 @Html.ValidationMessageFor(model => model.HousingTypeId, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.DistrictId)
+                @Html.LabelFor(model => model.DistrictId) <span>*</span>
                 @Html.DropDownList("DistrictId", null, "Район", htmlAttributes: new { @class = "form-control", @required = "required", @id = "districtIdDropDown" })
                 @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.InterviewerId)
+                @Html.LabelFor(model => model.InterviewerId) <span>*</span>
                 @Html.DropDownList("InterviewerId", null, "ФИО Интервьюера", htmlAttributes: new { @class = "form-control", @required = "required", @id = "interviewerIdDropDown" })
                 @Html.ValidationMessageFor(model => model.InterviewerId, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Address)
+                @Html.LabelFor(model => model.Address) <span>*</span>
                 @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                 @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
             </div>
@@ -60,14 +60,14 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.InterviewDate)
+                @Html.LabelFor(model => model.InterviewDate) <span>*</span>
                 @Html.EditorFor(model => model.InterviewDate, new { htmlAttributes = new { @class = "form-control", @type = "date", @min = "1930-01-01", @max = "2100-01-01", @required = "required" } })
                 @Html.ValidationMessageFor(model => model.InterviewDate, "", new { @class = "text-danger" })
 
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.StartTime)
+                @Html.LabelFor(model => model.StartTime) <span>*</span>
                 @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control", @type = "time", @required = "required" } })
                 @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
             </div>
@@ -76,7 +76,9 @@
                 @Html.LabelFor(model => model.EndTime)
                 @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control", @type = "time" } })
             </div>
-
+            <div class="alert alert-danger" style="display:none" role="alert">
+                Необходимо заполнить все обязательные поля помеченные знаком (*)
+            </div>
             <div class="form-group">
                 <div class="btn-group" role="group">
                     <button type="submit" class="btn btn-success form-submit" data-redirect-to="/Form/Index"><i class="fa fa-save" aria-hidden="true" title="Сохранить" data-toggle="tooltip" data-placement="top"></i> Сохранить</button>

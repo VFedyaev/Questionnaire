@@ -6,6 +6,7 @@ using Questionnaire.DAL.Entities;
 using Questionnaire.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,17 +56,40 @@ namespace Questionnaire.BLL.Services
 
         public void Add(QuestionDTO questionDTO)
         {
-            Question question = Mapper.Map<Question>(questionDTO);
-            _unitOfWork.Questions.Create(question);
-            _unitOfWork.Save();
+            try
+            {
+                Question question = Mapper.Map<Question>(questionDTO);
+                _unitOfWork.Questions.Create(question);
+                _unitOfWork.Save();
+            }
+            catch (DbUpdateException)
+            {
+                if (NotUnique(questionDTO.Name))
+                    throw new UniqueConstraintException();
+            }
         }
 
         public void Update(QuestionDTO questionDTO)
         {
-            Question question = Mapper.Map<Question>(questionDTO);
+            try
+            {
+                Question question = Mapper.Map<Question>(questionDTO);
 
-            _unitOfWork.Questions.Update(question);
-            _unitOfWork.Save();
+                _unitOfWork.Questions.Update(question);
+                _unitOfWork.Save();
+            }
+            catch (DbUpdateException)
+            {
+                if (NotUnique(questionDTO.Name))
+                    throw new UniqueConstraintException();
+            }
+
+        }
+
+        public bool NotUnique(string name)
+        {
+            var relationsCount = _unitOfWork.Questions.Find(h => h.Name == name).ToList().Count();
+            return relationsCount > 0;
         }
 
         public IEnumerable<AnswerDTO> GetAnswers(int? id)
