@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Questionnaire.BLL.Services
@@ -195,7 +196,11 @@ namespace Questionnaire.BLL.Services
             //    })
             //}
 
-            return formData.OrderBy(x=> x.QuestionName);
+            return formData.OrderBy(x=> PadNumbers(x.QuestionName));
+        }
+        public static string PadNumbers(string input)
+        {
+            return Regex.Replace(input, "[0-9]+", match => match.Value.PadLeft(4, '0'));
         }
 
         public void Delete(int id)
