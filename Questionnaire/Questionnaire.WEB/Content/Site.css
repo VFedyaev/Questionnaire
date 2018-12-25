@@ -456,3 +456,6 @@ select:invalid {
             left: 37px;
         }
 /**/
+.pretty .state {
+    margin: 1px;
+}
