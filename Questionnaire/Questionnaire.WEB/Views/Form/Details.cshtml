@@ -1,0 +1,91 @@
+﻿@model Questionnaire.WEB.Models.Entities.FormVM
+
+@{
+    ViewBag.Title = "Подробная информация";
+}
+
+<div class="block">
+    <h2 clss="block-title">Подробная информация</h2>
+
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.NumberForm)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NumberForm)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SurveyGeographyId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.SurveyGeography.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.HousingTypeId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.HousingType.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DistrictId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.District.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.InterviewerId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Interviewer.Name)
+            </dd>         
+            
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Phone)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.InterviewDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.InterviewDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.StartTime)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EndTime)
+            </dd>
+        </dl>
+    </div>
+
+    <div class="form-group">
+        <div class="btn-group" role="group">
+            <a href="@Url.Action("Edit", "Form", new { id = Model.Id})" class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i> Редактировать</a>
+            <a href="@Url.Action("Index", "Form")" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true" title="Назад" data-toggle="tooltip" data-placement="top"></i> Назад</a>
+        </div>
+    </div>
+</div>

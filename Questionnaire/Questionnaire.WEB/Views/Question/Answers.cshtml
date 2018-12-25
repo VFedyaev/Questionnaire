@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Questionnaire.WEB.Models.Entities.AnswerVM>
+
+@{
+
+    ViewBag.Title = "Ответы на вопрос";
+}
+
+<div class="block">
+    <h2 class="block-title">Ответы на вопрос </h2>
+    
+    <div class="form-group" id="answers">
+        <div id="search-input" class="col-md-12">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="searching">Поиск</span>
+                </div>
+                <input type="text" class="form-control" placeholder="Введите наименование ответа" autofocus id="search-input-value" />
+                <div id="search-buttons" class="input-group-append">
+                    <button class="btn btn-outline-success" type="button" onclick="searchAnswers('model')">Искать</button>
+                    <button class="btn btn-outline-danger" type="button" onclick="clearSearch()">Сбросить</button>
+                </div>
+            </div>
+            <small id="information" class="form-text text-muted">Поиск вариантов ответа для вопроса.</small>
+        </div>
+    </div>
+    @using (Html.BeginForm("UpdateAnswers", "Relation", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="hidden" name="questionId" value="@ViewBag.QuestionId" />
+
+        <div id="found-items-area"></div>
+
+        <div id="attached-items" class="justify-content-center">
+            @if (!(Model.Count() <= 0))
+            {
+                foreach (Questionnaire.WEB.Models.Entities.AnswerVM answer in Model)
+                {
+                    <div class="row" id="pinned-@answer.Id">
+                        <div class="col-md-8">
+                            <input type="hidden" name="answerId[]" value="@answer.Id" />
+                            <div class="name row item-info-row">
+                                <div class="col-md-3 item-info">
+                                    <b>Вариант ответа</b>
+                                </div>
+                                <div class="col-md-6 item-info">
+                                    @answer.Name
+                                </div>
+                                <div class="col-md-3 item-info">
+                                    <div class="btn-group float-right">
+                                        <button class="btn btn-danger btn-sm" type="button" onclick="detachItem('@answer.Id')">Убрать</button>
+                                        <a href="@Url.Action("Details", "Answer", new { id = answer.Id })" target="_blank" class="btn btn-primary btn-sm">Подробности</a>
+                                    </div>
+                                </div>
+                                <br />
+                                <br />
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        <div class="form-group">
+            <div class="btn-group" role="group">
+                <button type="submit" class="btn btn-success"><i class="fa fa-save" aria-hidden="true" title="Сохранить" data-toggle="tooltip" data-placement="top"></i> Сохранить</button>
+                <a href="@Url.Action("Index", "Question")" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true" title="Назад" data-toggle="tooltip" data-placement="top"></i> Назад</a>
+            </div>
+        </div>
+    }
+</div>
+@section scripts {
+    <script>
+        searchAnswersByEnter();
+    </script>
+}

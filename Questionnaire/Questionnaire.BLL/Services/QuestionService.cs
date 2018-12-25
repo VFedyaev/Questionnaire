@@ -6,6 +6,7 @@ using Questionnaire.DAL.Entities;
 using Questionnaire.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,19 +56,72 @@ namespace Questionnaire.BLL.Services
 
         public void Add(QuestionDTO questionDTO)
         {
-            Question question = Mapper.Map<Question>(questionDTO);
-            _unitOfWork.Questions.Create(question);
-            _unitOfWork.Save();
+            try
+            {
+                Question question = Mapper.Map<Question>(questionDTO);
+                _unitOfWork.Questions.Create(question);
+                _unitOfWork.Save();
+            }
+            catch (DbUpdateException)
+            {
+                if (NotUnique(questionDTO.Name))
+                    throw new UniqueConstraintException();
+            }
         }
 
         public void Update(QuestionDTO questionDTO)
         {
-            Question question = Mapper.Map<Question>(questionDTO);
+            try
+            {
+                Question question = Mapper.Map<Question>(questionDTO);
 
-            _unitOfWork.Questions.Update(question);
-            _unitOfWork.Save();
+                _unitOfWork.Questions.Update(question);
+                _unitOfWork.Save();
+            }
+            catch (DbUpdateException)
+            {
+                if (NotUnique(questionDTO.Name))
+                    throw new UniqueConstraintException();
+            }
+
         }
 
+        public bool NotUnique(string name)
+        {
+            var relationsCount = _unitOfWork.Questions.Find(h => h.Name == name).ToList().Count();
+            return relationsCount > 0;
+        }
+
+        public IEnumerable<AnswerDTO> GetAnswers(int? id)
+        {
+            if (id == null)
+                throw new ArgumentNullException();
+
+            IEnumerable<int> questionAnswerIds = _unitOfWork
+                .QuestionAnswers
+                .Find(e => e.QuestionId == id)
+                .Select(com => com.AnswerId);
+
+            if (questionAnswerIds.Count() < 0)
+                return Enumerable.Empty<AnswerDTO>();
+
+            IEnumerable<AnswerDTO> answers = (
+                from
+                    relation in _unitOfWork.QuestionAnswers.GetAll()
+                join
+                    answer in _unitOfWork.Answers.GetAll()
+                on
+                    relation.AnswerId equals answer.Id
+                where
+                    relation.QuestionId == id
+                select new AnswerDTO
+                {
+                    Id = answer.Id,
+                    Name = answer.Name,
+                });
+
+            return answers;
+        }
 
         public void Delete(int id)
         {

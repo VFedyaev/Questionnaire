@@ -23,6 +23,7 @@ namespace Questionnaire.WEB.Controllers
             HousingTypeService = housingTypeService;
         }
 
+        [Authorize(Roles = "admin, manager")]
         public ActionResult AjaxHousingTypeList(int? page)
         {
             IEnumerable<HousingTypeDTO> housingTypeDTOs = HousingTypeService
@@ -34,9 +35,9 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: HousingType
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Index(int? page)
         {
-
             IEnumerable<HousingTypeDTO> housingTypeDTOs = HousingTypeService
                .GetListOrderedByName()
                .ToList();
@@ -46,6 +47,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: HousingType/Details/5
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Details(int? id)
         {
             try
@@ -66,12 +68,14 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: HousingType/Create
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: HousingType/Create
+        [Authorize(Roles = "admin, manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name")] HousingTypeVM housingTypeVM)
@@ -86,6 +90,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: HousingType/Edit/5
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Edit(int? id)
         {
             try
@@ -106,6 +111,7 @@ namespace Questionnaire.WEB.Controllers
 
         // POST: HousingType/Edit/5
         [HttpPost]
+        [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name")] HousingTypeVM housingTypeVM)
         {
@@ -120,6 +126,7 @@ namespace Questionnaire.WEB.Controllers
 
         // GET: HousingType/Delete/5
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {

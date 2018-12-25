@@ -43,6 +43,7 @@
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.First().QuestionTypeId)</th>
                     <th>@Html.DisplayNameFor(model => model.First().Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().MultipleAnswer)</th>
                     <th></th>
                 </tr>
             </thead>
@@ -53,28 +54,26 @@
                     <tr id="@item.Id">
                         <td>@Html.DisplayFor(modelItem => item.QuestionType.Name)</td>
                         <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.MultipleAnswer)</td>
 
                         <td>
-                            <div class="btn-group float-right" role="group">
-                                <a class="btn btn-info" name="editButton" id="editButton" href="@Url.Action("Edit", "Question", new { id = item.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i> Редактировать</a>
-                                <a class="btn btn-warning" name="detailsButton" id="detailsButton" href="@Url.Action("Details", "Question", new { id = item.Id })"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Просмотреть</a>
-                                <a class="btn btn-danger delete-prompt" name="deleteButton" id="@item.Id"><i class="fa fa-trash" aria-hidden="true" title="Удалить" data-toggle="tooltip" data-placement="top"></i> Удалить</a>
-                            </div>
-                            @*@if (User.IsInRole("admin"))
+                            @if (User.IsInRole("admin"))
                             {
                                 <div class="btn-group float-right" role="group">
-                                    <a class="btn btn-info" name="editButton" id="editButton" href="@Url.Action("Edit", "QuestionType", new { id = item.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i> Редактировать</a>
-                                    <a class="btn btn-warning" name="detailsButton" id="detailsButton" href="@Url.Action("Details", "QuestionType", new { id = item.Id })"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Просмотреть</a>
-                                    <a class="btn btn-danger delete-prompt" name="deleteButton" id="@item.Id"><i class="fa fa-trash" aria-hidden="true" title="Удалить" data-toggle="tooltip" data-placement="top"></i> Удалить</a>
+                                    <a class="btn btn-success btn-sm" name="editButton" id="editButton" href="@Url.Action("Edit", "Question", new { id = item.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i> Редактировать</a>
+                                    <a class="btn btn-warning btn-sm" name="detailsButton" id="detailsButton" href="@Url.Action("Details", "Question", new { id = item.Id })"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Просмотреть</a>
+                                    <a class="btn btn-info btn-sm" name="detailsButton" id="detailsButton" href="@Url.Action("Answers", "Question", new { questionId = item.Id })"><i class="fa fa-list-alt" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Список ответов</a>
+                                    <a class="btn btn-danger delete-prompt btn-sm" name="deleteButton" id="@item.Id"><i class="fa fa-trash" aria-hidden="true" title="Удалить" data-toggle="tooltip" data-placement="top"></i> Удалить</a>
                                 </div>
                             }
                             else if (User.IsInRole("manager"))
                             {
                                 <div class="btn-group float-right" role="group">
-                                    <a class="btn btn-info" name="editButton" id="editButton" href="@Url.Action("Edit", "QuestionType", new { id = item.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i> Редактировать</a>
-                                    <a class="btn btn-warning" name="detailsButton" id="detailsButton" href="@Url.Action("Details", "QuestionType", new { id = item.Id })"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Просмотреть</a>
+                                    <a class="btn btn-success btn-sm" name="editButton" id="editButton" href="@Url.Action("Edit", "Question", new { id = item.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i> Редактировать</a>
+                                    <a class="btn btn-warning btn-sm" name="detailsButton" id="detailsButton" href="@Url.Action("Details", "Question", new { id = item.Id })"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Просмотреть</a>
+                                    <a class="btn btn-info btn-sm" name="detailsButton" id="detailsButton" href="@Url.Action("Answers", "Question", new { questionId = item.Id })"><i class="fa fa-list-alt" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Список ответов</a>
                                 </div>
-                            }*@
+                            }
                         </td>
                     </tr>
                 }
@@ -92,14 +91,14 @@
         </div>
 
         @*<div id="paginationToDelete">
-            @Html.PagedListPager(Model, page => Url.Action("AjaxQuestionTypeList", new { page }),
-             PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "result", OnSuccess = "removeListAndPagination()" }))
+                @Html.PagedListPager(Model, page => Url.Action("AjaxQuestionTypeList", new { page }),
+                 PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "result", OnSuccess = "removeListAndPagination()" }))
 
-            @if (!(Model.PageCount <= 0))
-            {
-                <p class="pagination-info">Страница @Model.PageNumber из @Model.PageCount</p>
-            }
-        </div>*@
+                @if (!(Model.PageCount <= 0))
+                {
+                    <p class="pagination-info">Страница @Model.PageNumber из @Model.PageCount</p>
+                }
+            </div>*@
     </div>
 </div>
 

@@ -7,6 +7,7 @@ namespace Questionnaire.BLL.DTO
         public int Id { get; set; }
         public short QuestionTypeId { get; set; }
         public string Name { get; set; }
+        public bool MultipleAnswer { get; set; }
 
         public QuestionTypeDTO QuestionType { get; set; }
     }

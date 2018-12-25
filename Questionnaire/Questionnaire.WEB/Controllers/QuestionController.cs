@@ -25,6 +25,7 @@ namespace Questionnaire.WEB.Controllers
             QuestionService = questionService;
         }
 
+        [Authorize(Roles = "admin, manager")]
         public ActionResult AjaxQuestionTypeList(int? page)
         {
             IEnumerable<QuestionDTO> questionDTOs = QuestionService
@@ -35,6 +36,7 @@ namespace Questionnaire.WEB.Controllers
             return PartialView(questionVMs.ToPagedList(page ?? 1, _itemsPerPage));
         }
         // GET: Question
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Index(int? page)
         {
             IEnumerable<QuestionDTO> questionDTOs = QuestionService
@@ -46,6 +48,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Question/Details/5
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Details(int? id)
         {
             try
@@ -65,6 +68,7 @@ namespace Questionnaire.WEB.Controllers
             }
         }
 
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Create()
         {
             ViewBag.QuestionTypeId = GetQuestionTypeIdSelectList();
@@ -73,23 +77,36 @@ namespace Questionnaire.WEB.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "QuestionTypeId,Name")] QuestionVM questionVM)
+        public ActionResult Create([Bind(Include = "QuestionTypeId,Name,MultipleAnswer")] QuestionVM questionVM)
         {
-            if (ModelState.IsValid)
+            try
             {
-                QuestionDTO questionDTO = Mapper.Map<QuestionDTO>(questionVM);
-                //int questionId = QuestionService.AddAndGetId(questionDTO);
-                QuestionService.Add(questionDTO);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    QuestionDTO questionDTO = Mapper.Map<QuestionDTO>(questionVM);
+                    //int questionId = QuestionService.AddAndGetId(questionDTO);
+                    QuestionService.Add(questionDTO);
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.QuestionTypeId = GetQuestionTypeIdSelectList(questionVM.QuestionTypeId);
+
+                return View(questionVM);
             }
-
-            ViewBag.QuestionTypeId = GetQuestionTypeIdSelectList(questionVM.QuestionTypeId);
-
-            return View(questionVM);
+            catch (UniqueConstraintException ex)
+            {
+                return Json(new
+                {
+                    hasError = true,
+                    data = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // GET: Question/Edit/5
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Edit(int? id)
         {
             try
@@ -112,21 +129,33 @@ namespace Questionnaire.WEB.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,QuestionTypeId,Name")] QuestionVM questionVM)
+        public ActionResult Edit([Bind(Include = "Id,QuestionTypeId,Name,MultipleAnswer")] QuestionVM questionVM)
         {
-            if (ModelState.IsValid)
+            try
             {
-                QuestionDTO questionDTO = Mapper.Map<QuestionDTO>(questionVM);
-                QuestionService.Update(questionDTO);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    QuestionDTO questionDTO = Mapper.Map<QuestionDTO>(questionVM);
+                    QuestionService.Update(questionDTO);
+                    return RedirectToAction("Index");
+                }
+                else
+                    ModelState.AddModelError(null, "Что-то пошло не так. Не удалось сохранить изменения.");
+
+                ViewBag.QuestionTypeId = GetQuestionTypeIdSelectList(questionVM.QuestionTypeId);
+
+                return View(questionVM);
             }
-            else
-                ModelState.AddModelError(null, "Что-то пошло не так. Не удалось сохранить изменения.");
-
-            ViewBag.QuestionTypeId = GetQuestionTypeIdSelectList(questionVM.QuestionTypeId);
-
-            return View(questionVM);
+            catch (UniqueConstraintException ex)
+            {
+                return Json(new
+                {
+                    hasError = true,
+                    data = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public SelectList GetQuestionTypeIdSelectList(short? selectedValue = null)
@@ -134,8 +163,27 @@ namespace Questionnaire.WEB.Controllers
             return new SelectList(QuestionTypeService.GetAll().ToList(), "Id", "Name", selectedValue);
         }
 
+        [Authorize(Roles = "admin, manager")]
+        public ActionResult Answers(int? questionId)
+        {
+            try
+            {
+                IEnumerable<AnswerDTO> answerDTOs = QuestionService.GetAnswers(questionId).ToList();
+                IEnumerable<AnswerVM> answerVMs = Mapper.Map<IEnumerable<AnswerVM>>(answerDTOs);
+
+                ViewBag.QuestionId = questionId;
+
+                return View(answerVMs);
+            }
+            catch (ArgumentNullException)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+        }
+
         // GET: Question/Delete/5
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {

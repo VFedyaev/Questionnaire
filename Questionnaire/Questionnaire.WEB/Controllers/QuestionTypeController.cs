@@ -23,6 +23,7 @@ namespace Questionnaire.WEB.Controllers.Questionnaire
             QuestionTypeService = questionTypeService;
         }
 
+        [Authorize(Roles = "admin, manager")]
         public ActionResult AjaxQuestionTypeList(int? page)
         {
             IEnumerable<QuestionTypeDTO> questionTypeDTOs = QuestionTypeService
@@ -32,7 +33,9 @@ namespace Questionnaire.WEB.Controllers.Questionnaire
 
             return PartialView(questionTypeVMs.ToPagedList(page ?? 1, _itemsPerPage));
         }
+
         // GET: QuestionType
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Index(int? page)
         {
 
@@ -45,6 +48,7 @@ namespace Questionnaire.WEB.Controllers.Questionnaire
         }
 
         // GET: QuestionType/Details/5
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Details(int? id)
         {
             try
@@ -65,6 +69,7 @@ namespace Questionnaire.WEB.Controllers.Questionnaire
         }
 
         // GET: QuestionType/Create
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Create()
         {
             return View();
@@ -72,6 +77,7 @@ namespace Questionnaire.WEB.Controllers.Questionnaire
 
         // POST: QuestionType/Create
         [HttpPost]
+        [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name")] QuestionTypeVM questionTypeVM)
         {
@@ -85,6 +91,7 @@ namespace Questionnaire.WEB.Controllers.Questionnaire
         }
 
         // GET: QuestionType/Edit/5
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Edit(int? id)
         {
             try
@@ -105,6 +112,7 @@ namespace Questionnaire.WEB.Controllers.Questionnaire
 
         // POST: QuestionType/Edit/5
         [HttpPost]
+        [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name")] QuestionTypeVM questionTypeVM)
         {
@@ -119,6 +127,7 @@ namespace Questionnaire.WEB.Controllers.Questionnaire
 
         // GET: QuestionType/Delete/5
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {

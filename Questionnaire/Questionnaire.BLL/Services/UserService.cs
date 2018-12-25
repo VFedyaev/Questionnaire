@@ -1,4 +1,8 @@
-﻿using Questionnaire.BLL.Interfaces;
+﻿using AutoMapper;
+using Questionnaire.BLL.DTO;
+using Questionnaire.BLL.Interfaces;
+using Questionnaire.DAL.Entities;
+using Questionnaire.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,53 +15,53 @@ namespace Questionnaire.BLL.Services
     {
         private const string DEFAULT_ROLE = "user";
 
-        //private IAccountWorker worker { get; set; }
+        private IUnitOfWork _unitOfWork { get; set; }
 
-        //public UserService(IAccountWorker worker)
-        //{
-        //    this.worker = worker;
-        //}
+        public UserService(IUnitOfWork uow)
+        {
+            _unitOfWork = uow;
+        }
 
-        //public IEnumerable<UserDTO> GetAllUsers()
-        //{
-        //    List<ApplicationUser> users = worker.UserManager.Users.ToList();
+        public IEnumerable<UserDTO> GetAllUsers()
+        {
+            List<ApplicationUser> users = _unitOfWork.UserManager.Users.ToList();
 
-        //    return Mapper.Map<IEnumerable<UserDTO>>(users);
-        //}
+            return Mapper.Map<IEnumerable<UserDTO>>(users);
+        }
 
-        //public async Task<string> GetUserRole(string userId)
-        //{
-        //    IList<string> roles = await worker.UserManager.GetRolesAsync(userId);
-        //    string roleName = roles.FirstOrDefault();
+        public async Task<string> GetUserRole(string userId)
+        {
+            IList<string> roles = await _unitOfWork.UserManager.GetRolesAsync(userId);
+            string roleName = roles.FirstOrDefault();
 
-        //    return roleName;
-        //}
+            return roleName;
+        }
 
-        //public async Task ChangeUserRole(ChangeRoleDTO changeRoleDTO)
-        //{
-        //    if (!string.IsNullOrEmpty(changeRoleDTO.OldRole))
-        //        await worker.UserManager.RemoveFromRoleAsync(changeRoleDTO.UserId, changeRoleDTO.OldRole);
+        public async Task ChangeUserRole(ChangeRoleDTO changeRoleDTO)
+        {
+            if (!string.IsNullOrEmpty(changeRoleDTO.OldRole))
+                await _unitOfWork.UserManager.RemoveFromRoleAsync(changeRoleDTO.UserId, changeRoleDTO.OldRole);
 
-        //    if (!string.IsNullOrEmpty(changeRoleDTO.Role))
-        //        await worker.UserManager.AddToRoleAsync(changeRoleDTO.UserId, changeRoleDTO.Role);
+            if (!string.IsNullOrEmpty(changeRoleDTO.Role))
+                await _unitOfWork.UserManager.AddToRoleAsync(changeRoleDTO.UserId, changeRoleDTO.Role);
 
-        //    await worker.SaveAsync();
-        //}
+            await _unitOfWork.SaveAsync();
+        }
 
-        //public async Task DeleteUser(string userId)
-        //{
-        //    if (string.IsNullOrEmpty(userId))
-        //        throw new ArgumentNullException();
+        public async Task DeleteUser(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+                throw new ArgumentNullException();
 
-        //    var user = await worker.UserManager.FindByIdAsync(userId);
-        //    var userRoles = await worker.UserManager.GetRolesAsync(userId);
+            var user = await _unitOfWork.UserManager.FindByIdAsync(userId);
+            var userRoles = await _unitOfWork.UserManager.GetRolesAsync(userId);
 
-        //    if (userRoles.Count() > 0)
-        //        foreach (var role in userRoles)
-        //            await worker.UserManager.RemoveFromRoleAsync(userId, role);
+            if (userRoles.Count() > 0)
+                foreach (var role in userRoles)
+                    await _unitOfWork.UserManager.RemoveFromRoleAsync(userId, role);
 
-        //    await worker.UserManager.DeleteAsync(user);
-        //    await worker.SaveAsync();
-        //}
+            await _unitOfWork.UserManager.DeleteAsync(user);
+            await _unitOfWork.SaveAsync();
+        }
     }
 }

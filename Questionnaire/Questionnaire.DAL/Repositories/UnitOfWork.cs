@@ -1,5 +1,8 @@
-﻿using Questionnaire.DAL.EF;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Questionnaire.DAL.EF;
 using Questionnaire.DAL.Entities;
+using Questionnaire.DAL.Identity;
 using Questionnaire.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,6 +14,8 @@ namespace Questionnaire.DAL.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
+        private QuestionnaireContext context;
+
         private BaseRepository<QuestionType> questionTypeRepository;
         private BaseRepository<Question> questionRepository;
         private BaseRepository<Answer> answerRepository;
@@ -23,12 +28,26 @@ namespace Questionnaire.DAL.Repositories
         private BaseRepository<Family> familyRepository;
         private BaseRepository<Data> dataRepository;
 
-        private QuestionnaireContext context;
+        PasswordValidator passwordValidator = new PasswordValidator
+        {
+            RequiredLength = 8,
+            RequireNonLetterOrDigit = true,
+            RequireDigit = true,
+            RequireLowercase = true
+        };
 
         public UnitOfWork(string connectionString)
         {
             context = new QuestionnaireContext(connectionString);
+            UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
+            RoleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(context));
+
+            UserManager.PasswordValidator = passwordValidator;
+            UserManager.UserValidator = new AppUserValidator(UserManager);
         }
+
+        public ApplicationUserManager UserManager { get; }
+        public ApplicationRoleManager RoleManager { get; }
 
         public IRepository<QuestionType> QuestionTypes
         {
@@ -138,6 +157,11 @@ namespace Questionnaire.DAL.Repositories
                     dataRepository = new BaseRepository<Data>(context);
                 return dataRepository;
             }
+        }
+
+        public async Task SaveAsync()
+        {
+            await context.SaveChangesAsync();
         }
 
         public void Save()

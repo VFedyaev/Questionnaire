@@ -1,7 +1,7 @@
 ﻿const TYPE = "Тип";
 const NUMBER = "Инвентаризационный номер";
 const MODEL = "Модель";
-const NAME = "Название";
+const NAME = "Вариант ответа";
 
 function menuInit() {
     $(document).ready(function () {
@@ -17,16 +17,6 @@ function menuInit() {
     });
 }
 
-function searchEmployeesByEnter() {
-    $(document).ready(function () {
-        $("#search-input-value").keyup(function (event) {
-            if (event.keyCode == 13) {
-                searchEmployees();
-            }
-        });
-    });
-}
-
 function activeMenuItem() {
     turnOffCurrentActiveMenuItem();
 
@@ -34,14 +24,20 @@ function activeMenuItem() {
     if (url.indexOf('user') >= 0) {
         $('#user-page-menu-item').addClass('active');
     }
-    else if (url.indexOf('equipment') >= 0) {
-        $('#equipment-page-menu-item').addClass('active');
+    else if (url.indexOf('formdata') >= 0) {
+        $('#formData-page-menu-item').addClass('active');
     }
-    else if (url.indexOf('component') >= 0) {
-        $('#component-page-menu-item').addClass('active');
+    else if (url.indexOf('question') >= 0 || url.indexOf('questionType') >= 0 || url.indexOf('answer') >= 0) {
+        $('#question-answer-page-menu-item').addClass('active');
+        $('#questionAnswerDropdown').addClass('show');
     }
-    else if (url.indexOf('history') >= 0 || url.indexOf('repairplace') >= 0 || url.indexOf('statustype') >= 0) {
-        $('#tracking-page-menu-item').addClass('active');
+    else if (url.indexOf('surveygeography') >= 0 || url.indexOf('housingtype') >= 0 || url.indexOf('district') >= 0) {
+        $('#survey-geography-page-menu-item').addClass('active');
+        $('#surveyGeographyDropdown').addClass('show');
+    }
+    else if (url.indexOf('family') >= 0 || url.indexOf('interviewer') >= 0) {
+        $('#contacts-page-menu-item').addClass('active');
+        $('#contactDropdown').addClass('show');
     }
     else if (url.indexOf('login') >= 0) {
         $('#login-page-menu-item').addClass('active');
@@ -52,6 +48,9 @@ function activeMenuItem() {
     else if (url.indexOf('changepassword') >= 0) {
         $('#change-password-page-menu-item').addClass('active');
     }
+    else if (url.indexOf('form') >= 0) {
+        $('#questionary-page-menu-item').addClass('active');
+    }
     else {
         $('#main-page-menu-item').addClass('active');
     }
@@ -59,14 +58,16 @@ function activeMenuItem() {
 
 function turnOffCurrentActiveMenuItem() {
     var menuItems = [];
-    menuItems.push($('#main-page-menu-item'));
     menuItems.push($('#user-page-menu-item'));
-    menuItems.push($('#equipment-page-menu-item'));
-    menuItems.push($('#component-page-menu-item'));
-    menuItems.push($('#tracking-page-menu-item'));
+    menuItems.push($('#question-answer-page-menu-item'));
+    menuItems.push($('#survey-geography-page-menu-item'));
+    menuItems.push($('#contacts-page-menu-item'));
     menuItems.push($('#login-page-menu-items'));
     menuItems.push($('#change-email-page-menu-item'));
     menuItems.push($('#change-password-page-menu-item'));
+    menuItems.push($('#questionary-page-menu-item'));
+    menuItems.push($('#formData-page-menu-item'));
+    menuItems.push($('#main-page-menu-item'));
 
     for (var i = 0; i < menuItems.length; i++) {
         if (menuItems[i].hasClass('active') >= 0) {
@@ -75,90 +76,26 @@ function turnOffCurrentActiveMenuItem() {
     }
 }
 
-function searchEmployees() {
-    var employeeName = $("#search-input-value").val();
-    var token = $('input[name="__RequestVerificationToken"]').val();
-    var oldSearchingText = document.getElementById('searching').innerText;
+function getAge() {
+    var today = new Date();
+    var selectDate = new Date(document.getElementById("dateBorn").value);
+    var age = today.getFullYear() - selectDate.getFullYear();
+    document.getElementById("age").value = age;
+}
 
-    document.getElementById('searching').innerText = "Идет поиск...";
-
-    $.ajax({
-        url: "/Equipment/FindEmployees",
-        type: "Post",
-        data: {
-            __RequestVerificationToken: token,
-            "name": employeeName
-        },
-        success: function (html) {
-            $("#found-items-area").empty();
-            $("#found-items-area").append(html);
-            document.getElementById('searching').innerText = oldSearchingText;
-        },
-        error: function (XMLHttpRequest) {
-            console.log(XMLHttpRequest);
-            document.getElementById('searching').innerText = oldSearchingText;
-        }
+function searchAnswersByEnter() {
+    $(document).ready(function () {
+        $("#search-input-value").keyup(function (event) {
+            if (event.keyCode == 13) {
+                searchAnswers('model');
+            }
+        });
     });
-    return false;
 }
 
 function clearSearch() {
     $("#found-items-area").empty();
     $("#search-input-value").val('');
-}
-
-function attachEmployee(employeeId) {
-    if (document.body.contains(document.getElementById("pinned-" + employeeId))) {
-        alert("Сотрудник уже прикриплен.");
-        return false;
-    }
-
-    var employeeRow = $("#" + employeeId);
-    var name = employeeRow.find("td.name")[0].innerText;
-
-    var newTr = document.createElement("tr");
-    newTr.id = "pinned-" + employeeId;
-
-    var inputId = document.createElement("input");
-    inputId.type = "hidden";
-    inputId.name = "employeeId[]";
-    inputId.value = employeeId;
-
-    var button = document.createElement("button");
-    button.classList.add("btn", "btn-danger");
-    button.type = "button";
-    button.innerText = "Убрать";
-    button.setAttribute("onclick", "detachItem('" + employeeId + "')");
-
-    var buttonTd = document.createElement("td");
-    buttonTd.className = "input-group-btn";
-    buttonTd.appendChild(inputId);
-    buttonTd.appendChild(button);
-
-    var nameTd = createTd("name", name);
-
-    var label = document.createElement("label");
-
-    var inputOwner = document.createElement("input");
-    inputOwner.type = "radio";
-    inputOwner.name = "ownerId";
-    inputOwner.value = employeeId;
-
-    label.appendChild(inputOwner);
-    label.appendChild(document.createTextNode("Текущий владелец"));
-
-    var ownerTd = document.createElement("td");
-    ownerTd.appendChild(label);
-
-    var emptyTd = document.createElement("td");
-
-    newTr.appendChild(buttonTd);
-    newTr.appendChild(nameTd);
-    newTr.appendChild(ownerTd);
-    newTr.appendChild(emptyTd);
-
-    var attachedItems = document.getElementById("attached-items-tbody");
-    attachedItems.appendChild(newTr);
 }
 
 function createTd(tdClass, value) {
@@ -169,16 +106,15 @@ function createTd(tdClass, value) {
     return td;
 }
 
-function searchComponents(type) {
+function searchAnswers(type) {
     var searchValue = $("#search-input-value").val();
     var token = $('input[name="__RequestVerificationToken"]').val();
     var oldSearchingText = document.getElementById('searching').innerText;
 
     document.getElementById('searching').innerText = "Идет поиск...";
 
-
     $.ajax({
-        url: "/Component/FindComponents",
+        url: "/Answer/FindAnswers",
         type: "Post",
         data: {
             __RequestVerificationToken: token,
@@ -198,60 +134,54 @@ function searchComponents(type) {
     return false;
 }
 
-function attachComponent(componentId) {
-    if (document.body.contains(document.getElementById("pinned-" + componentId))) {
+function attachAnswer(answerId) {
+    if (document.body.contains(document.getElementById("pinned-" + answerId))) {
         alert("Комплектующее уже в списке.");
         return false;
     }
 
-    var componentInfo = $("#" + componentId);
-    var type = componentInfo.find("td.type")[0].innerText;
-    var model = componentInfo.find("td.model")[0].innerText;
-    var name = componentInfo.find("td.name")[0].innerText;
-    var number = componentInfo.find("td.number")[0].innerText;
+    var answerInfo = $("#" + answerId);
+    var name = answerInfo.find("td.name")[0].innerText;
 
     var inputId = document.createElement("input");
     inputId.type = "hidden";
-    inputId.name = "componentId[]";
-    inputId.value = componentId;
+    inputId.name = "answerId[]";
+    inputId.value = answerId;
 
-    var typeDiv = createDiv("type", TYPE, type);
-    var modelDiv = createDiv("model", MODEL, model);
     var nameDiv = createDiv("name", NAME, name);
-    var numberDiv = createDiv("number", NUMBER, number);
 
-    var buttonDiv = createButtonDiv(componentId);
+
 
     var wrapDiv = document.createElement("div");
     wrapDiv.classList.add("col-md-8", "item");
 
-    var newComponent = document.createElement("div");
-    newComponent.className = "row";
-    newComponent.id = "pinned-" + componentId;
+    var newAnswer = document.createElement("div");
+    newAnswer.className = "row";
+    newAnswer.id = "pinned-" + answerId;
 
     wrapDiv.appendChild(inputId);
-    wrapDiv.appendChild(typeDiv);
-    wrapDiv.appendChild(modelDiv);
     wrapDiv.appendChild(nameDiv);
-    wrapDiv.appendChild(numberDiv);
+
     wrapDiv.appendChild(createElement("br"));
-    wrapDiv.appendChild(buttonDiv);
-    newComponent.appendChild(wrapDiv);
+
+    newAnswer.appendChild(wrapDiv);
 
     var attachedItems = document.getElementById("attached-items");
-    attachedItems.appendChild(newComponent);
+    attachedItems.appendChild(newAnswer);
 }
 
 function createElement(element) {
     return document.createElement(element);
 }
 
-function createDiv(divClass, title, value) {
+function createDiv(divClass, title, value, answerId) {
+    var buttonDiv = createButtonDiv(answerId);
+
     var wrapDiv = document.createElement("div");
     wrapDiv.classList.add(divClass, "row", "item-info-row");
 
     var firstDiv = document.createElement("div");
-    firstDiv.classList.add("col-md-6", "item-info");
+    firstDiv.classList.add("col-md-3", "item-info");
 
     var bold = document.createElement("b");
     bold.innerText = title;
@@ -262,15 +192,23 @@ function createDiv(divClass, title, value) {
     secondDiv.classList.add("col-md-6", "item-info");
     secondDiv.innerText = value;
 
+    var thirdDiv = document.createElement("div");
+    thirdDiv.classList.add("col-md-3", "item-info");
+    thirdDiv.appendChild(buttonDiv);
+
     wrapDiv.appendChild(firstDiv);
     wrapDiv.appendChild(secondDiv);
+    wrapDiv.appendChild(thirdDiv);
+
+    wrapDiv.appendChild(createElement("br"));
+    wrapDiv.appendChild(createElement("br"));
 
     return wrapDiv;
 }
 
-function createButtonDiv(componentId) {
-    var removeBtn = createRemoveButton(componentId);
-    var detailsBtn = createDetailsButton(componentId);
+function createButtonDiv(answerId) {
+    var removeBtn = createRemoveButton(answerId);
+    var detailsBtn = createDetailsButton(answerId);
 
     var buttonDiv = document.createElement("div");
     buttonDiv.className = "btn-group";
@@ -282,20 +220,20 @@ function createButtonDiv(componentId) {
     return buttonDiv;
 }
 
-function createRemoveButton(componentId) {
+function createRemoveButton(answerId) {
     var button = document.createElement("button");
-    button.classList.add("btn", "btn-danger");
+    button.classList.add("btn", "btn-danger", "btn-sm");
     button.type = "button";
-    button.setAttribute("onclick", "detachItem('" + componentId + "')");
+    button.setAttribute("onclick", "detachItem('" + answerId + "')");
     button.innerText = "Убрать";
 
     return button;
 }
 
-function createDetailsButton(componentId) {
+function createDetailsButton(answerId) {
     var button = document.createElement("a");
-    button.setAttribute("href", "/Component/Details?id=" + componentId);
-    button.classList.add("btn", "btn-primary");
+    button.setAttribute("href", "/Answer/Details?id=" + answerId);
+    button.classList.add("btn", "btn-primary", "btn-sm");
     button.setAttribute("target", "_blank");
     button.innerText = "Подробности";
 
@@ -366,7 +304,6 @@ function removeListAndPagination() {
     $("#paginationToDelete").remove();
 }
 
-
 function toPrevMain(from = "") {
     if (from == "list") {
         $("#employee-list").empty();
@@ -382,22 +319,50 @@ function toPrevMain(from = "") {
     }
     $("#accordion").show();
 }
+
 function closeMessageDiv() {
     $("#message-div").remove();
 }
 
-function QRCodeSourcetoPrint(source) {
-    return "<html><head><script>function step1(){\n" +
-        "setTimeout('step2()', 10);}\n" +
-        "function step2(){window.print();window.close()}\n" +
-        "</scri" + "pt></head><body onload='step1()'>\n" +
-        "<img src='" + source + "' /></body></html>";
-}
+$('.form-submit').on('click', function (e) {
+    e.preventDefault();
+    var numberFormReuqired = $('#numberFormRequired').val();
+    var addressReuqired = $('#addressRequired').val();
+    var surveyGeographyReuqired = $('#surveyGeographyIdDropDown').val();
+    var housingTypeRequired = $('#housingTypeIdDropDown').val();
+    var districtRequired = $('#districtIdDropDown').val();
+    var interviewerRequired = $('#interviewerIdDropDown').val();
 
-function QRCodePrint(source) {
-    Pagelink = "about:blank";
-    var pwa = window.open(Pagelink, "_new");
-    pwa.document.open();
-    pwa.document.write(QRCodeSourcetoPrint(source));
-    pwa.document.close();
-}
+    var questionTypeRequired = $('#questionTypeDropDown').val();
+    var questionNameReuqired = $('#questionNameRequired').val();
+
+    var answerNameReuqired = $('#answerNameRequired').val();
+
+    var validationError = $('.alert');
+    var form = $('form');
+    var self = $(this);
+    $.post({
+        url: form.attr("action"),
+        data: form.serialize(),
+
+        success: function (response) {
+            if (response.hasError) {
+                alert("Такая запись уже существует в базе данных!");
+            }
+            else if (numberFormReuqired == "" ||
+                addressReuqired == "" ||
+                surveyGeographyReuqired == "" ||
+                housingTypeRequired == "" ||
+                districtRequired == "" ||
+                interviewerRequired == "" ||
+                questionTypeRequired == "" ||
+                questionNameReuqired == "" ||
+                answerNameReuqired == "") {
+
+                validationError.show();
+            }
+            else
+                window.location.href = self.data("redirect-to");
+        }
+    })
+});

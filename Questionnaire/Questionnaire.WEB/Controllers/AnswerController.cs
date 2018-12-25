@@ -23,6 +23,7 @@ namespace Questionnaire.WEB.Controllers
             AnswerService = answerService;
         }
 
+        [Authorize(Roles = "admin, manager")]
         public ActionResult AjaxAnswerList(int? page)
         {
             IEnumerable<AnswerDTO> answerDTOs = AnswerService
@@ -34,6 +35,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Answer
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Index(int? page)
         {
 
@@ -46,6 +48,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Answer/Details/5
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Details(int? id)
         {
             try
@@ -66,6 +69,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Answer/Create
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Create()
         {
             return View();
@@ -74,18 +78,31 @@ namespace Questionnaire.WEB.Controllers
         // POST: Answer/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Create([Bind(Include = "Name")] AnswerVM answerVM)
         {
-            if (ModelState.IsValid)
+            try
             {
-                AnswerDTO answerDTO = Mapper.Map<AnswerDTO>(answerVM);
-                AnswerService.Add(answerDTO);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    AnswerDTO answerDTO = Mapper.Map<AnswerDTO>(answerVM);
+                    AnswerService.Add(answerDTO);
+                    return RedirectToAction("Index");
+                }
+                return View();
             }
-            return View();
+            catch (UniqueConstraintException ex)
+            {
+                return Json(new
+                {
+                    hasError = true,
+                    data = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // GET: Answer/Edit/5
+        [Authorize(Roles = "admin, manager")]
         public ActionResult Edit(int? id)
         {
             try
@@ -106,20 +123,33 @@ namespace Questionnaire.WEB.Controllers
 
         // POST: Answer/Edit/5
         [HttpPost]
+        [Authorize(Roles = "admin, manager")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name")] AnswerVM answerVM)
         {
-            if (ModelState.IsValid)
+            try
             {
-                AnswerDTO answerDTO = Mapper.Map<AnswerDTO>(answerVM);
-                AnswerService.Update(answerDTO);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    AnswerDTO answerDTO = Mapper.Map<AnswerDTO>(answerVM);
+                    AnswerService.Update(answerDTO);
+                    return RedirectToAction("Index");
+                }
+                return View(answerVM);
             }
-            return View(answerVM);
+            catch (UniqueConstraintException ex)
+            {
+                return Json(new
+                {
+                    hasError = true,
+                    data = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         // GET: Answer/Delete/5
         [HttpPost]
+        [Authorize(Roles = "admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
@@ -136,6 +166,21 @@ namespace Questionnaire.WEB.Controllers
                 return Content("Удаление невозможно.");
             }
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult FindAnswers(string value, string type)
+        {
+            value = value.Trim().ToLower();
+
+            List<AnswerDTO> answerDTOs = AnswerService
+                .GetAnswersBy(type, value)
+                .ToList();
+
+            List<AnswerVM> answerVMs = Mapper.Map<IEnumerable<AnswerVM>>(answerDTOs).ToList();
+
+            return PartialView(answerVMs);
         }
 
         protected override void Dispose(bool disposing)

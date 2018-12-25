@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Questionnaire.BLL.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,9 @@ namespace Questionnaire.BLL.Interfaces
 {
     public interface IUserService
     {
-        //IEnumerable<UserDTO> GetAllUsers();
-        //Task<string> GetUserRole(string userId);
-        //Task ChangeUserRole(ChangeRoleDTO changeRoleDTO);
-        //Task DeleteUser(string userId);
+        IEnumerable<UserDTO> GetAllUsers();
+        Task<string> GetUserRole(string userId);
+        Task ChangeUserRole(ChangeRoleDTO changeRoleDTO);
+        Task DeleteUser(string userId);
     }
 }

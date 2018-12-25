@@ -57,6 +57,12 @@ namespace Questionnaire.BLL.Services
                 case "interviewer":
                     result = GetInterviewerFilteredListAndView(words);
                     break;
+                case "family":
+                    result = GetFamilyFilteredListAndView(words);
+                    break;
+                case "form":
+                    result = GetFormFilteredListAndView(words);
+                    break;
             }
 
             return result;
@@ -146,6 +152,26 @@ namespace Questionnaire.BLL.Services
             {
                 Model = Mapper.Map<IEnumerable<InterviewerDTO>>(interviewerList),
                 View = "Interviewers"
+            };
+        }
+        private ModelAndViewDTO GetFamilyFilteredListAndView(string[] words)
+        {
+            var familyList = _unitOfWork.Families.GetAll().Where(rp => words.All(rp.Name.ToLower().Contains)).ToList();
+
+            return new ModelAndViewDTO
+            {
+                Model = Mapper.Map<IEnumerable<FamilyDTO>>(familyList),
+                View = "Families"
+            };
+        }
+        private ModelAndViewDTO GetFormFilteredListAndView(string[] words)
+        {
+            var formList = _unitOfWork.Forms.GetAll().Where(rp => words.All(rp.NumberForm.ToString().ToLower().Contains)).ToList();
+
+            return new ModelAndViewDTO
+            {
+                Model = Mapper.Map<IEnumerable<FormDTO>>(formList),
+                View = "Forms"
             };
         }
     }

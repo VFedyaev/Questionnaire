@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Questionnaire.DAL.Repositories
+namespace Questionnaire.DAL.Entities
 {
-    class AccountWorker
+    public enum Gender
     {
+        Мужской,
+        Женский
     }
 }

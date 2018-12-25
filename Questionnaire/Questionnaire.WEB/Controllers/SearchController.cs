@@ -18,7 +18,7 @@ namespace Questionnaire.WEB.Controllers
             SearchService = searchService;
         }
 
-        //[Authorize(Roles = "admin, manager, user")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult AdminSearch(string title, string type)
         {
             ModelAndViewDTO result = SearchService.GetFilteredModelAndView(title, type);
@@ -51,6 +51,12 @@ namespace Questionnaire.WEB.Controllers
                         break;
                     case "InterviewerDTO":
                         result.Model = Mapper.Map<IEnumerable<InterviewerVM>>(result.Model);
+                        break;
+                    case "FamilyDTO":
+                        result.Model = Mapper.Map<IEnumerable<FamilyVM>>(result.Model);
+                        break;
+                    case "FormDTO":
+                        result.Model = Mapper.Map<IEnumerable<FormVM>>(result.Model);
                         break;
                 }
             }

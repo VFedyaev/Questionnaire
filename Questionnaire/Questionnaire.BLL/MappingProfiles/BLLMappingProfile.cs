@@ -19,6 +19,9 @@ namespace Questionnaire.BLL.MappingProfiles
             CreateMap<Form, FormDTO>(MemberList.None).ReverseMap();
             CreateMap<Family, FamilyDTO>(MemberList.None).ReverseMap();
             CreateMap<Data, DataDTO>(MemberList.None).ReverseMap();
+
+            CreateMap<ApplicationRole, RoleDTO>(MemberList.None).ReverseMap();
+            CreateMap<ApplicationUser, UserDTO>(MemberList.None).ReverseMap();
         }
     }
 }

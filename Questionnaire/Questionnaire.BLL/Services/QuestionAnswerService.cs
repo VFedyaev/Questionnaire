@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Questionnaire.BLL.Services
@@ -116,6 +117,90 @@ namespace Questionnaire.BLL.Services
 
             if (relation != null)
                 Delete(relation.Id);
+        }
+
+        public IEnumerable<FormDataDTO> GetQuestionAnswersByQuestionType(int questionTypeId)
+        {
+            var formData = (
+                from
+                    questionAnswer in _unitOfWork.QuestionAnswers.GetAll()
+                join
+                    question in _unitOfWork.Questions.GetAll()
+                on
+                    questionAnswer.QuestionId equals question.Id
+                join
+                    answer in _unitOfWork.Answers.GetAll()
+                on
+                    questionAnswer.AnswerId equals answer.Id
+                join
+                    questionType in _unitOfWork.QuestionTypes.GetAll()
+                on
+                    question.QuestionTypeId equals questionType.Id
+                where questionType.Id == questionTypeId
+                orderby questionTypeId
+                select new
+                {
+                    questionAnswerId = questionAnswer.Id,
+                    questionName = question.Name,
+                    answerName = answer.Name,
+                    multipleAnswer = question.MultipleAnswer
+
+                } into result
+                group result by new { result.questionName } into data
+                select new FormDataDTO
+                {
+                    QuestionName = data.Key.questionName,
+                    Options = data.Select(o =>
+                    {
+                        return new FormOptionDTO
+                        {
+                            Id = o.questionAnswerId,
+                            Name = o.answerName,
+                            MultipleAnswer = o.multipleAnswer
+                        };
+                    })
+                }).ToList();
+
+            //var sortedData = (
+            //    from data in unsortedData
+            //    select new FormDataDTO
+            //    {
+            //        QuestionName = data.Key.questionName,
+            //        Options = data.Select(o =>
+            //        {
+            //            return new FormOptionDTO
+            //            {
+            //                Id = o.questionAnswerId,
+            //                Name = o.answerName
+            //            };
+            //        })
+            //    });
+
+            //select new FormDataDTO
+            //{
+            //    QuestionTypeName = groupedResult.Key.questionTypeName,
+            //    Questions = groupedResult.Select(q =>
+            //    {
+            //        return new FormQuestionDTO
+            //        {
+            //            Name = q.questionName,
+            //            Options = groupedResult.Select(o =>
+            //            {
+            //                return new FormOptionDTO
+            //                {
+            //                    Id = o.questionAnswerId,
+            //                    Name = o.answerName
+            //                };
+            //            })
+            //        };
+            //    })
+            //}
+
+            return formData.OrderBy(x=> PadNumbers(x.QuestionName));
+        }
+        public static string PadNumbers(string input)
+        {
+            return Regex.Replace(input, "[0-9]+", match => match.Value.PadLeft(4, '0'));
         }
 
         public void Delete(int id)

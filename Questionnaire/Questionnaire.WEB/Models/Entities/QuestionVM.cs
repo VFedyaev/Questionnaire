@@ -19,6 +19,9 @@ namespace Questionnaire.WEB.Models.Entities
         [Required(ErrorMessage = "Заполните поле!")]
         public string Name { get; set; }
 
+        [Display(Name = "Вопрос может содержать несколько ответов")]
+        public bool MultipleAnswer { get; set; }
+
         public QuestionTypeDTO QuestionType { get; set; }
         public ICollection<QuestionAnswerDTO> QuestionAnswers { get; set; }
     }
