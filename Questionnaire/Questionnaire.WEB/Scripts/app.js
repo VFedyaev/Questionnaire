@@ -35,7 +35,7 @@ function activeMenuItem() {
         $('#survey-geography-page-menu-item').addClass('active');
         $('#surveyGeographyDropdown').addClass('show');
     }
-    else if (url.indexOf('family') >= 0 || url.indexOf('interviewer') >= 0) {
+    else if (url.indexOf('family') >= 0 || url.indexOf('form') >= 0 ||  url.indexOf('interviewer') >= 0) {
         $('#contacts-page-menu-item').addClass('active');
         $('#contactDropdown').addClass('show');
     }
@@ -48,12 +48,13 @@ function activeMenuItem() {
     else if (url.indexOf('changepassword') >= 0) {
         $('#change-password-page-menu-item').addClass('active');
     }
-    else if (url.indexOf('form') >= 0) {
-        $('#questionary-page-menu-item').addClass('active');
-    }
     else {
         $('#main-page-menu-item').addClass('active');
     }
+    //else if (url.indexOf('form') >= 0) {
+    //    $('#questionary-page-menu-item').addClass('active');
+    //}
+   
 }
 
 function turnOffCurrentActiveMenuItem() {
@@ -65,9 +66,10 @@ function turnOffCurrentActiveMenuItem() {
     menuItems.push($('#login-page-menu-items'));
     menuItems.push($('#change-email-page-menu-item'));
     menuItems.push($('#change-password-page-menu-item'));
-    menuItems.push($('#questionary-page-menu-item'));
     menuItems.push($('#formData-page-menu-item'));
     menuItems.push($('#main-page-menu-item'));
+
+    //menuItems.push($('#questionary-page-menu-item'));
 
     for (var i = 0; i < menuItems.length; i++) {
         if (menuItems[i].hasClass('active') >= 0) {

@@ -225,7 +225,20 @@
                                                 <div class="pretty p-default">
                                                     <input type="checkbox" name="options[]" value="@option.Id" />
                                                     <div class="state p-success">
-                                                        <label>@option.Name</label>
+                                                        @if (option.Name.Equals("Другое"))
+                                                        {
+                                                            <label>@option.Name</label>
+                                                            <input type="text" class="form-control" style="width:50%;" placeholder="Введите наименование ответа" />
+                                                        }
+                                                        else if (option.Name.Equals("сом"))
+                                                        {
+                                                            <input type="text" class="form-control" style="width:50%;" placeholder="Введите наименование ответа" />
+                                                            <label>@option.Name</label>
+                                                        }
+                                                        else
+                                                        {
+                                                            <label>@option.Name</label>
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -237,7 +250,20 @@
                                                 <div class="pretty p-default p-round">
                                                     <input type="radio" name="options[]" value="@option.Id" />
                                                     <div class="state p-success-o">
-                                                        <label>@option.Name</label>
+                                                           @if (option.Name.Equals("Другое"))
+                                                        {
+                                                            <label>@option.Name</label>
+                                                            <input type="text" class="form-control" style="width:50%;" placeholder="Введите наименование ответа" />
+                                                        }
+                                                        else if (option.Name.Equals("сом"))
+                                                        {
+                                                            <input type="text" class="form-control" style="width:50%;" placeholder="Введите наименование ответа" />
+                                                            <label>@option.Name</label>
+                                                        }
+                                                        else
+                                                        {
+                                                            <label>@option.Name</label>
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
