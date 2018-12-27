@@ -187,7 +187,18 @@
 
         <!-- Page Content  -->
         <div id="content">
-
+            <div id="form-saved-success" class="p-3 mb-2 bg-success text-white d-none">
+                <div class="container">
+                    <b>Данные сохранены.</b>
+                    <span class="float-right message-div-close" onclick="closeSuccessFormSaveMessage()"><i class="fa fa-times" aria-hidden="true"></i></span>
+                </div>
+            </div>
+            <div id="form-saved-failed" class="p-3 mb-2 bg-danger text-white d-none">
+                <div class="container">
+                    <b>Не удалось сохранить данные.</b>
+                    <span class="float-right message-div-close" onclick="closeFailedFormSaveMessage()"><i class="fa fa-times" aria-hidden="true"></i></span>
+                </div>
+            </div>
             @if (TempData["success"] != null)
             {
                 <div id="message-div" class="p-3 mb-2 bg-success text-white">
