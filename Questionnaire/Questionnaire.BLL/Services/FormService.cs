@@ -116,6 +116,14 @@ namespace Questionnaire.BLL.Services
             return relationCount > 0;
         }
 
+        public void RemoveData(int id)
+        {
+            var dataRows = _unitOfWork.Datas.Find(d => d.FormId == id).Select(e => e.Id).ToList();
+            foreach (var dataId in dataRows)
+                _unitOfWork.Datas.Delete(dataId);
+            _unitOfWork.Save();
+        }
+
         //public IEnumerable<HistoryDTO> GetFilteredList(FilterParamsDTO parameters)
         //{
         //    IEnumerable<HistoryDTO> filteredList = GetAll();

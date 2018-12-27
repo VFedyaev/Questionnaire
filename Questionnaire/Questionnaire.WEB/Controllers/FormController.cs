@@ -219,6 +219,21 @@ namespace Questionnaire.WEB.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult RemoveData(int id)
+        {
+            try
+            {
+                FormService.RemoveData(id);
+                TempData["success"] = "Данные анкеты удалены.";
+            }
+            catch (Exception)
+            {
+                return Content("Произошла ошибка.");
+            }
+
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);

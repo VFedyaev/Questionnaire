@@ -7,5 +7,6 @@ namespace Questionnaire.BLL.Interfaces
     {
         IEnumerable<FormDTO> GetListOrderedByName();
         FormDTO Get(int? id);
+        void RemoveData(int id);
     }
 }

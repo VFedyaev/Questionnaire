@@ -418,13 +418,19 @@ function saveForm() {
             } else {
                 document.getElementById("form-saved-failed").classList.remove("d-none");
             }
+            scrollToTop();
         },
         error: function (XmlHttpRequest) {
             document.getElementById("form-saved-failed").classList.remove("d-none");
+            scrollToTop();
             console.log(XmlHttpRequest.responseText);
         }
     });
     return false;
+}
+
+function scrollToTop() {
+    $('html,body').animate({ scrollTop: 0 }, 'fast');
 }
 
 function closeSuccessFormSaveMessage() {
@@ -433,4 +439,11 @@ function closeSuccessFormSaveMessage() {
 
 function closeFailedFormSaveMessage() {
     document.getElementById("form-saved-failed").classList.add("d-none");
+}
+
+function removeDataConfirm() {
+    var confirmation = confirm("Вы уверены, что хотите удалить данные анкеты?");
+    if (!confirmation) {
+        return false;
+    }
 }
