@@ -67,13 +67,13 @@
                         <a href="#contactDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-address-card" aria-hidden="true"></i> Контакты / Анкеты</a>
                         <ul class="collapse list-unstyled" id="contactDropdown">
                             <li>
-                                <a href="@Url.Action("Index", "Interviewer")">Интервьюеры</a>
-                            </li>
-                            <li>
                                 <a href="@Url.Action("Index", "Form")">Анкеты</a>
                             </li>
                             <li>
                                 <a href="@Url.Action("Index", "Family")">Респонденты</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Interviewer")">Интервьюеры</a>
                             </li>
                         </ul>
                     </li>
@@ -81,9 +81,6 @@
                     @*<li id="questionary-page-menu-item">
                         <a href="@Url.Action("Index", "Form")"><i class="fa fa-wpforms" aria-hidden="true"></i> Анкеты</a>
                     </li>*@
-                    <li id="formData-page-menu-item">
-                        <a href="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = 1 })"><i class="fa fa-check-square-o" aria-hidden="true"></i> Форма</a>
-                    </li>
                 }
                 else if (User.IsInRole("manager"))
                 {
@@ -131,10 +128,6 @@
                                 <a href="@Url.Action("Index", "Family")">Респонденты</a>
                             </li>
                         </ul>
-                    </li>
-
-                    <li id="formData-page-menu-item">
-                        <a href="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = 1 })"><i class="fa fa-check-square-o" aria-hidden="true"></i> Форма</a>
                     </li>
                 }
                 else if (User.IsInRole("user"))

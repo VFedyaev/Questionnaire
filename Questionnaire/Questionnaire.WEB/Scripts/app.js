@@ -393,7 +393,7 @@ function saveForm() {
     var token = $('input[name="__RequestVerificationToken"]').val();
     var formId = $("#FormId").val();
     if (formId.length <= 0) {
-        alert("Выберите номер анкеты.");
+        alert("ID Анкеты не найден.");
         return false;
     }
 

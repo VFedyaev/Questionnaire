@@ -32,11 +32,11 @@ namespace Questionnaire.WEB.Controllers
             return View();
         }
 
-        public ActionResult QuestionAnswers(int questionTypeId)
+        public ActionResult QuestionAnswers(int id, int questionTypeId)
         {
             try
             {
-                ViewBag.FormId = new SelectList(FormService.GetAll().ToList(), "Id", "NumberForm");
+                ViewBag.FormId = id; 
                 ViewBag.Sections = Mapper.Map<IEnumerable<QuestionTypeVM>>(QuestionTypeService.GetAll().ToList());
                 ViewBag.Section = QuestionTypeService.Get(questionTypeId).Name;
                 var formDataDTOs = QuestionAnswerService.GetQuestionAnswersByQuestionType(questionTypeId).ToList();
