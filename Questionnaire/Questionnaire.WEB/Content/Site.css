@@ -456,3 +456,15 @@ select:invalid {
             left: 37px;
         }
 /**/
+/*.pretty .state {
+    margin: 1px;
+}*/
+.btn-info {
+    color: #fffcf6 !important;
+}
+.btn-danger {
+    color: #fffcf6 !important;
+}
+.btn-warning {
+    color: #000000 !important;
+}

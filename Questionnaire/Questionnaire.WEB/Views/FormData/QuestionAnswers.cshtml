@@ -219,10 +219,75 @@
                                 <div class="row">
                                     @foreach (var option in question.Options)
                                     {
-                                        <div class="col-lg-4 col-md-4">
-                                            <input type="radio" name="options[]" value="@option.Id" />
-                                            <label>@option.Name</label>
-                                        </div>
+                                        if (option.MultipleAnswer == true)
+                                        {
+                                            <div class="col-lg-6 col-md-8">
+                                                @if (option.Name.Equals("Другое"))
+                                                {
+                                                    <div class="pretty p-default">
+                                                        <input type="checkbox" name="options[]" value="@option.Id" />
+                                                        <div class="state p-success">
+                                                            <label>@option.Name</label>
+                                                        </div>
+                                                    </div>
+                                                    <input type="text" class="form-control" style="width:50%;" placeholder="Другое - Уточнить!" />
+                                                }
+                                                else if (option.Name.Equals("сом"))
+                                                {
+                                                    <div class="pretty p-default">
+                                                        <input type="checkbox" name="options[]" value="@option.Id" />
+                                                        <div class="state p-success">
+                                                            <label>@option.Name</label>
+                                                        </div>
+                                                    </div>
+                                                    <input type="text" class="form-control" style="width:50%;" placeholder="Сом - Уточнить!" />
+                                                }
+                                                else
+                                                {
+                                                    <div class="pretty p-default">
+                                                        <input type="checkbox" name="options[]" value="@option.Id" />
+                                                        <div class="state p-success">
+                                                            <label>@option.Name</label>
+                                                        </div>
+                                                    </div>
+                                                }
+
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-lg-6 col-md-8">
+                                                @if (option.Name.Equals("Другое"))
+                                                {
+                                                    <div class="pretty p-default p-round">
+                                                        <input type="radio" name="options[]" value="@option.Id" />
+                                                        <div class="state p-success-o">
+                                                            <label>@option.Name</label>
+                                                        </div>
+                                                    </div>
+                                                    <input type="text" class="form-control" style="width:50%;" placeholder="Другое - Уточнить!" />
+                                                }
+                                                else if (option.Name.Equals("сом"))
+                                                {
+                                                    <div class="pretty p-default p-round">
+                                                        <input type="radio" name="options[]" value="@option.Id" />
+                                                        <div class="state p-success-o">
+                                                            <label>@option.Name</label>
+                                                        </div>
+                                                    </div>
+                                                    <input type="text" class="form-control" style="width:50%;" placeholder="Сом - Уточнить!" />
+                                                }
+                                                else
+                                                {
+                                                    <div class="pretty p-default p-round">
+                                                        <input type="radio" name="options[]" value="@option.Id" />
+                                                        <div class="state p-success-o">
+                                                            <label>@option.Name</label>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
                                     }
                                 </div>
                             </form>
@@ -230,14 +295,13 @@
                         }
                     }
                 </div>
-
-                <div class="form-group">
-                    <div class="btn-group" role="group">
-                        <button type="submit" class="btn btn-success"><i class="fa fa-save" aria-hidden="true" title="Сохранить" data-toggle="tooltip" data-placement="top"></i> Сохранить</button>
-                        <a href="@Url.Action("Index", "Question")" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true" title="Назад" data-toggle="tooltip" data-placement="top"></i> Назад</a>
-                    </div>
-                </div>
             }
+            <div class="form-group">
+                <div class="btn-group" role="group">
+                    <button type="submit" class="btn btn-success"><i class="fa fa-save" aria-hidden="true" title="Сохранить" data-toggle="tooltip" data-placement="top"></i> Сохранить</button>
+                    <a href="@Url.Action("Index", "Question")" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true" title="Назад" data-toggle="tooltip" data-placement="top"></i> Назад</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -10,6 +10,7 @@
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/jquery.mCustomScrollbar.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -63,20 +64,23 @@
                     </li>
                     <li id="contacts-page-menu-item">
                         <!-- class="active" -->
-                        <a href="#contactDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-address-card" aria-hidden="true"></i> Контакты</a>
+                        <a href="#contactDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-address-card" aria-hidden="true"></i> Контакты / Анкеты</a>
                         <ul class="collapse list-unstyled" id="contactDropdown">
                             <li>
-                                <a href="@Url.Action("Index", "Family")">Респонденты</a>
+                                <a href="@Url.Action("Index", "Interviewer")">Интервьюеры</a>
                             </li>
                             <li>
-                                <a href="@Url.Action("Index", "Interviewer")">Интервьюеры</a>
+                                <a href="@Url.Action("Index", "Form")">Анкеты</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Family")">Респонденты</a>
                             </li>
                         </ul>
                     </li>
 
-                    <li id="questionary-page-menu-item">
+                    @*<li id="questionary-page-menu-item">
                         <a href="@Url.Action("Index", "Form")"><i class="fa fa-wpforms" aria-hidden="true"></i> Анкеты</a>
-                    </li>
+                    </li>*@
                     <li id="formData-page-menu-item">
                         <a href="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = 1 })"><i class="fa fa-check-square-o" aria-hidden="true"></i> Форма</a>
                     </li>
@@ -115,20 +119,20 @@
                     </li>
                     <li id="contacts-page-menu-item">
                         <!-- class="active" -->
-                        <a href="#contactDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-address-card" aria-hidden="true"></i> Контакты</a>
+                        <a href="#contactDropdown" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-address-card" aria-hidden="true"></i> Контакты / Анкеты</a>
                         <ul class="collapse list-unstyled" id="contactDropdown">
                             <li>
-                                <a href="@Url.Action("Index", "Family")">Респонденты</a>
+                                <a href="@Url.Action("Index", "Interviewer")">Интервьюеры</a>
                             </li>
                             <li>
-                                <a href="@Url.Action("Index", "Interviewer")">Интервьюеры</a>
+                                <a href="@Url.Action("Index", "Form")">Анкеты</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Family")">Респонденты</a>
                             </li>
                         </ul>
                     </li>
 
-                    <li id="questionary-page-menu-item">
-                        <a href="@Url.Action("Index", "Form")"><i class="fa fa-wpforms" aria-hidden="true"></i> Анкеты</a>
-                    </li>
                     <li id="formData-page-menu-item">
                         <a href="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = 1 })"><i class="fa fa-check-square-o" aria-hidden="true"></i> Форма</a>
                     </li>
