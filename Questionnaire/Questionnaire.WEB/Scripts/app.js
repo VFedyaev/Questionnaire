@@ -375,3 +375,69 @@ $('.form-submit').on('click', function (e) {
         }
     })
 });
+
+function markAnswerAsSelected() {
+    $(document).ready(function () {
+        $('input[type=radio][name=option]').change(function () {
+            var parentClasses = this.parentNode.parentNode.classList;
+            if (parentClasses.contains('selected')) {
+                this.parentNode.parentNode.classList.remove('selected');
+            } else {
+                this.parentNode.parentNode.classList.add('selected');
+            }
+        });
+    });
+}
+
+function saveForm() {
+    var token = $('input[name="__RequestVerificationToken"]').val();
+    var formId = $("#FormId").val();
+    if (formId.length <= 0) {
+        alert("Выберите номер анкеты.");
+        return false;
+    }
+
+    var selectedOptions = $('.option:checked');
+    var selectedOptionsValues = [];
+    for (var i = 0; i < selectedOptions.length; i++) {
+        selectedOptionsValues.push(selectedOptions[i].value);
+    }
+
+    var selectedOptionsWithText = $('.option-with-text:checked');
+    var selectedOptionsWithTextValues = [];
+    for (var k = 0; k < selectedOptionsWithText.length; k++) {
+        var text = selectedOptionsWithText[k].parentNode.parentNode.getElementsByClassName('option-text')[0].value;
+        selectedOptionsWithTextValues.push([selectedOptionsWithText[k].value, text]);
+    }
+
+    $.ajax({
+        url: "/FormData/SaveForm",
+        type: "Post",
+        data: {
+            __RequestVerificationToken: token,
+            "formId": formId,
+            "options": selectedOptionsValues,
+            "optionsWithComment": selectedOptionsWithTextValues
+        },
+        success: function (success) {
+            if (success) {
+                document.getElementById("form-saved-success").classList.remove("d-none");
+            } else {
+                document.getElementById("form-saved-failed").classList.remove("d-none");
+            }
+        },
+        error: function (XmlHttpRequest) {
+            document.getElementById("form-saved-failed").classList.remove("d-none");
+            console.log(XmlHttpRequest.responseText);
+        }
+    });
+    return false;
+}
+
+function closeSuccessFormSaveMessage() {
+    document.getElementById("form-saved-success").classList.add("d-none");
+}
+
+function closeFailedFormSaveMessage() {
+    document.getElementById("form-saved-failed").classList.add("d-none");
+}

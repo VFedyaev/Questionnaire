@@ -15,11 +15,15 @@ namespace Questionnaire.WEB.Controllers
     {
         private IQuestionAnswerService QuestionAnswerService;
         private IQuestionTypeService QuestionTypeService;
+        private IDataService DataService;
+        private IFormService FormService;
 
-        public FormDataController(IQuestionAnswerService questionAnswerService, IQuestionTypeService questionTypeService)
+        public FormDataController(IQuestionAnswerService questionAnswerService, IQuestionTypeService questionTypeService, IDataService dataService, IFormService formService)
         {
             QuestionAnswerService = questionAnswerService;
             QuestionTypeService = questionTypeService;
+            DataService = dataService;
+            FormService = formService;
         }
 
         // GET: FormDataControlelr
@@ -32,6 +36,7 @@ namespace Questionnaire.WEB.Controllers
         {
             try
             {
+                ViewBag.FormId = new SelectList(FormService.GetAll().ToList(), "Id", "NumberForm");
                 ViewBag.Sections = Mapper.Map<IEnumerable<QuestionTypeVM>>(QuestionTypeService.GetAll().ToList());
                 ViewBag.Section = QuestionTypeService.Get(questionTypeId).Name;
                 var formDataDTOs = QuestionAnswerService.GetQuestionAnswersByQuestionType(questionTypeId).ToList();
@@ -44,6 +49,39 @@ namespace Questionnaire.WEB.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public bool SaveForm(string formId, string[] options, string[][] optionsWithComment)
+        {
+            int FormId = int.Parse(formId);
+            if (options != null && options.Length > 0)
+            {
+                foreach (var option in options)
+                {
+                    DataService.Add(new DataDTO
+                    {
+                        QuestionAnswerId = int.Parse(option),
+                        FormId = FormId
+                    });
+                }
+            }
+
+            if (optionsWithComment != null && optionsWithComment.Length > 0)
+            {
+                foreach (var optionWithComment in optionsWithComment)
+                {
+                    DataService.Add(new DataDTO
+                    {
+                        QuestionAnswerId = int.Parse(optionWithComment[0]),
+                        FormId = FormId,
+                        Comment = optionWithComment[1]
+                    });
+                }
+            }
+
+            return true;
         }
     }
 }
