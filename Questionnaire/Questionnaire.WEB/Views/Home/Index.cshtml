@@ -2,30 +2,81 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+@*<div class="jumbotron">
+        <h1>ASP.NET</h1>
+        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+        <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Getting started</h2>
+            <p>
+                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+                enables a clean separation of concerns and gives you full control over markup
+                for enjoyable, agile development.
+            </p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Get more libraries</h2>
+            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Web Hosting</h2>
+            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        </div>
+    </div>*@
+
+<div class="jumbotron">
+    <h1 style="text-align:center">
+        АНКЕТА
+    </h1>
+    <h1 style="text-align:center">
+        ВИКТИМОЛОГИЧЕСКОГО ИССЛЕДОВАНИЯ В г. БИШКЕК И НОВОСТРОЙКАХ
+    </h1>
+    <p>
+        Здравствуйте! Я работаю в Национальном статистическом комитете Кыргызской Республики. Мы проводим обследование домашних хозяйств, чтобы определить отношение населения к проблемам безопасности
+        и преступности, а также их влияние на жизнь людей в г.Бишкек и новостройках. Обследование будет способствовать разработке мер по предупреждению преступности и позволит лучше понять значение
+        вопросов безопасности в жизни общества.
+        У нас есть письмо Председателя Нацстаткома о проведении этой работы (ПЕРЕДАЙТЕ ПИСЬМО). Длительность интервью составит примерно 15-25 минут. Ваше участие в исследовании добровольное и не
+        предполагает оплату или подарки, но Ваше мнение является для нас очень важным. Вся информация, которую Вы дадите при ответах на вопросы, строго конфиденциальна (секретная) и будет использоваться
+        только в обобщенном виде для анализа, без указания Вашего имени. Если у Вас возникнут какие-либо вопросы или замечания, Вы можете сообщить их мне или позвонить по телефону: (0312) 66 40 42.
+    </p>
+</div>
+<div class="container marketing">
+    <div class="row">
+        @if (User.IsInRole("admin") || User.IsInRole("manager"))
+        {
+            <div class="col-lg-4">
+                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                <h2>Вопросы</h2>
+                <p>В разделе вопросы вы можете добавлять, редактировать или удалять вопросы. А также добавлять все возможные варианты ответов к вопросам. </p>
+                <p><a class="btn btn-secondary" href="@Url.Action("Index", "Question")" role="button">Перейти »</a></p>
+            </div>
+            <div class="col-lg-4">
+                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                <h2>Анкеты</h2>
+                <p>В разделе анкеты вы можете добавлять, редактировать или удалять анкеты.</p>
+                <p><a class="btn btn-secondary" href="@Url.Action("Index", "Form")" role="button">Перейти »</a></p>
+            </div>
+            <div class="col-lg-4">
+                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                <h2>Форма</h2>
+                <p>В разделе форм вы можете заполнить анкету отвечая на вопросы.</p>
+                <p><a class="btn btn-secondary" href="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = 1 })" role="button">Перейти »</a></p>
+            </div>
+        }
+        else
+        {
+            <div class="col-lg-4">
+                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                <h2>Форма</h2>
+                <p>В разделе форм вы можете заполнить анкету отвечая на вопросы.</p>
+                <p><a class="btn btn-secondary" href="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = 1 })" role="button">Перейти »</a></p>
+            </div>
+        }
     </div>
 </div>
