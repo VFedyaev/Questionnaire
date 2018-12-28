@@ -4,6 +4,7 @@ namespace Questionnaire.WEB.Models.Entities
 {
     public class FormDataVM
     {
+        public int QuestionId { get; set; }
         public string QuestionName { get; set; }
         public IEnumerable<FormOptionVM> Options { get; set; }
         public int FormId { get; set; }

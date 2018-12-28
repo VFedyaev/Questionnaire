@@ -4,6 +4,7 @@ namespace Questionnaire.BLL.DTO
 {
     public class FormDataDTO
     {
+        public int Questionid { get; set; }
         public string QuestionName { get; set; }
         public IEnumerable<FormOptionDTO> Options { get; set; }
     }

@@ -141,14 +141,16 @@ namespace Questionnaire.BLL.Services
                 select new
                 {
                     questionAnswerId = questionAnswer.Id,
+                    questionId = question.Id,
                     questionName = question.Name,
                     answerName = answer.Name,
                     multipleAnswer = question.MultipleAnswer
 
                 } into result
-                group result by new { result.questionName } into data
+                group result by new { result.questionName, result.questionId } into data
                 select new FormDataDTO
                 {
+                    Questionid = data.Key.questionId,
                     QuestionName = data.Key.questionName,
                     Options = data.Select(o =>
                     {
