@@ -63,7 +63,7 @@
                                     <a class="btn btn-danger delete-prompt" name="deleteButton" id="@item.Id"><i class="fa fa-trash" aria-hidden="true" title="Удалить" data-toggle="tooltip" data-placement="top"></i> Удалить</a>
                                 </div>
                             }
-                            else if (User.IsInRole("manager"))
+                            else if (User.IsInRole("manager") || User.IsInRole("user"))
                             {
                                 <div class="btn-group float-right" role="group">
                                     <a class="btn btn-info" name="editButton" id="editButton" href="@Url.Action("Edit", "Interviewer", new { id = item.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i> Редактировать</a>

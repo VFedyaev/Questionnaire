@@ -37,15 +37,16 @@
     <h1 style="text-align:center">
         ВИКТИМОЛОГИЧЕСКОГО ИССЛЕДОВАНИЯ В г. БИШКЕК И НОВОСТРОЙКАХ
     </h1>
-    <p>
+    <h5>
         Здравствуйте! Я работаю в Национальном статистическом комитете Кыргызской Республики. Мы проводим обследование домашних хозяйств, чтобы определить отношение населения к проблемам безопасности
         и преступности, а также их влияние на жизнь людей в г.Бишкек и новостройках. Обследование будет способствовать разработке мер по предупреждению преступности и позволит лучше понять значение
         вопросов безопасности в жизни общества.
         У нас есть письмо Председателя Нацстаткома о проведении этой работы (ПЕРЕДАЙТЕ ПИСЬМО). Длительность интервью составит примерно 15-25 минут. Ваше участие в исследовании добровольное и не
         предполагает оплату или подарки, но Ваше мнение является для нас очень важным. Вся информация, которую Вы дадите при ответах на вопросы, строго конфиденциальна (секретная) и будет использоваться
         только в обобщенном виде для анализа, без указания Вашего имени. Если у Вас возникнут какие-либо вопросы или замечания, Вы можете сообщить их мне или позвонить по телефону: (0312) 66 40 42.
-    </p>
+    </h5>
 </div>
+<hr/>
 <div class="container marketing">
     <div class="row">
         @if (User.IsInRole("admin") || User.IsInRole("manager"))
@@ -73,9 +74,21 @@
         {
             <div class="col-lg-4">
                 <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
-                <h2>Форма</h2>
-                <p>В разделе форм вы можете заполнить анкету отвечая на вопросы.</p>
-                <p><a class="btn btn-secondary" href="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = 1 })" role="button">Перейти »</a></p>
+                <h2>Анкеты</h2>
+                <p>В разделе анкеты вы можете добавлять, редактировать и переходить к заполнению анкеты.</p>
+                <p><a class="btn btn-secondary" href="@Url.Action("Index", "Form")" role="button">Перейти »</a></p>
+            </div>
+            <div class="col-lg-4">
+                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                <h2>Респонденты</h2>
+                <p>В разделе этом вы можете добавлять, редактировать информацию о респондентах.</p>
+                <p><a class="btn btn-secondary" href="@Url.Action("Index", "Family")" role="button">Перейти »</a></p>
+            </div>
+            <div class="col-lg-4">
+                <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+                <h2>Интервьюеры</h2>
+                <p>В разделе этом вы можете добавлять, редактировать информацию о интервьюерах.</p>
+                <p><a class="btn btn-secondary" href="@Url.Action("Index", "Interviewer", new { questionTypeId = 1 })" role="button">Перейти »</a></p>
             </div>
         }
     </div>

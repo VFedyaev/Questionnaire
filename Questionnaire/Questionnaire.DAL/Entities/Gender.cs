@@ -8,7 +8,7 @@ namespace Questionnaire.DAL.Entities
 {
     public enum Gender
     {
-        Мужской,
-        Женский
+        Мужчины,
+        Женщины
     }
 }

@@ -35,7 +35,7 @@ namespace Questionnaire.WEB.Controllers
             InterviewerService = interviewerService;
         }
 
-        [Authorize(Roles = "admin, manager")]
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult AjaxFormList(int? page)
         {
             IEnumerable<FormDTO> formDTOs = FormService
@@ -46,7 +46,7 @@ namespace Questionnaire.WEB.Controllers
             return PartialView(formVMs.ToPagedList(page ?? 1, _itemsPerPage));
         }
         // GET: Form
-        [Authorize(Roles = "admin, manager")]
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Index(int? page)
         {
             IEnumerable<FormDTO> formDTOs = FormService
@@ -58,7 +58,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Form/Details/5
-        [Authorize(Roles = "admin, manager")]
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Details(int? id)
         {
             try
@@ -78,7 +78,7 @@ namespace Questionnaire.WEB.Controllers
             }
         }
 
-        [Authorize(Roles = "admin, manager")]
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Create()
         {
             ViewBag.SurveyGeographyId = GetSurveyGeographySelectList();
@@ -93,7 +93,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin, manager")]
+        [Authorize(Roles = "admin, manager, user")]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "NumberForm, SurveyGeographyId, HousingTypeId, DistrictId, InterviewerId, Address, Phone,InterviewDate, StartTime, EndTime")] FormVM formVM)
         {
@@ -102,7 +102,6 @@ namespace Questionnaire.WEB.Controllers
                 if (ModelState.IsValid)
                 {
                     FormDTO formDTO = Mapper.Map<FormDTO>(formVM);
-                    //int questionId = QuestionService.AddAndGetId(questionDTO);
                     FormService.Add(formDTO);
                     return RedirectToAction("Index");
                 }
@@ -122,7 +121,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Form/Edit/5
-        [Authorize(Roles = "admin, manager")]
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Edit(int? id)
         {
             try
@@ -149,7 +148,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin, manager")]
+        [Authorize(Roles = "admin, manager, user")]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id, NumberForm, SurveyGeographyId, HousingTypeId, DistrictId, InterviewerId, Address, Phone,InterviewDate, StartTime, EndTime")] FormVM formVM)
         {

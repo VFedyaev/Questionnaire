@@ -2,11 +2,14 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background: #E0E8EF;
+    background: #f9f9f9;
     color: #34495E;
     height: 100%;
 }
 
+.jumbotron {
+    background: #f9f9f9;
+}
 .my-list {
     background-color: #fff;
     border: 1px solid #ccc;

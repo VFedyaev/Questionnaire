@@ -7,7 +7,7 @@ namespace Questionnaire.WEB.Models.Enums
 {
     public enum Gender
     {
-        Мужской,
-        Женский
+        Мужчины,
+        Женщины
     }
 }

@@ -10,7 +10,7 @@ namespace Questionnaire.DAL.Entities
         public int NumberForm { get; set; }
         public short SurveyGeographyId { get; set; }
         public short HousingTypeId { get; set; }
-        public short DistrictId { get; set; }    
+        public Nullable<short> DistrictId { get; set; }
         public short InterviewerId { get; set; }       
         public string Address { get; set; }
         public string Phone { get; set; }

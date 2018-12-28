@@ -25,7 +25,7 @@ namespace Questionnaire.WEB.Controllers
             FormService = formService;
         }
 
-        [Authorize(Roles = "admin, manager")]
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult AjaxFamilyList(int? page)
         {
             IEnumerable<FamilyDTO> familyDTOs = FamilyService
@@ -36,7 +36,7 @@ namespace Questionnaire.WEB.Controllers
             return PartialView(familyVMs.ToPagedList(page ?? 1, _itemsPerPage));
         }
         // GET: Family
-        [Authorize(Roles = "admin, manager")]
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Index(int? page)
         {
             IEnumerable<FamilyDTO> familyDTOs = FamilyService
@@ -48,7 +48,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Family/Details/5
-        [Authorize(Roles = "admin, manager")]
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Details(int? id)
         {
             try
@@ -68,7 +68,7 @@ namespace Questionnaire.WEB.Controllers
             }
         }
 
-        [Authorize(Roles = "admin, manager")]
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Create()
         {
             ViewBag.FormId = GetFormIdSelectList();
@@ -77,9 +77,9 @@ namespace Questionnaire.WEB.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin, manager")]
+        [Authorize(Roles = "admin, manager, user")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name, Sex, DateBorn, Age, FormId")] FamilyVM familyVM)
+        public ActionResult Create(FamilyVM familyVM)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace Questionnaire.WEB.Controllers
         }
 
         // GET: Family/Edit/5
-        [Authorize(Roles = "admin, manager")]
+        [Authorize(Roles = "admin, manager, user")]
         public ActionResult Edit(int? id)
         {
             try
@@ -117,9 +117,9 @@ namespace Questionnaire.WEB.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin, manager")]
+        [Authorize(Roles = "admin, manager, user")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id, Name, Sex, DateBorn, Age, FormId")] FamilyVM familyVM)
+        public ActionResult Edit([Bind(Include = "Id, Sex, Age, FormId")] FamilyVM familyVM)
         {
             if (ModelState.IsValid)
             {
@@ -135,7 +135,7 @@ namespace Questionnaire.WEB.Controllers
             return View(familyVM);
         }
 
-        [Authorize(Roles = "admin, manager")]
+        [Authorize(Roles = "admin, manager, user")]
         public SelectList GetFormIdSelectList(int? selectedValue = null)
         {
             return new SelectList(FormService.GetAll().ToList(), "Id", "NumberForm", selectedValue);

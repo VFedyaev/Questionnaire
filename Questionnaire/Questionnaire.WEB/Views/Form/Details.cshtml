@@ -32,19 +32,19 @@
             </dd>
 
             <dt>
+                @Html.DisplayNameFor(model => model.InterviewerId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Interviewer.Name)
+            </dd>
+
+            <dt>
                 @Html.DisplayNameFor(model => model.DistrictId)
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.District.Name)
             </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.InterviewerId)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Interviewer.Name)
-            </dd>         
-            
             <dt>
                 @Html.DisplayNameFor(model => model.Address)
             </dt>

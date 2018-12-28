@@ -43,7 +43,7 @@
                                     if (option.MultipleAnswer == true)
                                     {
                                         <div class="col-lg-6 col-md-8">
-                                            @if (option.Name.Equals("Другое"))
+                                            @if (option.Name.Equals("Другое") || option.Name.Equals("сом") || option.Name.Equals("Другое огнестрельное оружие"))
                                             {
                                                 <div class="option-block">
                                                     <div class="pretty p-default">
@@ -53,18 +53,6 @@
                                                         </div>
                                                     </div>
                                                     <input type="text" class="form-control option-text" style="width:50%;" placeholder="Другое - Уточнить!" />
-                                                </div>
-                                            }
-                                            else if (option.Name.Equals("сом"))
-                                            {
-                                                <div class="option-block">
-                                                    <div class="pretty p-default">
-                                                        <input class="option-with-text" type="checkbox" name="option" value="@option.Id" />
-                                                        <div class="state p-success">
-                                                            <label>@option.Name</label>
-                                                        </div>
-                                                    </div>
-                                                    <input type="text" class="form-control option-text" style="width:50%;" placeholder="Сом - Уточнить!" />
                                                 </div>
                                             }
                                             else
@@ -78,13 +66,12 @@
                                                     </div>
                                                 </div>
                                             }
-
                                         </div>
                                     }
                                     else
                                     {
                                         <div class="col-lg-6 col-md-8">
-                                            @if (option.Name.Equals("Другое"))
+                                            @if (option.Name.Equals("Другое") || option.Name.Equals("сом") || option.Name.Equals("Другое огнестрельное оружие"))
                                             {
                                                 <div class="option-block">
                                                     <div class="pretty p-default p-round">
@@ -94,18 +81,6 @@
                                                         </div>
                                                     </div>
                                                     <input type="text" class="form-control option-text" style="width:50%;" placeholder="Другое - Уточнить!" />
-                                                </div>
-                                            }
-                                            else if (option.Name.Equals("сом"))
-                                            {
-                                                <div class="option-block">
-                                                    <div class="pretty p-default p-round">
-                                                        <input class="option-with-text" type="radio" name="option" value="@option.Id" />
-                                                        <div class="state p-success-o">
-                                                            <label>@option.Name</label>
-                                                        </div>
-                                                    </div>
-                                                    <input type="text" class="form-control option-text" style="width:50%;" placeholder="Сом - Уточнить!" />
                                                 </div>
                                             }
                                             else
@@ -130,8 +105,8 @@
             </div>
             <div class="form-group">
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-success" onclick="saveForm()"><i class="fa fa-save" aria-hidden="true" title="Сохранить" data-toggle="tooltip" data-placement="top"></i> Сохранить</button>
-                    <a href="@Url.Action("Index", "Form")" class="btn btn-info"><i class="fa fa-arrow-left" aria-hidden="true" title="Назад" data-toggle="tooltip" data-placement="top"></i> Назад</a>
+                    <button type="button" class="btn btn-success" id="save-btn" onclick="saveForm()"><i class="fa fa-save" aria-hidden="true" title="Сохранить" data-toggle="tooltip" data-placement="top"></i> Сохранить</button>
+                    <a href="@Url.Action("Index", "Form")" class="btn btn-info" name="backButton" id="backButton"><i class="fa fa-arrow-left" aria-hidden="true" title="Назад" data-toggle="tooltip" data-placement="top"></i> Назад</a>
                 </div>
             </div>
         </div>

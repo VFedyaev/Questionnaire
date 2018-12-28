@@ -5,10 +5,8 @@
 <table class="table table-responsive-sm table-responsive-md table-responsive-lg table-sm" id="listTable">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.First().Name)</th>
-            <th>@Html.DisplayNameFor(model => model.First().Sex)</th>
-            <th>@Html.DisplayNameFor(model => model.First().DateBorn)</th>
             <th>@Html.DisplayNameFor(model => model.First().Age)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Sex)</th>
             <th>@Html.DisplayNameFor(model => model.First().FormId)</th>
             <th></th>
         </tr>
@@ -17,32 +15,30 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr id="@item.Id">
-                <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                <td>@Html.DisplayFor(modelItem => item.Sex)</td>
-                <td>@Html.DisplayFor(modelItem => item.DateBorn)</td>
-                <td>@Html.DisplayFor(modelItem => item.Age)</td>
-                <td>@Html.DisplayFor(modelItem => item.Form.NumberForm)</td>
+        <tr id="@item.Id">
+            <td>@Html.DisplayFor(modelItem => item.Age)</td>
+            <td>@Html.DisplayFor(modelItem => item.Sex)</td>
+            <td>@Html.DisplayFor(modelItem => item.Form.NumberForm)</td>
 
 
-                <td>
-                    @if (User.IsInRole("admin"))
-                    {
-                        <div class="btn-group float-right" role="group">
-                            <a class="btn btn-info" name="editButton" id="editButton" href="@Url.Action("Edit", "Family", new { id = item.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i> Редактировать</a>
-                            <a class="btn btn-warning" name="detailsButton" id="detailsButton" href="@Url.Action("Details", "Family", new { id = item.Id })"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Просмотреть</a>
-                            <a class="btn btn-danger delete-prompt" name="deleteButton" id="@item.Id"><i class="fa fa-trash" aria-hidden="true" title="Удалить" data-toggle="tooltip" data-placement="top"></i> Удалить</a>
-                        </div>
-                    }
-                    else if (User.IsInRole("manager"))
-                    {
-                        <div class="btn-group float-right" role="group">
-                            <a class="btn btn-info" name="editButton" id="editButton" href="@Url.Action("Edit", "Family", new { id = item.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i> Редактировать</a>
-                            <a class="btn btn-warning" name="detailsButton" id="detailsButton" href="@Url.Action("Details", "Family", new { id = item.Id })"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Просмотреть</a>
-                        </div>
-                    }
-                </td>
-            </tr>
+            <td>
+                @if (User.IsInRole("admin"))
+                {
+                    <div class="btn-group float-right" role="group">
+                        <a class="btn btn-info" name="editButton" id="editButton" href="@Url.Action("Edit", "Family", new { id = item.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i> Редактировать</a>
+                        <a class="btn btn-warning" name="detailsButton" id="detailsButton" href="@Url.Action("Details", "Family", new { id = item.Id })"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Просмотреть</a>
+                        <a class="btn btn-danger delete-prompt" name="deleteButton" id="@item.Id"><i class="fa fa-trash" aria-hidden="true" title="Удалить" data-toggle="tooltip" data-placement="top"></i> Удалить</a>
+                    </div>
+                }
+                else if (User.IsInRole("manager") || User.IsInRole("user"))
+                {
+                    <div class="btn-group float-right" role="group">
+                        <a class="btn btn-info" name="editButton" id="editButton" href="@Url.Action("Edit", "Family", new { id = item.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i> Редактировать</a>
+                        <a class="btn btn-warning" name="detailsButton" id="detailsButton" href="@Url.Action("Details", "Family", new { id = item.Id })"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Просмотреть</a>
+                    </div>
+                }
+            </td>
+        </tr>
         }
     </tbody>
 </table>

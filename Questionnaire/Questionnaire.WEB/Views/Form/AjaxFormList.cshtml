@@ -8,8 +8,8 @@
             <th>@Html.DisplayNameFor(model => model.First().NumberForm)</th>
             <th>@Html.DisplayNameFor(model => model.First().SurveyGeographyId)</th>
             <th>@Html.DisplayNameFor(model => model.First().HousingTypeId)</th>
-            <th>@Html.DisplayNameFor(model => model.First().DistrictId)</th>
             <th>@Html.DisplayNameFor(model => model.First().InterviewerId)</th>
+            <th>@Html.DisplayNameFor(model => model.First().DistrictId)</th>
             <th>@Html.DisplayNameFor(model => model.First().Address)</th>
             <th>@Html.DisplayNameFor(model => model.First().Phone)</th>
             <th>@Html.DisplayNameFor(model => model.First().InterviewDate)</th>
@@ -22,38 +22,39 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr id="@item.Id">
-                <td>@Html.DisplayFor(modelItem => item.NumberForm)</td>
-                <td>@Html.DisplayFor(modelItem => item.SurveyGeography.Name)</td>
-                <td>@Html.DisplayFor(modelItem => item.HousingType.Name)</td>
-                <td>@Html.DisplayFor(modelItem => item.District.Name)</td>
-                <td>@Html.DisplayFor(modelItem => item.Interviewer.Name)</td>
-                <td>@Html.DisplayFor(modelItem => item.Address)</td>
-                <td>@Html.DisplayFor(modelItem => item.Phone)</td>
-                <td>@Html.DisplayFor(modelItem => item.InterviewDate)</td>
-                <td>@Html.DisplayFor(modelItem => item.StartTime)</td>
-                <td>@Html.DisplayFor(modelItem => item.EndTime)</td>
+        <tr id="@item.Id">
+            <td>@Html.DisplayFor(modelItem => item.NumberForm)</td>
+            <td>@Html.DisplayFor(modelItem => item.SurveyGeography.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.HousingType.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.Interviewer.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.District.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.Address)</td>
+            <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+            <td>@Html.DisplayFor(modelItem => item.InterviewDate)</td>
+            <td>@Html.DisplayFor(modelItem => item.StartTime)</td>
+            <td>@Html.DisplayFor(modelItem => item.EndTime)</td>
 
-                <td>
-                    @if (User.IsInRole("admin"))
-                    {
-                        <div class="btn-group float-right" role="group">
-                            <a class="btn btn-success btn-sm" name="editButton" id="editButton" href="@Url.Action("Edit", "Form", new { id = item.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i> Редактировать</a>
-                            <a class="btn btn-warning btn-sm" name="detailsButton" id="detailsButton" href="@Url.Action("Details", "Form", new { id = item.Id })"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Просмотреть</a>
-                            <a class="btn btn-info btn-sm" name="detailsButton" id="detailsButton" href="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = 1 })"><i class="fa fa-list-alt" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Заполнить анкету</a>
-                            <a class="btn btn-danger delete-prompt btn-sm" name="deleteButton" id="@item.Id"><i class="fa fa-trash" aria-hidden="true" title="Удалить" data-toggle="tooltip" data-placement="top"></i> Удалить</a>
-                        </div>
-                    }
-                    else if (User.IsInRole("manager"))
-                    {
-                        <div class="btn-group float-right" role="group">
-                            <a class="btn btn-success btn-sm" name="editButton" id="editButton" href="@Url.Action("Edit", "Form", new { id = item.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i> Редактировать</a>
-                            <a class="btn btn-warning btn-sm" name="detailsButton" id="detailsButton" href="@Url.Action("Details", "Form", new { id = item.Id })"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Просмотреть</a>
-                            <a class="btn btn-info btn-sm" name="detailsButton" id="detailsButton" href="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = 1 })"><i class="fa fa-list-alt" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Заполнить анкету</a>
-                        </div>
-                    }
-                </td>
-            </tr>
+            <td>
+                @if (User.IsInRole("admin"))
+                {
+                    <div class="btn-group float-right" role="group">
+                        <a class="btn btn-success btn-sm" name="editButton" id="editButton" href="@Url.Action("Edit", "Form", new { id = item.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i> Редактировать</a>
+                        <a class="btn btn-warning btn-sm" name="detailsButton" id="detailsButton" href="@Url.Action("Details", "Form", new { id = item.Id })"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Просмотреть</a>
+                        <a class="btn btn-info btn-sm" name="detailsButton" id="detailsButton" href="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = 1 })"><i class="fa fa-list-alt" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Заполнить анкету</a>
+                        <a class="btn btn-danger delete-prompt btn-sm" name="deleteButton" id="@item.Id"><i class="fa fa-trash" aria-hidden="true" title="Удалить" data-toggle="tooltip" data-placement="top"></i> Удалить</a>
+                        <a class="btn btn-warning btn-sm" href="@Url.Action("RemoveData", "Form", new { id = item.Id })" onclick="return removeDataConfirm();"><i class="fa fa-eraser" aria-hidden="true" title="Удалить данные" data-toggle="tooltip" data-placement="top"></i> Удалить данные</a>
+                    </div>
+                }
+                else if (User.IsInRole("manager") || User.IsInRole("user"))
+                {
+                    <div class="btn-group float-right" role="group">
+                        <a class="btn btn-success btn-sm" name="editButton" id="editButton" href="@Url.Action("Edit", "Form", new { id = item.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i> Редактировать</a>
+                        <a class="btn btn-warning btn-sm" name="detailsButton" id="detailsButton" href="@Url.Action("Details", "Form", new { id = item.Id })"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Просмотреть</a>
+                        <a class="btn btn-info btn-sm" name="detailsButton" id="detailsButton" href="@Url.Action("QuestionAnswers", "FormData", new { questionTypeId = 1 })"><i class="fa fa-list-alt" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Заполнить анкету</a>
+                    </div>
+                }
+            </td>
+        </tr>
         }
     </tbody>
 </table>

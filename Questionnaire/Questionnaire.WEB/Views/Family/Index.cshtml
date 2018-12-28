@@ -28,7 +28,7 @@
         <input type="hidden" name="type" value="family" />
 
         <div class="input-group mb-3">
-            <input type="text" id="xyz-search-input" name="title" class="form-control" placeholder="Введите ФИО респондента" autocomplete="off" required>
+            <input type="text" id="xyz-search-input" name="title" class="form-control" placeholder="Введите номер анкеты респондента" autocomplete="off" required>
             <div class="input-group-append">
                 <button type="submit" class="btn btn-default"><span class="fa fa-search"></span> Искать <span id="loading" class="loading" style="display:none"><svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="16px" height="16px" viewBox="0 0 128 128" xml:space="preserve"><g transform="rotate(352.65 64.0001 64.0001)"><linearGradient id="linear-gradient"><stop offset="0%" stop-color="#ffffff"></stop><stop offset="100%" stop-color="#454445"></stop></linearGradient><path d="M63.85 0A63.85 63.85 0 1 1 0 63.85 63.85 63.85 0 0 1 63.85 0zm.65 19.5a44 44 0 1 1-44 44 44 44 0 0 1 44-44z" fill="url(#linear-gradient)" fill-rule="evenodd"></path><animateTransform attributeName="transform" type="rotate" from="0 64 64" to="360 64 64" dur="1080ms" repeatCount="indefinite"></animateTransform></g></svg></span></button>
             </div>
@@ -41,10 +41,8 @@
         <table class="table table-responsive-sm table-responsive-md table-responsive-lg table-sm" id="listTable">
             <thead>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.First().Name)</th>
-                    <th>@Html.DisplayNameFor(model => model.First().Sex)</th>
-                    <th>@Html.DisplayNameFor(model => model.First().DateBorn)</th>
                     <th>@Html.DisplayNameFor(model => model.First().Age)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().Sex)</th>
                     <th>@Html.DisplayNameFor(model => model.First().FormId)</th>
                     <th></th>
                 </tr>
@@ -53,31 +51,29 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr id="@item.Id">
-                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Sex)</td>
-                        <td>@Html.DisplayFor(modelItem => item.DateBorn)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Age)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Form.NumberForm)</td>
+                <tr id="@item.Id">
+                    <td>@Html.DisplayFor(modelItem => item.Age)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Sex)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Form.NumberForm)</td>
 
-                        <td>
-                            @if (User.IsInRole("admin"))
-                            {
-                                <div class="btn-group float-right" role="group">
-                                    <a class="btn btn-info" name="editButton" id="editButton" href="@Url.Action("Edit", "Family", new { id = item.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i> Редактировать</a>
-                                    <a class="btn btn-warning" name="detailsButton" id="detailsButton" href="@Url.Action("Details", "Family", new { id = item.Id })"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Просмотреть</a>
-                                    <a class="btn btn-danger delete-prompt" name="deleteButton" id="@item.Id"><i class="fa fa-trash" aria-hidden="true" title="Удалить" data-toggle="tooltip" data-placement="top"></i> Удалить</a>
-                                </div>
-                            }
-                            else if (User.IsInRole("manager"))
-                            {
-                                <div class="btn-group float-right" role="group">
-                                    <a class="btn btn-info" name="editButton" id="editButton" href="@Url.Action("Edit", "Family", new { id = item.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i> Редактировать</a>
-                                    <a class="btn btn-warning" name="detailsButton" id="detailsButton" href="@Url.Action("Details", "Family", new { id = item.Id })"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Просмотреть</a>
-                                </div>
-                            }
-                        </td>
-                    </tr>
+                    <td>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <div class="btn-group float-right" role="group">
+                                <a class="btn btn-info" name="editButton" id="editButton" href="@Url.Action("Edit", "Family", new { id = item.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i> Редактировать</a>
+                                <a class="btn btn-warning" name="detailsButton" id="detailsButton" href="@Url.Action("Details", "Family", new { id = item.Id })"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Просмотреть</a>
+                                <a class="btn btn-danger delete-prompt" name="deleteButton" id="@item.Id"><i class="fa fa-trash" aria-hidden="true" title="Удалить" data-toggle="tooltip" data-placement="top"></i> Удалить</a>
+                            </div>
+                        }
+                        else if (User.IsInRole("manager") || User.IsInRole("user"))
+                        {
+                            <div class="btn-group float-right" role="group">
+                                <a class="btn btn-info" name="editButton" id="editButton" href="@Url.Action("Edit", "Family", new { id = item.Id })"><i class="fa fa-pencil" aria-hidden="true" title="Редактировать" data-toggle="tooltip" data-placement="top"></i> Редактировать</a>
+                                <a class="btn btn-warning" name="detailsButton" id="detailsButton" href="@Url.Action("Details", "Family", new { id = item.Id })"><i class="fa fa-eye" aria-hidden="true" title="Просмотреть" data-toggle="tooltip" data-placement="top"></i> Просмотреть</a>
+                            </div>
+                        }
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

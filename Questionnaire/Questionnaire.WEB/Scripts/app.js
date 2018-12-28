@@ -85,13 +85,6 @@ function turnOffCurrentActiveMenuItem() {
     }
 }
 
-function getAge() {
-    var today = new Date();
-    var selectDate = new Date(document.getElementById("dateBorn").value);
-    var age = today.getFullYear() - selectDate.getFullYear();
-    document.getElementById("age").value = age;
-}
-
 function searchAnswersByEnter() {
     $(document).ready(function () {
         $("#search-input-value").keyup(function (event) {
@@ -336,10 +329,8 @@ function closeMessageDiv() {
 $('.form-submit').on('click', function (e) {
     e.preventDefault();
     var numberFormReuqired = $('#numberFormRequired').val();
-    var addressReuqired = $('#addressRequired').val();
     var surveyGeographyReuqired = $('#surveyGeographyIdDropDown').val();
     var housingTypeRequired = $('#housingTypeIdDropDown').val();
-    var districtRequired = $('#districtIdDropDown').val();
     var interviewerRequired = $('#interviewerIdDropDown').val();
 
     var questionTypeRequired = $('#questionTypeDropDown').val();
@@ -359,10 +350,8 @@ $('.form-submit').on('click', function (e) {
                 alert("Такая запись уже существует в базе данных!");
             }
             else if (numberFormReuqired == "" ||
-                addressReuqired == "" ||
                 surveyGeographyReuqired == "" ||
                 housingTypeRequired == "" ||
-                districtRequired == "" ||
                 interviewerRequired == "" ||
                 questionTypeRequired == "" ||
                 questionNameReuqired == "" ||
@@ -422,6 +411,7 @@ function saveForm() {
         success: function (success) {
             if (success) {
                 document.getElementById("form-saved-success").classList.remove("d-none");
+                $("#save-btn").attr("disabled",true);
             } else {
                 document.getElementById("form-saved-failed").classList.remove("d-none");
             }

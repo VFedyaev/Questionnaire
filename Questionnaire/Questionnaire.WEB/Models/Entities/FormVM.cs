@@ -24,8 +24,7 @@ namespace Questionnaire.WEB.Models.Entities
         public short HousingTypeId { get; set; }
 
         [Display(Name = "Район")]
-        [Required(ErrorMessage = "Необходимо выбрать район!")]
-        public short DistrictId { get; set; }
+        public Nullable<short> DistrictId { get; set; }
 
         [Display(Name = "ФИО интервьюера")]
         [Required(ErrorMessage = "Необходимо выбрать интерьюера!")]
@@ -33,7 +32,6 @@ namespace Questionnaire.WEB.Models.Entities
 
         [Display(Name = "Адрес")]
         [StringLength(300, ErrorMessage = "Длина строки не должна превышать 300 символов")]
-        [Required(ErrorMessage = "Заполните поле!")]
         public string Address { get; set; }
 
         [Display(Name = "Контактный телефон")]

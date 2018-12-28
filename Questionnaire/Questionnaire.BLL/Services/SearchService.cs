@@ -156,7 +156,7 @@ namespace Questionnaire.BLL.Services
         }
         private ModelAndViewDTO GetFamilyFilteredListAndView(string[] words)
         {
-            var familyList = _unitOfWork.Families.GetAll().Where(rp => words.All(rp.Name.ToLower().Contains)).ToList();
+            var familyList = _unitOfWork.Families.GetAll().Where(rp => words.All(rp.Form.NumberForm.ToString().ToLower().Equals)).ToList();
 
             return new ModelAndViewDTO
             {
