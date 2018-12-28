@@ -79,7 +79,7 @@ namespace Questionnaire.WEB.Controllers
         [HttpPost]
         [Authorize(Roles = "admin, manager, user")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(FamilyVM familyVM)
+        public ActionResult Create([Bind(Include = "Age, Sex, FormId")] FamilyVM familyVM)
         {
             if (ModelState.IsValid)
             {
@@ -119,7 +119,7 @@ namespace Questionnaire.WEB.Controllers
         [HttpPost]
         [Authorize(Roles = "admin, manager, user")]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id, Sex, Age, FormId")] FamilyVM familyVM)
+        public ActionResult Edit([Bind(Include = "Id, Age, Sex, FormId")] FamilyVM familyVM)
         {
             if (ModelState.IsValid)
             {
@@ -127,8 +127,8 @@ namespace Questionnaire.WEB.Controllers
                 FamilyService.Update(familyDTO);
                 return RedirectToAction("Index");
             }
-            else
-                ModelState.AddModelError(null, "Что-то пошло не так. Не удалось сохранить изменения.");
+            //else
+            //    ModelState.AddModelError(null, "Что-то пошло не так. Не удалось сохранить изменения.");
 
             ViewBag.FormId = GetFormIdSelectList(familyVM.FormId);
 
