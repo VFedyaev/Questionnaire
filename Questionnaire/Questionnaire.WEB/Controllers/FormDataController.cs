@@ -53,33 +53,9 @@ namespace Questionnaire.WEB.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public bool SaveForm(string formId, string[] options, string[][] optionsWithComment)
+        public bool SaveForm(DataDTO[] answers)
         {
-            int FormId = int.Parse(formId);
-            if (options != null && options.Length > 0)
-            {
-                foreach (var option in options)
-                {
-                    DataService.Add(new DataDTO
-                    {
-                        QuestionAnswerId = int.Parse(option),
-                        FormId = FormId
-                    });
-                }
-            }
-
-            if (optionsWithComment != null && optionsWithComment.Length > 0)
-            {
-                foreach (var optionWithComment in optionsWithComment)
-                {
-                    DataService.Add(new DataDTO
-                    {
-                        QuestionAnswerId = int.Parse(optionWithComment[0]),
-                        FormId = FormId,
-                        Comment = optionWithComment[1]
-                    });
-                }
-            }
+            DataService.UpdateAnswers(answers);
 
             return true;
         }

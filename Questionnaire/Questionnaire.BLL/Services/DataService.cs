@@ -73,6 +73,24 @@ namespace Questionnaire.BLL.Services
             _unitOfWork.Save();
         }
 
+        public void UpdateAnswers(DataDTO[] answers)
+        {
+            int formId = answers.First().FormId;
+            var questionIds = answers.Select(a => a.QuestionId).Distinct().ToArray();
+            RemoveOldFormQuestionAnswers(formId, questionIds);
+
+            foreach (var answer in answers)
+                Add(answer);
+        }
+
+        private void RemoveOldFormQuestionAnswers(int formId, int[] questionIds)
+        {
+            int[] ids = _unitOfWork.Datas.Find(e => e.FormId == formId && questionIds.Contains(e.QuestionId)).Select(e => e.Id).ToArray();
+            foreach (int id in ids)
+                _unitOfWork.Datas.Delete(id);
+            _unitOfWork.Save();
+        }
+
         //public IEnumerable<HistoryDTO> GetFilteredList(FilterParamsDTO parameters)
         //{
         //    IEnumerable<HistoryDTO> filteredList = GetAll();

@@ -389,14 +389,22 @@ function saveForm() {
     var selectedOptions = $('.option:checked');
     var selectedOptionsValues = [];
     for (var i = 0; i < selectedOptions.length; i++) {
-        selectedOptionsValues.push(selectedOptions[i].value);
+        selectedOptionsValues.push({
+            "FormId": formId,
+            "QuestionId": selectedOptions[i].dataset.questionid,
+            "QuestionAnswerId": selectedOptions[i].value
+        });
     }
 
     var selectedOptionsWithText = $('.option-with-text:checked');
-    var selectedOptionsWithTextValues = [];
     for (var k = 0; k < selectedOptionsWithText.length; k++) {
         var text = selectedOptionsWithText[k].parentNode.parentNode.getElementsByClassName('option-text')[0].value;
-        selectedOptionsWithTextValues.push([selectedOptionsWithText[k].value, text]);
+        selectedOptionsValues.push({
+            "FormId": formId,
+            "QuestionId": selectedOptionsWithText[k].dataset.questionid,
+            "QuestionAnswerId": selectedOptionsWithText[k].value,
+            "Comment": text
+        });
     }
 
     $.ajax({
@@ -404,14 +412,11 @@ function saveForm() {
         type: "Post",
         data: {
             __RequestVerificationToken: token,
-            "formId": formId,
-            "options": selectedOptionsValues,
-            "optionsWithComment": selectedOptionsWithTextValues
+            "answers": selectedOptionsValues
         },
         success: function (success) {
             if (success) {
                 document.getElementById("form-saved-success").classList.remove("d-none");
-                $("#save-btn").attr("disabled",true);
             } else {
                 document.getElementById("form-saved-failed").classList.remove("d-none");
             }
