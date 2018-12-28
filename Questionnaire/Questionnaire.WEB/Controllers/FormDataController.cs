@@ -53,9 +53,9 @@ namespace Questionnaire.WEB.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public bool SaveForm(DataDTO[] answers)
+        public bool SaveForm(int formId, int[] questionIds, DataDTO[] answers)
         {
-            DataService.UpdateAnswers(answers);
+            DataService.UpdateAnswers(formId, questionIds, answers);
 
             return true;
         }

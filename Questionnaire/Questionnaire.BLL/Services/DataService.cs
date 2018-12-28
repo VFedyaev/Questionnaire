@@ -73,14 +73,10 @@ namespace Questionnaire.BLL.Services
             _unitOfWork.Save();
         }
 
-        public void UpdateAnswers(DataDTO[] answers)
+        public void UpdateAnswers(int formId, int[] questionIds, DataDTO[] answers)
         {
-            int formId = answers.First().FormId;
-            var questionIds = answers.Select(a => a.QuestionId).Distinct().ToArray();
             RemoveOldFormQuestionAnswers(formId, questionIds);
-
-            foreach (var answer in answers)
-                Add(answer);
+            AddFormQuestionAnswers(answers);
         }
 
         private void RemoveOldFormQuestionAnswers(int formId, int[] questionIds)
@@ -89,6 +85,13 @@ namespace Questionnaire.BLL.Services
             foreach (int id in ids)
                 _unitOfWork.Datas.Delete(id);
             _unitOfWork.Save();
+        }
+
+        private void AddFormQuestionAnswers(DataDTO[] answers)
+        {
+            if (answers != null && answers.Length > 0)
+                foreach (var answer in answers)
+                    Add(answer);
         }
 
         //public IEnumerable<HistoryDTO> GetFilteredList(FilterParamsDTO parameters)

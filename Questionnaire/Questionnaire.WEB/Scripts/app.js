@@ -386,6 +386,12 @@ function saveForm() {
         return false;
     }
 
+    var questions = $('.question');
+    var questionIds = [];
+    for (var q = 0; q < questions.length; q++) {
+        questionIds.push(questions[q].dataset.questionid);
+    }
+
     var selectedOptions = $('.option:checked');
     var selectedOptionsValues = [];
     for (var i = 0; i < selectedOptions.length; i++) {
@@ -412,6 +418,8 @@ function saveForm() {
         type: "Post",
         data: {
             __RequestVerificationToken: token,
+            "formId": formId,
+            "questionIds": questionIds,
             "answers": selectedOptionsValues
         },
         success: function (success) {
