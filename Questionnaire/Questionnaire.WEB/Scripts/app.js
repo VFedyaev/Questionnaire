@@ -425,6 +425,7 @@ function saveForm() {
         success: function (success) {
             if (success) {
                 document.getElementById("form-saved-success").classList.remove("d-none");
+                $("#save-btn").attr("disabled", true);
             } else {
                 document.getElementById("form-saved-failed").classList.remove("d-none");
             }
