@@ -97,23 +97,23 @@
 
         <div id="result"> </div>
 
-        <div>
-            @Html.PagedListPager((IPagedList)Model, page => Url.Action("Form", new { page }), PagedListRenderOptions.PageNumbersOnly)
+        @*<div>
+            @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.PageNumbersOnly)
             @if (!(Model.PageCount <= 0))
             {
                 <p class="pagination-info">Страница @Model.PageNumber из @Model.PageCount</p>
             }
-        </div>
+        </div>*@
 
-        @*<div id="paginationToDelete">
-                @Html.PagedListPager(Model, page => Url.Action("AjaxQuestionTypeList", new { page }),
+        <div id="paginationToDelete">
+                @Html.PagedListPager(Model, page => Url.Action("AjaxFormList", new { page }),
                  PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "result", OnSuccess = "removeListAndPagination()" }))
 
                 @if (!(Model.PageCount <= 0))
                 {
                     <p class="pagination-info">Страница @Model.PageNumber из @Model.PageCount</p>
                 }
-            </div>*@
+            </div>
     </div>
 </div>
 
