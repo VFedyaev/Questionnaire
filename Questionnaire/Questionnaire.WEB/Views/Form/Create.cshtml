@@ -65,7 +65,7 @@
                         @Html.LabelFor(model => model.Address)
                     </div>
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @id = "addressRequired" } })
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off" } })
                         @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -127,6 +127,5 @@
             $("#districtIdDropDown").chosen({ width: "100%" });
             $("#interviewerIdDropDown").chosen({ width: "100%" });
         });
-
     </script>
 }
