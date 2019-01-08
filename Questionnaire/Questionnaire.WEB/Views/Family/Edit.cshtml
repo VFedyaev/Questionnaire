@@ -30,7 +30,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.FormId)
-            @Html.DropDownList("FormId", null, "Номер анкеты", htmlAttributes: new { @class = "form-control", @required = "required", @id = "formDropDown" })
+            @Html.DropDownListFor(model => model.FormId, null, "Номер анкеты", (SelectList)ViewBag.FormId)
             @Html.ValidationMessageFor(model => model.FormId, "", new { @class = "text-danger" })
         </div>
 
@@ -47,6 +47,6 @@
 @section Scripts {
     <script>
         $(function () {
-            $("#formDropDown").chosen({ width: "100%" });
+            $("#FormId").chosen({ width: "100%" });
         });</script>
 }
