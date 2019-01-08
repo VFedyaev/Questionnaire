@@ -166,7 +166,7 @@ namespace Questionnaire.BLL.Services
         }
         private ModelAndViewDTO GetFormFilteredListAndView(string[] words)
         {
-            var formList = _unitOfWork.Forms.GetAll().Where(rp => words.All(rp.NumberForm.ToString().ToLower().Contains)).ToList();
+            var formList = _unitOfWork.Forms.GetAll().Where(rp => words.All(rp.NumberForm.ToString().ToLower().Equals)).ToList();
 
             return new ModelAndViewDTO
             {
