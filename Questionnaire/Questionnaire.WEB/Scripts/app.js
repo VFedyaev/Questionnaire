@@ -413,6 +413,8 @@ function saveForm() {
         });
     }
 
+    var editCheckbox = $('#editCheckBox:checked').length > 0 ? true : false;
+
     $.ajax({
         url: "/FormData/SaveForm",
         type: "Post",
@@ -420,7 +422,8 @@ function saveForm() {
             __RequestVerificationToken: token,
             "formId": formId,
             "questionIds": questionIds,
-            "answers": selectedOptionsValues
+            "answers": selectedOptionsValues,
+            "editCheckBox":editCheckbox
         },
         success: function (success) {
             if (success) {

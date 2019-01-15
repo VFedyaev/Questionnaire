@@ -73,9 +73,10 @@ namespace Questionnaire.BLL.Services
             _unitOfWork.Save();
         }
 
-        public void UpdateAnswers(int formId, int[] questionIds, DataDTO[] answers)
+        public void UpdateAnswers(int formId, int[] questionIds, DataDTO[] answers, bool editCheckBox)
         {
-            RemoveOldFormQuestionAnswers(formId, questionIds);
+            if (editCheckBox)
+                RemoveOldFormQuestionAnswers(formId, questionIds);
             AddFormQuestionAnswers(answers);
         }
 
